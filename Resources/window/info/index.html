@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>受信情報 - Received Informations</title>
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="title">
+      <p class="title-ja">受信情報</p>
+      <p class="title-en">Received Informations</p>
+    </div>
+    <div class="main">
+      <div class="box">
+        <div><button aria-label="地震情報を表示するボタン" type="button">地震情報</button></div>
+        <div><button aria-label="津波情報を表示するボタン" type="button">津波情報</button></div>
+        <div><button aria-label="緊急地震速報の情報を表示するボタン" type="button">緊急地震速報</button></div>
+        <div><button aria-label="河川情報を表示するボタン" type="button">河川情報</button></div>
+        <div><button aria-label="災害情報を表示するボタン" type="button">災害情報</button></div>
+        <div><button aria-label="謝辞を表示するボタン" type="button">使用データ情報</button></div>
+        <!-- <div><button aria-label="アメダス地点設定を表示するボタン" type="button">アメダス地点設定</button></div> -->
+      </div>
+      <div class="menu">
+        <div class="menu-item box-quake" data-index="0">
+          <div class="eiTitle" aria-label="地震情報のタイトル" id="eiTitle"></div>
+          <div class="quakeInfos">
+            <div class="eiwind" aria-label="地震情報の本文" id="eiwind"></div>
+            <div class="eiList" aria-label="地震情報一覧" id="eiList">
+              <button type="button" id="eiList_button" style="background-color:#f2f2ff; color:#000" class="eiList-button">＜震源名＞ ＜最大震度＞ ＜発生時刻＞</button>
+              <button type="button" id="eiList_button" style="background-color:#f2f2ff; color:#000" class="eiList-button">最大震度により背景色が変わります。</button>
+              <button type="button" id="eiList_button" style="background-color:#f2f2ff; color:#000" class="eiList-button">また、地震速報の場合はこの文字に色がつきます。</button>
+            </div>
+          </div>
+          <div class="eiListHider" id="eiListHider" style="display:none;">読み込み中・・・</div>
+        </div>
+        <div class="menu-item box-tsunami" data-index="1">
+          <div class="tsunamiList" aria-label="津波情報" id="tsunamiList"></div>
+        </div>
+        <div class="menu-item box-eewhist" data-index="2">
+          <div class="eew-items">
+            <div class="eew-event-title">予想発生時刻 震源地 予想最大震度</div>
+            <div class="eew-event-container" id="eew-events">
+              <div class="eew-event-button selected">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+              <div class="eew-event-button">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+              <div class="eew-event-button">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+              <div class="eew-event-button">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+              <div class="eew-event-button">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+              <div class="eew-event-button">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+              <div class="eew-event-button">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+              <div class="eew-event-button">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+              <div class="eew-event-button">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+              <div class="eew-event-button">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+              <div class="eew-event-button">16:02:35 宮古島近海 2</div>
+              <div class="eew-event-button">06:28:28 山梨県東部・富士五湖 5-</div>
+              <div class="eew-event-button">22:19:22 (キャンセル)</div>
+            </div>
+          </div>
+          <div class="eew-detail"></div>
+        </div>
+        <div class="menu-item box-river" data-index="3">
+          準備中・・・！
+        </div>
+        <div class="menu-item box-warn" data-index="4">
+          準備中・・・！<br>
+          受信した警報・注意報を表示できるようにする予定
+        </div>
+        <div class="menu-item box-sources" data-index="5">
+          <div class="dataList" aria-label="使用データリスト" id="dataList">
+            <a href="https://dmdata.jp/" target="_blank">【ご案内・防災情報をAPI形式で素早く入手したい方へ】</a><br>
+            <a href="https://www.data.jma.go.jp/developer/multilingual.html" target="_blank">出典：気象庁ホームページ／多言語辞書データ</a><br>
+            <a href="https://www.data.jma.go.jp/obd/stats/data/mdrr/docs/csv_dl_readme.html" target="_blank">出典：気象庁ホームページ／「最新の気象データ」</a><br>
+            <a href="https://www.jma.go.jp/bosai/map.html#contents=amedas" target="_blank">出典：気象庁ホームページ／「統合地図ページ」</a><br>
+            <a href="https://www.nhk.or.jp/kishou-saigai/earthquake/" target="_blank">NHK地震情報 xml</a><br>
+            <a href="https://data.svir.jp/intens-st/api/v3/" target="_blank">震度観測地点位置JSON API(v3) (リンク切れ)</a><br>
+            <a href="https://www.p2pquake.net/dev/json-api/" target="_blank">P2P地震情報 JSON API(現在未使用)</a><br>
+            <a href="https://dic.nicovideo.jp/a/mスケール" target="_blank">Weathenews Mｽｹｰﾙ</a><br>
+            <a href="http://weathernews.com/ja/nc/press/2010/100114.html" target="_blank">Weathernews ｿﾗﾎﾞﾀﾝ情報</a><br>
+            <a href="https://weathernews.jp/s/info/rain/prec_detail.html" target="_blank">Weathernews ｱﾒﾀﾞｽTop10</a><br>
+            <a href="https://www.p2pquake.net/develop/api-v2/" target="_blank">P2P地震情報 API(津波情報)(現在未使用)</a><br>
+            <a href="https://earthquake.tenki.jp/bousai/tsunami/" target="_blank">tenki.jp 津波情報</a><br>
+            <a href="https://github.com/dataofjapan/land" target="_blank">国土地理院ウェブサイト(地球地図日本(japan.geojson))</a><br>
+            <a href="https://weathernews.jp/s/topics/map/river_level.html" target="_blank" charset="uft-8">Weathernews 河川情報</a><br>
+            <a href="http://nlftp.mlit.go.jp/ksj/" target="_blank">国土数値情報　行政区域データ　平成31年</a><br>
+            <a href="https://www.bosai.go.jp/" target="_blank">防災科研 緊急地震速報JSONデータ(現在未使用)</a><br>
+            <a href="https://iedred7584.dev/" target="_blank">緊急地震速報 JSON API (iedred7584様)</a><br>
+            <a href="https://teideninfo.tepco.co.jp/" target="_blank" >東京電力 停電情報xml</a><br>
+            <a href="https://jpafonts.osdn.jp/" target="_blank">IPAフォントライセンスv1.0で公開されているJPAフォントを使用しています。</a><br>
+          </div>
+        </div>
+        <!-- <div class="menu-item">
+          <div class="setMenu" id="setMenu" aria-label="設定">
+            <div id="stab">
+              <div id="tab1" class="stab">1時間降水量</div>
+              <div id="tab2" class="stab">24時間降水量</div>
+              <div id="tab3" class="stab">最大風速</div>
+              <div id="tab4" class="stab">最高気温</div>
+              <div id="tab5" class="stab">最低気温</div>
+              <div class="tabop">
+                <div id="tabop-m" class="tabopbutton">-</div>
+                <div id="tabop-p" class="tabopbutton">+</div>
+              </div>
+            </div>
+            <div id="smain">
+              <div id="main1" class="menu"></div>
+              <div id="main2" class="menu"></div>
+              <div id="main3" class="menu"></div>
+              <div id="main4" class="menu"></div>
+              <div id="main5" class="menu"></div>
+            </div>
+          </div>
+        </div> -->
+        <!-- <image src="./images/settingicon.png" alt="settings" class="icon" /> -->
+      </div>
+    </div>
+    <script src="./script.js" charset="utf-8"></script>
+  </body>
+</html>

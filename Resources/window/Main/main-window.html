@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://www3.nhk.or.jp/sokuho/jishin/data/ https://kwatch-24h.net/EQLevel.json https://weathernews.jp/river/json/river.json https://weathernews.jp/v/sorawolive/data/json/solive_sorabtn.json https://weathernews.jp/s/obs/json/amedas_top10.json https://smtgvs.weathernews.jp/a/solive_timetable/timetable.json https://www.data.jma.go.jp/developer/xml/ https://www.jma.go.jp/bosai/ https://teideninfo.tepco.co.jp/flash/xml/ https://www.nhk.or.jp/weather-data/v1/wx/quake/info/ https://api.iedred7584.com/eew/json/ https://earthquake.tenki.jp/bousai/tsunami/ https://script.google.com/macros/s/AKfycbyDUIgVGserEMuFh_v61fz01tVQLQ_rDDqt3T9ARwk/" /> -->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.9/push.min.js"></script>-->
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" href="./main-stylesheet.css">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap"> -->
+    <!--<script src="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js"></script>-->
+    <title id="titleT">Natural Disaster Viewer</title>
+  </head>
+  <body>
+    <div class="canvas-container">
+      <canvas id="maincanvas" width="1080px" height="128px">
+        表示するには、canvasタグをサポートしたブラウザが必要です。
+      </canvas><!-- 本当は横幅1170pxにしたい -->
+      <canvas id="timer" width="128px" height="128px"></canvas>
+    </div>
+    <script src="../common/library/optional-class.js"></script>
+    <script src="./Error-reporter.js"></script>
+    <script src="./WebGL/Initialize.js"></script>
+    <script src="./Init-Canvas.js"></script>
+    <script src="./Init-Assets.js"></script>
+    <script src="./Init-userData.js"></script>
+    <!-- <script src="./Init-MapData1.js"></script> -->
+    <script src="./settings_epicenter.js" charset="utf-8"></script>
+    <script src="./settings_SubdivisionArea.js" charset="utf-8"></script>
+    <script src="../common/library/jquery-3.6.0.min.js"></script>
+    <script src="../common/library/jquery-ui.min.js"></script>
+    <script src="../common/library/jquery.funcResizeBox.js" charset="utf-8"></script>
+    <!-- <script src="js/xlsx.full.min.js"></script> -->
+    <!-- <script src="./jma_multilingual.js" charset="utf-8"></script> -->
+    <!-- <script src="./tsunami_multilingual.js" charset="utf-8"></script> -->
+    <script src="./japan.geojson.js" charset="utf-8"></script>
+    <script src="../common/library/variable-animation-20220504.js" charset="utf-8"></script>
+    <script src="./font-loading.js" charset="utf-8"></script>
+    <script src="./main-script.js" charset="utf-8"></script>
+    <script src="./ipc-connection.js" charset="utf-8"></script>
+  </body>
+</html>

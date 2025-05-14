@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>設定 - Natural Disaster Viewer</title>
+    <link rel="stylesheet" href="./style.css">
+    <style media="screen">
+      .hide { display: none; }
+      .border_init { border: 1px solid #808080; border-collapse: collapse; table-layout: auto; }
+      .border_init td, .border_init th { border: 1px solid #808080; padding: 0 3px; }
+      body {
+        margin: 0;
+        color: #333;
+      }
+      button {
+        cursor: pointer;
+      }
+      .title-container {
+        width: 100%;
+      }
+      .title-line {
+        width: 85%;
+        height: 3px;
+        text-align: center;
+        margin: auto;
+        background: radial-gradient(white, transparent);
+        filter: drop-shadow(0 0 3px black);
+      }
+      .title-line.title-line-top {
+        margin-top: 8px;
+      }
+      .title-line.title-line-bottom {
+        margin-bottom: 6px;
+      }
+      .title-text {
+        color: #fff;
+        font-family: sans-serif;
+        font-size: 28px;
+        font-weight: 600;
+        font-style: italic;
+        width: 100%;
+        text-align: center;
+        filter: drop-shadow(2px 3px 2px black);
+      }
+      .app-container {
+        display: flex;
+        height: 100vh;
+      }
+      .whole-mask {
+        position: fixed;
+        top: 0; left: 0;
+        background-color: #333333b2;
+        width: 100vw; height: 100vh;
+        z-index: 999999999;
+        color: #fff;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .side-mask {
+        background: #0008;
+        width: 100%; height: 100%;
+        position: absolute; top: 0; left: 0;
+      }
+
+      .xhr-interval tr {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .xhr-interval td {
+        padding: 0 5px;
+        border: 0;
+      }
+      .xhr-interval input {
+        text-align: end;
+      }
+
+      .settings_volume_quake_table {
+        border: #999 solid 1px;
+        font-size: 12px;
+      }
+      .settings_volume_quake_table th {
+        padding: 0 4px;
+        border: #999 solid 1px;
+      }
+      .settings_volume_quake_table input {
+        padding: 1px;
+        border-width: 2px;
+        width: calc(100% - 6px);
+        text-align: center;
+      }
+      .sound_quake_type {
+        cursor: pointer;
+      }
+      .sound_quake_type[data-type="major"] {
+        color: #2e2fd0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="side-menu">
+        <div class="title-container">
+          <div class="title-line title-line-top"></div>
+          <div class="title-text">設定</div>
+          <div class="title-line title-line-bottom"></div>
+        </div>
+        <div class="side-selections">
+          <button type="button" data-count="0" data-comment="通常画面についての設定です" class="menu-button menu-selected">通常画面関連</button>
+          <button type="button" data-count="1" data-comment="緊急地震速報についての設定です" class="menu-button">緊急地震速報関連</button>
+          <button type="button" data-count="2" data-comment="地震情報についての設定です" class="menu-button">地震情報関連</button>
+          <button type="button" data-count="3" data-comment="気象速報についての設定です" class="menu-button">ニュース・気象速報関連</button>
+          <button type="button" data-count="4" data-comment="ソラボタンについての表示設定です" class="menu-button">ソラボタン関連</button>
+          <button type="button" data-count="5" data-comment="BGMを再生する機能についての設定です" class="menu-button">BGM再生機能</button>
+          <button type="button" data-count="6" data-comment="上記の項目以外の詳細設定です" class="menu-button">その他の詳細設定</button>
+          <button type="button" data-count="7" data-comment="Natural Disaster Viewer についての情報です" class="menu-button">About NDV</button>
+        </div>
+        <div class="side-mask hide"></div>
+      </div>
+      <div class="main-menu">
+        <div class="menu-container">
+          <div class="menu-tab hide">
+            <div id="normalText.speedForm">
+              <div class="normalText.speedChanger" style="position: relative;">
+                <div style="display: flex;">
+                  <div style="flex: 1; margin-left: 16px;">Text Speed</div>
+                  <div style="margin-right: 16px;"><span id="normalText.speedResult">5.0</span> px/f</div>
+                </div>
+                <input id="normalText.speedInput" type="range" value="5" min="0.1" max="20" step="0.1" style="width: 100%; border: 0; padding: 0;">
+                <!-- <div id="normalText.speedCurrentPos">5.2 (+0.7)</div> -->
+                <div style="display: flex; font-size: 10px; font-weight: bold;"><div style="flex: 1;">0.1</div><div>20.0</div></div>
+              </div>
+            </div>
+            <div class="viewTsunami-container"><label for="settings.viewTsunami">津波情報を表示：</label><input type="checkbox" id="settings.viewTsunami" checked></div>
+            <hidden style="display: none;">自動更新URL: <input type="text" id="NormalMes" value="default_message.json"><input type="checkbox" id="isNormalMes" value="自動更新有効/無効"></hidden>
+            <div id="normalText.textList" style="z-index: 20;">
+              <table class="border_init" style="width: 100%;" id="normalTextsTable"><thead><tr><th>番号</th><th>タイトル</th><th>本文 / コマンド</th></tr></thead></table>
+              <div style="text-align: end; margin: 0 15px; display: flex;">
+                <div>
+                  <button type="button" id="normalText.editStart">削除...</button>
+                  <button type="button" id="normalText.editEnd" class="hide">完了</button>
+                  <button type="button" id="normalText.addText">一番下に追加</button>
+                </div>
+                <div style="flex: 1;">
+                  <button type="button" name="goMessage">入力された内容を反映</button>
+                  <button type="button" name="skipMessage">現在の表示項目をスキップ</button>
+                </div>
+              </div>
+              <!-- 項目移動固定機能はお休みします <input type="radio" name="scrollfix" value="0"> -->
+            </div>
+            <button type="button" name="recordingstart">録画開始</button>
+            <button type="button" name="recordingstop">録画停止</button>
+            <button type="button" name="recordingreset">録画済データリセット</button>
+            <!-- <input type="checkbox" name="recordingwheneewreceived" id="recordingwheneewreceived"><label for="recordingwheneewreceived">：EEW時ティッカー動作を自動録画</label> -->
+            <div id="download_movie"></div>
+          </div>
+          <div class="menu-tab hide">
+            <button type="button" id="stopWarnAudio">緊急地震速報アラーム音強制停止</button>
+            <button type="button" id="startEEWfcstTest">緊急地震速報のテスト受信を開始（予報）</button>
+            <button type="button" id="startEEWwarnTest">緊急地震速報のテスト受信を開始（警報）</button>
+            <button type="button" id="startEEWcancelTest">緊急地震速報のテスト受信を開始（キャンセル報）</button>
+            <button type="butt.on" id="stopEEWtest">緊急地震速報のテスト受信を停止</button>
+            <table class="settings-table border_init" style="margin-top: 6px;">
+              <tbody>
+                <tr>
+                  <td>緊急地震速報表示条件<wbr>(OR条件)</td>
+                  <td>
+                    <div>
+                      最大震度
+                      <select id="settings.eewminint">
+                        <option value="1">１ 以上</option>
+                        <option value="2">２ 以上</option>
+                        <option value="3">３ 以上</option>
+                        <option value="4">４ 以上</option>
+                        <option value="5">５弱 以上</option>
+                        <option value="6">５強 以上</option>
+                        <option value="7">６弱 以上</option>
+                        <option value="8">６強 以上</option>
+                        <option value="9">７ 以上</option>
+                      </select>
+                      でかつ不明を
+                      <select id="settings.eewintunknown">
+                        <option value="1">含む</option>
+                        <option value="0">含まない</option>
+                      </select>
+                      <br>M<span style="font-size: 10px"> マグニチュード</span>
+                      <select id="settings.eewminmag">
+                        <option value="0.0">指定なし</option>
+                        <option value="2.0">2.0 以上</option>
+                        <option value="3.0">3.0 以上</option>
+                        <option value="3.5">3.5 以上</option>
+                        <option value="4.0">4.0 以上</option>
+                        <option value="4.5">4.5 以上</option>
+                        <option value="5.0">5.0 以上</option>
+                        <option value="5.5">5.5 以上</option>
+                        <option value="6.0">6.0 以上</option>
+                        <option value="6.5">6.5 以上</option>
+                        <option value="7.0">7.0 以上</option>
+                        <option value="7.5">7.5 以上</option>
+                        <option value="8.0">8.0 以上</option>
+                        <option value="8.5">8.5 以上</option>
+                        <option value="9.0">9.0 以上</option>
+                      </select><br>深さ
+                      <select id="settings.eewdepmin"></select>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="menu-tab hide">
+            <button type="button" id="ChangeToEq">地震情報に切り替え</button><br>
+            <table class="settings-table border_init" style="margin-top: 6px;">
+              <tbody>
+                <tr>
+                  <td>地震情報表示条件<wbr>(AND条件)</td>
+                  <td>
+                    <div>
+                      最大震度
+                      <select id="settings.minint">
+                        <option value="1">１ 以上</option>
+                        <option value="2">２ 以上</option>
+                        <option value="3">３ 以上</option>
+                        <option value="4">４ 以上</option>
+                        <option value="6">５弱 以上</option>
+                        <option value="7">５強 以上</option>
+                        <option value="8">６弱 以上</option>
+                        <option value="9">６強 以上</option>
+                        <option value="10">７ 以上</option>
+                      </select><br>M<span style="font-size: 10px"> マグニチュード</span>
+                      <select id="settings.minmag">
+                        <option value="0.0">指定なし</option>
+                        <option value="2.0">2.0 以上</option>
+                        <option value="3.0">3.0 以上</option>
+                        <option value="3.5">3.5 以上</option>
+                        <option value="4.0">4.0 以上</option>
+                        <option value="4.5">4.5 以上</option>
+                        <option value="5.0">5.0 以上</option>
+                        <option value="5.5">5.5 以上</option>
+                        <option value="6.0">6.0 以上</option>
+                        <option value="6.5">6.5 以上</option>
+                        <option value="7.0">7.0 以上</option>
+                        <option value="7.5">7.5 以上</option>
+                        <option value="8.0">8.0 以上</option>
+                        <option value="8.5">8.5 以上</option>
+                        <option value="9.0">9.0 以上</option>
+                      </select><br>深さ
+                      <select id="settings.depmin"></select>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="display: none;">
+              <div class="temp-tx">
+                テンプレートを
+                <button class="tmpSH-btn" name="tmpSH-btn">表示/非表示</button>
+              </div>
+              <div class="tmp-box">
+                <button type="button" name="tmp-btn" class="tmp-btn">平成30年山形県沖地震</button>
+                <button type="button" name="tmp-btn" class="tmp-btn">平成30年北海道胆振東部地震</button>
+                <button type="button" name="tmp-btn" class="tmp-btn">平成30年大阪府北部地震</button>
+                <button type="button" name="tmp-btn" class="tmp-btn">平成28年鳥取県中部地震</button>
+                <button type="button" name="tmp-btn" class="tmp-btn">平成28年熊本地震(本震)</button>
+                <button type="button" name="tmp-btn" class="tmp-btn">平成28年熊本地震(前震)</button>
+                <button type="button" name="tmp-btn" class="tmp-btn">平成27年小笠原諸島西方沖地震</button>
+                <button type="button" name="tmp-btn" class="tmp-btn">平成25年オホーツク海深発地震</button>
+                <button type="button" name="tmp-btn" class="tmp-btn">東日本大震災(地震速報)</button>
+              </div>
+              <!--
+              <select id="template">
+                <option value=1>山形県沖地震</option>
+                <option value=2>平成30年北海道胆振東部地震</option>
+                <option value=3>平成30年大阪府北部地震</option>
+                <option value=4>平成28年鳥取県中部地震</option>
+                <option value=5>平成28年熊本地震(本震)</option>
+                <option value=6>平成28年熊本地震(前震)</option>
+                <option value=7>平成27年小笠原諸島西方沖地震</option>
+                <option value=8>東日本大震災(地震速報)</option>
+              </select>
+              <input type="button" id="tb" value="実行" onClick="tempRef();"><br>-->
+              <div>
+                最大震度:
+                <select name="siH">
+                  <option value=1>1</option>
+                  <option value=2>2</option>
+                  <option value=3>3</option>
+                  <option value=4>4</option>
+                  <option value=6>5弱</option>
+                  <option value=7>5強</option>
+                  <option value=8>6弱</option>
+                  <option value=9>6強</option>
+                  <option value=10>7</option>
+                </select>
+                <br>
+                M<input type="text" id="mag">
+                深さ(km):<input type="text" id="dep">
+                震源:<input type="text" id="epi">
+                <div>
+                  <input type="text" id="year">年
+                  <input type="text" id="month">月
+                  <input type="text" id="day">日
+                  <input type="text" id="hour">時
+                  <input type="text" id="minute">分
+                </div>
+                <span class="c-1" n=1>震度1</span>
+                <span class="c-2"><input type="text" id="1" style="width:400px"></span><br>
+                <span class="c-1" n=2>震度2</span>
+                <span class="c-2"><input type="text" id="2" style="width:400px"></span><br>
+                <span class="c-1" n=3>震度3</span>
+                <span class="c-2"><input type="text" id="3" style="width:400px"></span><br>
+                <span class="c-1" n=4>震度4</span>
+                <span class="c-2"><input type="text" id="4" style="width:400px"></span><br>
+                <span class="c-1" n=0>震度5弱以上と推定</span>
+                <span class="c-2"><input type="text" id="5弱以上と推定" style="width:400px"></span><br>
+                <span class="c-1" n=5>震度5弱</span>
+                <span class="c-2"><input type="text" id="5弱" style="width:400px"></span><br>
+                <span class="c-1" n=5.5>震度5強</span>
+                <span class="c-2"><input type="text" id="5強" style="width:400px"></span><br>
+                <span class="c-1" n=6>震度6弱</span>
+                <span class="c-2"><input type="text" id="6弱" style="width:400px"></span><br>
+                <span class="c-1" n=6.5>震度6強</span>
+                <span class="c-2"><input type="text" id="6強" style="width:400px"></span><br>
+                <span class="c-1" n=7>震度7</span>
+                <span class="c-2"><input type="text" id="7" style="width:400px"></span><br>
+                <span class="c-1" n=1>追加情報</span>
+                <span class="c-2"><input type="text" id="ps" style="width:400px"></span><br>
+                <div id="triangle"></div>
+                <input type="button" id="ref" value="反映">
+              </div>
+            </div>
+          </div>
+          <div class="menu-tab hide">
+            <div style="color: #410070;">
+              タイトル　　<br><input type="text" id="BNtitle" style="width: calc(100% - 8px);"><br>
+              サブタイトル<br><input type="text" id="BNtext1" style="width: calc(100% - 8px);"><br>
+              テキスト　　<br><input type="text" id="BNtext2" style="width: calc(100% - 8px);"><br>
+            </div>
+            <input type="button" name="BreakingNewsView" value="反映"><br>
+            <div class="wtWarnChecking">
+              <div class="wtWarnListMsg">表示待機中の気象情報はありません</div>
+              <div class="wtWarnListFeeds">
+                <table class="border_init">
+                  <tbody id="wtWarnTableBody">
+                    <tr>
+                      <td class="title"><div>タイトル</div></td>
+                      <td class="subtitle"><div>サブタイトル</div></td>
+                      <td class="maintext"><div>本文（テキスト）</div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="menu-tab hide" style="text-align: center;">
+            実装予定は・・・要望があったら
+            <!-- <button type="button" name="sorabtn">ソラボタン表示</button>
+            <button type="button" name="sorabtn">ソラボタンオープン</button>
+            <button type="button" name="sorabtn">ソラボタン表示終了</button><br>
+            ソラボタン 表示: <input type="checkbox" id="isSoraview" checked> -->
+          </div>
+          <div class="menu-tab hide">実装予定は・・・別アプリにするかも</div>
+          <div class="menu-tab hide">
+            <!-- <button type="button" id="dataSaver">保存</button><text> ←ここをクリックするか60秒毎の自動保存を待って設定を保存</text> -->
+            <table class="settings-table border_init">
+              <tbody>
+                <tr>
+                  <td>テーマカラー</td>
+                  <td>
+                    <select id="settings.themeColor.ticker">
+                      <option value="0">ライト</option>
+                      <option value="1">ダーク</option>
+                      <option value="2">モノトーン</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>クリップボードへの<wbr>自動コピーの有無</td>
+                  <td>
+                    <div>
+                      <label for="settings.setClipEEW">緊急地震速報 </label><input type="checkbox" id="settings.setClipEEW"><br>
+                      <label for="settings.setClipQuake">地震情報　　 </label><input type="checkbox" id="settings.setClipQuake">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>気象情報の単位</td>
+                  <td>
+                    <div>
+                      風速：
+                      <select id="settings.unitWinds">
+                        <option value="m/s">m/s</option>
+                        <option value="km/h">km/h</option>
+                        <option value="mph">mph</option>
+                        <option value="kt">kt</option>
+                        <option value="ft/s">ft/s</option>
+                      </select><br>
+                      気温：
+                      <select id="settings.unitTemp">
+                        <option value="centi">℃</option>
+                        <option value="kelvin">K</option>
+                        <option value="fahren">℉</option>
+                      </select><br>
+                      <button type="button" id="settings.unitsReflect">反映して再読み込み</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>情報の取得間隔</td>
+                  <td>
+                    <table class="xhr-interval">
+                      <tr><td title="情報元: iedred7584">緊急地震速報</td> <td><input type="number" min="1100" value="5000" step="50" id="settings.intervalIedred">ms</td></tr>
+                      <tr><td title="情報元: NHK">地震情報</td> <td><input type="number" min="5000" value="12000" step="50" id="settings.intervalNHKquake">ms</td></tr>
+                      <tr><td title="情報元: 気象庁">気象情報</td> <td><input type="number" min="5000" value="15000" step="50" id="settings.intervalJmaWt">ms</td></tr>
+                      <tr><td title="情報元: tenki.jp">津波情報</td> <td><input type="number" min="25000" value="30000" step="250" id="settings.intervalTenkiJpTsu">ms</td></tr>
+                      <tr><td title="情報元: Weathernews">Mスケール</td> <td><input type="number" min="10000" value="30000" step="250" id="settings.intervalWNImscale">ms</td></tr>
+                      <tr><td title="情報元: Weathernews">ソラボタン</td> <td><input type="number" min="10000" value="30000" step="250" id="settings.intervalWNIsorabtn">ms</td></tr>
+                      <tr><td title="情報元: Weathernews">河川情報</td> <td><input type="number" min="30000" value="300000" step="1000" id="settings.intervalWNIriver">ms</td></tr>
+                      <tr><td title="情報元: Weathernews">WNL番組表</td> <td><input type="number" min="60000" value="240000" step="250" id="settings.intervalWNItm">ms</td></tr>
+                      <tr><td title="情報元：東京電力">東京電力停電情報</td> <td><input type="number" min="30000" value="60000" step="250" id="settings.intervalTpcBlackOut">ms</td></tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>アメダスの地点を<wbr>抜粋して読み込む</td>
+                  <td>
+                    <div>
+                      <label for="settings.setParticallyReadingAme">チェックで有効</label><input type="checkbox" id="settings.setParticallyReadingAme" checked>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>サウンド音量</td>
+                  <td>
+                    <ul>
+                      <li><button id="settings.voltestEewLow">テスト</button> <input type="number" min="0" max="100" value="100" id="settings.volEewLow">%：緊急地震速報</li>
+                      <li><button id="settings.voltestEewBeep">テスト</button> <input type="number" min="0" max="100" value="10" id="settings.volEewBeep">%：緊急地震速報(ビープ音)</li>
+                      <li><button id="settings.voltestEewCustom">テスト</button> <input type="number" min="0" max="100" value="100" id="settings.volEewCustom">%：緊急地震速報(カスタム)</li>
+                      <li><button id="settings.voltestEewPlum">テスト</button> <input type="number" min="0" max="100" value="100" id="settings.volEewPlum">%：緊急地震速報(PLUM法)<a target="_blank" href="https://telenet.co.jp/column/cloumn_20180501/"><sup>[?]</sup></a></li>
+                      <li><button id="settings.voltestGL">テスト</button> <input type="number" min="0" max="100" value="100" id="settings.volGL">%：土砂災害警戒情報</li>
+                      <li><button id="settings.voltestNtc">テスト</button> <input type="number" min="0" max="100" value="100" id="settings.volNtc">%：竜巻注意情報</li>
+                      <li><button id="settings.voltestSpW">テスト</button> <input type="number" min="0" max="100" value="100" id="settings.volSpW">%：気象特別警報</li>
+                      <li><button id="settings.voltestTnm">テスト</button> <input type="number" min="0" max="100" value="100" id="settings.volTnm">%：津波情報</li>
+                      <li><button id="settings.voltestHvRa">テスト</button> <input type="number" min="0" max="100" value="100" id="settings.volHvRa">%：記録的短時間大雨情報</li>
+                      <li><button id="settings.voltestFldOc4">テスト</button> <input type="number" min="0" max="100" value="100" id="settings.volFldOc4">%：氾濫危険情報</li>
+                      <li><button id="settings.voltestFldOc5">テスト</button> <input type="number" min="0" max="100" value="100" id="settings.volFldOc5">%：氾濫発生情報</li>
+                      <li>地震情報：
+                        <table class="settings_volume_quake_table">
+                          <tbody>
+                            <tr><th></th>
+                              <th class="sound_quake_type" data-type="normal" data-index="1">震度1</th>
+                              <th class="sound_quake_type" data-type="normal" data-index="2">震度2</th>
+                              <th class="sound_quake_type" data-type="normal" data-index="3">震度3</th>
+                              <th class="sound_quake_type" data-type="normal" data-index="4">震度4</th>
+                              <th class="sound_quake_type" data-type="normal" data-index="5">震度5弱</th>
+                              <th class="sound_quake_type" data-type="major" data-index="6">震度5強</th>
+                              <th class="sound_quake_type" data-type="major" data-index="7">震度6弱</th>
+                              <th class="sound_quake_type" data-type="major" data-index="8">震度6強</th>
+                              <th class="sound_quake_type" data-type="major" data-index="9">震度7</th>
+                            </tr>
+                            <tr>
+                              <th>音量(%)</th>
+                              <td><input type="number" min="0" max="100" value="30" class="sound_quake_volume"></td>
+                              <td><input type="number" min="0" max="100" value="50" class="sound_quake_volume"></td>
+                              <td><input type="number" min="0" max="100" value="70" class="sound_quake_volume"></td>
+                              <td><input type="number" min="0" max="100" value="80" class="sound_quake_volume"></td>
+                              <td><input type="number" min="0" max="100" value="90" class="sound_quake_volume"></td>
+                              <td><input type="number" min="0" max="100" value="100" class="sound_quake_volume"></td>
+                              <td><input type="number" min="0" max="100" value="100" class="sound_quake_volume"></td>
+                              <td><input type="number" min="0" max="100" value="100" class="sound_quake_volume"></td>
+                              <td><input type="number" min="0" max="100" value="100" class="sound_quake_volume"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button>全ての設定をデフォルトに戻す（確認なしで戻されます）</button>
+          </div>
+          <div class="menu-tab hide" style="padding: 15px 20px;">
+            <div class="program-info" style="margin: 10px 0;">Natural Disaster Viewer <span id="current-version">1.0.0</span><br>Last Modified at <span id="last-created-time"></span><br><span id="programInfo.freeComment"></span></div>
+            <div id="credits" style="background-color: #fff; border-radius: 4px; padding: 5px 12px;">
+              <div style="font-size: 14px; font-weight: 600;">License Informations</div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-name">
+          <div class="anim-ticker">一般</div>
+        </div>
+        <div class="main-mask hide"></div>
+      </div>
+      <div id="loading-mask-element" class="whole-mask">読み込み中...</div>
+      <dialog id="modal-window-element">
+        あああああああ
+      </dialog>
+    </div>
+    <script>
+      const RANGE_10 = [...Array(10).keys()];
+      const sideMenuE = document.getElementsByClassName("side-menu")[0];
+      const mainMenuE = document.getElementsByClassName("main-menu")[0];
+      const animTickerE = document.getElementsByClassName("anim-ticker")[0];
+      const sideButtonsE = Array.from(document.getElementsByClassName("menu-button"));
+      const menuListE = Array.from(document.getElementsByClassName("menu-tab"));
+      const normalTextDataEs = [];
+      const normalText_speedResult = document.getElementById("normalText.speedResult");
+      const normalText_speedInput = document.getElementById("normalText.speedInput");
+      const normalText_speedCurrentPos = document.getElementById("normalText.speedCurrentPos");
+      const normalText_editStart = document.getElementById("normalText.editStart");
+      const normalText_editEnd = document.getElementById("normalText.editEnd");
+      const normalText_addText = document.getElementById("normalText.addText");
+      const currentVersionE = document.getElementById("current-version");
+      const lastCreatedDateE = document.getElementById("last-created-time");
+      const sideMaskE = document.getElementsByClassName("side-mask")[0];
+      const mainMaskE = document.getElementsByClassName("main-mask")[0];
+      const programInfo_freeComment = document.getElementById("programInfo.freeComment");
+      const creditsE = document.getElementById("credits");
+      const settingsE = {
+        themeColor: {
+          ticker: document.getElementById("settings.themeColor.ticker"),
+          clock: null
+        },
+        viewTsunami: document.getElementById("settings.viewTsunami"),
+        minint: document.getElementById("settings.minint"),
+        minmag: document.getElementById("settings.minmag"),
+        depmin: document.getElementById("settings.depmin"),
+        eewminint: document.getElementById("settings.eewminint"),
+        eewintunknown: document.getElementById("settings.eewintunknown"),
+        eewminmag: document.getElementById("settings.eewminmag"),
+        eewdepmin: document.getElementById("settings.eewdepmin"),
+        setClipEEW: document.getElementById("settings.setClipEEW"),
+        setClipQuake: document.getElementById("settings.setClipQuake"),
+        BNtitle: document.getElementById("BNtitle"),
+        BNtext1: document.getElementById("BNtext1"),
+        BNtext2: document.getElementById("BNtext2"),
+        unitWinds: document.getElementById("settings.unitWinds"),
+        unitTemp: document.getElementById("settings.unitTemp"),
+        unitsReflect: document.getElementById("settings.unitsReflect"),
+        intervalIedred: document.getElementById("settings.intervalIedred"),
+        intervalNHKquake: document.getElementById("settings.intervalNHKquake"),
+        intervalJmaWt: document.getElementById("settings.intervalJmaWt"),
+        intervalTenkiJpTsu: document.getElementById("settings.intervalTenkiJpTsu"),
+        intervalWNImscale: document.getElementById("settings.intervalWNImscale"),
+        intervalWNIsorabtn: document.getElementById("settings.intervalWNIsorabtn"),
+        intervalWNIriver: document.getElementById("settings.intervalWNIriver"),
+        intervalWNItm: document.getElementById("settings.intervalWNItm"),
+        intervalTpcBlackOut: document.getElementById("settings.intervalTpcBlackOut"),
+        volEewLow: document.getElementById("settings.volEewLow"),
+        volEewBeep: document.getElementById("settings.volEewBeep"),
+        volEewCustom: document.getElementById("settings.volEewCustom"),
+        volEewPlum: document.getElementById("settings.volEewPlum"),
+        volDosha: document.getElementById("settings.volGL"),
+        volTornado: document.getElementById("settings.volNtc"),
+        volEmergency: document.getElementById("settings.volSpW"),
+        volTsunami: document.getElementById("settings.volTnm"),
+        volHeavyRain: document.getElementById("settings.volHvRa"),
+        volFlood4: document.getElementById("settings.volFldOc4"),
+        volFlood5: document.getElementById("settings.volFldOc5"),
+        volQuake: {
+          type: Array.from(document.getElementsByClassName("sound_quake_type")),
+          volume: Array.from(document.getElementsByClassName("sound_quake_volume"))
+        },
+        voltestEEWl: document.getElementById("settings.voltestEEWl"),
+        voltestEEWh: document.getElementById("settings.voltestEEWh"),
+        voltestEEWcustom: document.getElementById("settings.voltestEEWcustom"),
+        voltestEEWp: document.getElementById("settings.voltestEEWp"),
+        voltestGL: document.getElementById("settings.voltestGL"),
+        voltestNtc: document.getElementById("settings.voltestNtc"),
+        voltestSpW: document.getElementById("settings.voltestSpW"),
+        voltestTnm: document.getElementById("settings.voltestTnm"),
+        voltestHvRa: document.getElementById("settings.voltestHvRa"),
+        voltestFldOc4: document.getElementById("settings.voltestFldOc4"),
+        voltestFldOc5: document.getElementById("settings.voltestFldOc5"),
+        setParticallyReadingAme: document.getElementById("settings.setParticallyReadingAme"),
+        intervalIedred: document.getElementById("settings.intervalIedred"),
+        intervalNHKquake: document.getElementById("settings.intervalNHKquake"),
+        intervalJmaWt: document.getElementById("settings.intervalJmaWt"),
+        intervalTenkiJpTsu: document.getElementById("settings.intervalTenkiJpTsu"),
+        intervalWNImscale: document.getElementById("settings.intervalWNImscale"),
+        intervalWNIsorabtn: document.getElementById("settings.intervalWNIsorabtn"),
+        intervalWNIriver: document.getElementById("settings.intervalWNIriver"),
+        intervalWNItm: document.getElementById("settings.intervalWNItm"),
+        particallyReadingAme: document.getElementsByClassName("settings.setParticallyReadingAme")
+        // intervalTpcBlackOut: document.getElementById("settings.intervalTpcBlackOut"),
+      };
+      let _applicationState = {};
+      ContentBridge.getApplicationState().then(res => {
+        _applicationState = res;
+        _applicationState.lastModified = new Date(_applicationState.lastModified);
+        currentVersionE.textContent = _applicationState.current.name;
+        lastCreatedDateE.innerText = false ? _applicationState.lastModified.toLocaleString("ja-JP-u-ca-japanese", {dateStyle: "long", timeStyle: 'long'}) : _applicationState.lastModified.toLocaleString("en-US-u-ca-japanese", {dateStyle: "long", timeStyle: 'long'});
+        programInfo_freeComment.innerText = `
+Ticker ${_applicationState.part.ticker}`;
+        for (let item of res.credits){
+          creditsE.insertAdjacentHTML("beforeend", `<div style="background-color: #e0fcff; padding: 5px 12px; margin: 8px 0;">
+<div style="font-size: 12px; font-weight: 600;">${item.name}</div>
+<div style="font-size: 9px; font-weight: 300;">${item.license.replaceAll("\n", "<br>")}</div>
+</div>`);
+        }
+        return ContentBridge.getConfig();
+      }).then(res => {
+        console.log(res);
+        normalText_speedInput.value = normalText.speed = res.config.ticker.scrollSpeed;
+        normalText_speedResult.textContent = res.config.ticker.scrollSpeed.toFixed(1);
+        settingsE.viewTsunami.checked = res.config.viewTsunami;
+        for (let i=0, item=res.config.ticker.normal.text, l=item.length; i<l; i++) { normalText.append(i+1, { title: item[i].title, cmd: item[i].id, text: item[i].text }); }
+        settingsE.viewTsunami.checked = res.config.ticker.viewTsunami;
+        settingsE.eewminint.value = res.config.ticker.viewCond.eew.intensity;
+        settingsE.eewintunknown.value = res.config.ticker.viewCond.eew.unknown;
+        settingsE.eewminmag.value = (res.config.ticker.viewCond.eew.magnitude-0).toFixed(1);
+        settingsE.eewdepmin.value = res.config.ticker.viewCond.eew.depth;
+        settingsE.eewminint.value = res.config.ticker.viewCond.earthquake.intensity;
+        settingsE.eewminmag.value = (res.config.ticker.viewCond.earthquake.magnitude-0).toFixed(1);
+        settingsE.eewdepmin.value = res.config.ticker.viewCond.earthquake.depth;
+        settingsE.BNtitle.value = res.config.ticker.news.title;
+        settingsE.BNtext1.value = res.config.ticker.news.subtitle;
+        settingsE.BNtext2.value = res.config.ticker.news.text;
+        settingsE.themeColor.ticker.value = res.config.ticker.themeColor.ticker;
+        settingsE.setClipEEW.checked = res.config.app.autoCopy.eew;
+        settingsE.setClipQuake.checked = res.config.app.autoCopy.quake;
+        settingsE.unitWinds.value = res.config.ticker.normal.cmdOpt.unit.winds;
+        settingsE.unitTemp.value = res.config.ticker.normal.cmdOpt.unit.temp;
+        /* 読み込みインターバル設定は内部の実装に合わせて調整する */
+        settingsE.volEewLow.value = res.config.app.volume.eewLow;
+        settingsE.volEewBeep.value = res.config.app.volume.eewBeep;
+        settingsE.volEewCustom.value = res.config.app.volume.eewCustom;
+        settingsE.volEewPlum.value = res.config.app.volume.eewPlum;
+        settingsE.volDosha.value = res.config.app.volume.dosha;
+        settingsE.volTornado.value = res.config.app.volume.tornado;
+        settingsE.volEmergency.value = res.config.app.volume.emergency;
+        settingsE.volTsunami.value = res.config.app.volume.tsunami;
+        settingsE.volHeavyRain.value = res.config.app.volume.heavyRain;
+        settingsE.volFlood4.value = res.config.app.volume.flood4;
+        settingsE.volFlood5.value = res.config.app.volume.flood5;
+        for (let i=0; i<9; i++){
+          settingsE.volQuake.type[i].setAttribute("data-type", res.config.app.volume.quake[i].type);
+          settingsE.volQuake.volume[i].value = res.config.app.volume.quake[i].volume;
+        }
+        settingsE.particallyReadingAme.checked = res.config.ticker.particallyReadingAme;
+
+        const initItem = 6;
+        changeViewing(initItem, sideButtonsE[initItem].getAttribute("data-comment"));
+        document.getElementById("loading-mask-element").classList.toggle("hide");
+      });
+      const normalText = {
+        data: [],
+        speed: 4,
+        commandList: [
+          { text: "コマンドなし", id: 0, code: "" },
+          { text: "最高気温（ランキング）", id: 11, code: "weather.rank.temperature.max" },
+          { text: "最低気温（ランキング）", id: 12, code: "weather.rank.temperature.min" },
+          { text: "１時間降水量（ランキング）", id: 13, code: "weather.rank.rain.1h" },
+          { text: "２４時間降水量（ランキング）", id: 14, code: "weather.rank.rain.24h" },
+          { text: "風速（ランキング）", id: 15, code: "weather.wind_rank" },
+          { text: "実況気温", id: 20, code: "weather.latest.temperature" },
+          { text: "過去１０分の降水量", id: 30, code: "weather.latest.rain.10m" },
+          { text: "過去１時間の降水量", id: 31, code: "weather.latest.rain.1h" },
+          { text: "過去３時間の降水量", id: 32, code: "weather.latest.rain.3h" },
+          { text: "過去２４時間の降水量", id: 33, code: "weather.latest.rain.24h" },
+          { text: "現在の湿度", id: 34, code: "weather.latest.humidity" },
+          { text: "現在の風速", id: 35, code: "weather.latest.wind" },
+          { text: "現在の日照時間", id: 36, code: "weather.sun.1h" },
+          { text: "現在の積雪高さ", id: 37, code: "weather.snow.height" },
+          { text: "過去１時間の降雪量", id: 38, code: "weather.snow.1h" },
+          { text: "過去６時間の降雪量", id: 39, code: "weather.snow.6h" },
+          { text: "過去１２時間の降雪量", id: 40, code: "weather.snow.12h" },
+          { text: "過去２４時間の降雪量", id: 41, code: "weather.snow.24h" },
+          { text: "現在の気圧", id: 42, code: "weather.pressure" },
+          { text: "河川情報", id: 60, code: "weather.river" },
+          { text: "避難情報", id: 70, code: "bousai.evacuation" }
+        ],
+        append: function(int, opt){
+          const tr = document.createElement("tr");
+          const td1 = document.createElement("td");
+          const td2 = document.createElement("td");
+          const td3container = document.createElement("td");
+          const td3 = document.createElement("div");
+          const deletebox = document.createElement("div");
+          const deletebutton = document.createElement("button");
+          deletebox.appendChild(deletebutton);
+          td3container.appendChild(td3);
+          td1.textContent = int;
+          td2.innerHTML = '<input type="text" class="Ntitle" value="'+opt.title+'!">';
+          const select = document.createElement("select");
+          select.addEventListener("change", this.optionEvent);
+          select.id = int;
+          select.style.width = "107px";
+          for (let cmd of this.commandList) {
+            const option = document.createElement("option");
+            option.textContent = cmd.text;
+            option.setAttribute("value", cmd.id);
+            select.appendChild(option);
+          }
+          select.value = opt.cmd+"";
+          td3.appendChild(select);
+          const td3input = document.createElement("input");
+          td3input.type = "text";
+          td3input.classList.add("Ntext");
+          td3input.value = opt.text;
+          td3input.disabled = opt.cmd != 0;
+          td3.appendChild(td3input);
+          td3.classList.add("nTextsTable-cmdtxt");
+          this.data.push({ id: int, tr, td: [td1, td2, td3], del: {e: deletebox, b: deletebutton} });
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          tr.appendChild(td3container);
+          tr.style.position = "relative";
+          tr.appendChild(deletebox);
+          deletebox.style.position = "absolute";
+          deletebox.style.top = "2px";
+          deletebox.style.left = "2px";
+          deletebox.style.backgroundColor = "#be2617";
+          deletebox.style.color = "#fff";
+          deletebox.style.fontSize = "13px";
+          deletebox.style.padding = "0 3px";
+          deletebox.style.display = "none";
+          deletebutton.type = "button";
+          deletebutton.style.padding = "0";
+          deletebutton.style.margin = "0";
+          deletebutton.style.border = "0";
+          deletebutton.style.background = "inherit";
+          deletebutton.style.color = "inherit";
+          deletebutton.style.cursor = "pointer";
+          deletebutton.dataId = int;
+          deletebutton.textContent = "削除";
+          this.table.appendChild(tr);
+          deletebutton.addEventListener("click", this.removeDecidedEvent);
+        },
+        removeId: function(id){
+          const targetIndex = this.data.findIndex(item => item.id === id);
+          if (targetIndex === -1) return;
+          normalText.data[targetIndex].tr.remove();
+          normalText.data.splice(targetIndex, 1);
+        },
+        table: document.getElementById("normalTextsTable"),
+        optionEvent: function(){
+          let target = event.target;
+          console.log(target.id, target.value);
+          normalText.data[target.id-1].td[2].getElementsByTagName("input")[0].disabled = target.value != 0;
+        },
+        removeEditEvent: function(){
+          for (let item of normalText.data){
+            item.del.e.style.display = "block";
+          }
+          sideMaskE.classList.remove("hide");
+          mainMaskE.classList.remove("hide");
+          normalText_editStart.classList.add("hide");
+          normalText_editEnd.classList.remove("hide");
+          normalText_addText.classList.add("hide");
+        },
+        removeDecidedEvent: function(event){
+          normalText.removeId(event.target.dataId);
+        },
+        cancelRemovingEvent: function(){
+          for (let index in normalText.data){
+            let item = normalText.data[index];
+            item.del.e.style.display = "none";
+            item.td[0].textContent = item.id = item.del.b.dataId = index - (-1);
+          }
+          sideMaskE.classList.add("hide");
+          mainMaskE.classList.add("hide");
+          normalText_editStart.classList.remove("hide");
+          normalText_editEnd.classList.add("hide");
+          normalText_addText.classList.remove("hide");
+        }
+      };
+      var select = 0;
+      const ratioAdjustment = function(){
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        let sideWidth = 0;
+        if(width < 600){
+          sideWidth = 150;
+        } else if(width > 1200){
+          sideWidth = 300;
+        } else {
+          sideWidth = width / 4;
+        }
+        sideMenuE.style.width = sideWidth + "px";
+        mainMenuE.style.width = width - sideWidth + "px";
+      };
+      const changeViewing = function(int, title){
+        select = int;
+        sideButtonsE.forEach((item) => {
+          item.classList.remove("menu-selected");
+        });
+        menuListE.forEach((item, i) => {
+          item.classList.add("hide");
+        });
+        sideButtonsE[int].classList.add("menu-selected");
+        menuListE[int].classList.remove("hide");
+        animTickerE.textContent = title;
+      };
+      settingsE.depmin.insertAdjacentHTML("beforeend", `<option value="1000">指定なし</option><option value="0">ごく浅い のみ</option>`);
+      settingsE.eewdepmin.insertAdjacentHTML("beforeend", `<option value="1000">指定なし</option>`);
+      for (let group of RANGE_10){
+        group = group * 100 + 10;
+        let text = `<optgroup label="${group}km〜${group+90}km">`;
+        for (let val of RANGE_10){
+          val = val * 10 + group;
+          text += `<option value="${val}">${val}km またはそれより浅い</option>`;
+        }
+        text += "</optgroup>";
+        settingsE.depmin.insertAdjacentHTML("beforeend", text);
+        settingsE.eewdepmin.insertAdjacentHTML("beforeend", text);
+      }
+
+      window.onresize = function(){
+        console.log("Height: "+window.innerHeight+", Width: "+window.innerWidth);
+        ratioAdjustment();
+      };
+      sideButtonsE.forEach((item) => {
+        item.addEventListener("click", function(){
+          changeViewing(Number(event.target.getAttribute("data-count")), event.target.getAttribute("data-comment"));
+        });
+      });
+      ratioAdjustment();
+      // Text Speedの変更イベント
+      normalText_speedInput.addEventListener("input", event => {
+        const textSpeed = event.target.valueAsNumber;
+        normalText.speed = textSpeed;
+        normalText_speedResult.textContent = textSpeed.toFixed(1);
+        const ratio = (textSpeed - event.target.min) / (event.target.max - event.target.min) * 100;
+        event.target.style.background = `linear-gradient(90deg, #377494 ${ratio}%, #dddddd ${ratio}%)`;
+      });
+      normalText_editStart.addEventListener("click", normalText.removeEditEvent);
+      normalText_editEnd.addEventListener("click", normalText.cancelRemovingEvent);
+      normalText_addText.addEventListener("click", ()=>{normalText.append(normalText.data.length+1, { title: "たいとる！", cmd: 0, text: "てきすとー" })});
+      for (let i=0; i<9; i++){
+        settingsE.volQuake.type[i].addEventListener("click", event => {
+          if (event.target.getAttribute("data-type") === "normal"){
+            event.target.setAttribute("data-type", "major");
+          } else {
+            event.target.setAttribute("data-type", "normal");
+          }
+        });
+      }
+
+      function onSettingChanged(){
+
+      }
+      const showDialog = (function (type, message){
+        this.parentElement.showModal();
+      }).bind({
+        parentElement: document.getElementById("modal-window-element")
+      });
+    </script>
+  </body>
+</html>

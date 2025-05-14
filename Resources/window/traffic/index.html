@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>トラフィックモニター - Natural Disaster Viewer</title>
+  <meta charset="utf-8">
+  <!-- https://qiita.com/mskmiki/items/544149987475719e417b -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@500&display=swap');
+    .hide {
+      display: none;
+    }
+    .o-pre {
+      white-space: nowrap;
+      font-family: 'Menlo', 'Noto Sans Mono', monospace;
+    }
+    .center {
+      display: block;
+      text-align: center;
+      text-align: -webkit-center;
+      text-align: -moz-center;
+    }
+    body {
+      margin: 0;
+    }
+    body * {
+      font-family: sans-serif;
+    }
+    header {
+      border-bottom: double 2px #333;
+      display: flex;
+      flex-direction: row;
+      align-items: end;
+      justify-content: center;
+    }
+    header h1 {
+      font-family: 'Helvetica', sans-serif;
+      font-weight: 200;
+      font-size: 26px;
+      margin: 10px 5px;
+    }
+    header h1 small {
+      font-size: 12px;
+    }
+    main {
+      margin: 0 8px;
+    }
+    div.view-container {
+      margin: 0 45px;
+      overflow-x: scroll;
+      height: 28px;
+      white-space: nowrap;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+    }
+    nav {
+      position: relative;
+    }
+    nav button {
+      border: solid 1px #444;
+      background-color: #fff;
+      color: #222;
+      height: 28px;
+      padding: 0 5px;
+      margin: 0 3px;
+      border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
+      cursor: pointer;
+    }
+    nav button:hover {
+      background-color: #b2f2f6;
+    }
+    nav button:active {
+      background-color: #49e3ee;
+    }
+    nav button.nav-abs {
+      position: absolute;
+      top: 0;
+    }
+    nav button#view-prev {
+      left: 0;
+    }
+    nav button#view-next {
+      right: 0;
+    }
+    nav :is(#view-list.o-selected, .view-item.o-selected) {
+      background-color: #49e3ee;
+      cursor: default;
+    }
+    .ws-status-disconnect { color: #9e0606; }
+    .ws-status-connecting { color: #745207; }
+    .ws-status-opening    { color: #16611d; }
+    main > div {
+      padding: 8px;
+      border: solid 1px #999;
+      border-radius: 6px;
+      margin: 8px 2px;
+      height: calc(100vh - 124px);
+      overflow: scroll;
+    }
+    main table {
+      width: 560px;
+    }
+    main table td, main table th {
+      padding: 2px 15px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    main table td:nth-child(7) {
+      font-size: 14px;
+    }
+    .canvas_chart {
+      margin-top: 5px;
+      border: solid 1px #777;
+    }
+  </style>
+  <script src="../common/library/chart-3.9.1.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Traffic Monitor<small>(仮)</small></h1>
+  </header>
+  <main>
+    <nav>
+      <div class="view-container">
+        <button id="view-list" class="o-selected">（一覧）</button>
+        <div id="view-navi"></div>
+      </div>
+      <button class="nav-abs" id="view-prev">←</button>
+      <button class="nav-abs" id="view-next">→</button>
+    </nav>
+    <div class="info-list-container">
+      <table class="info-list">
+        <tr><th>Loading...</th></tr>
+      </table>
+    </div>
+    <div class="hide info-detail o-websocket">
+      <div class="center">
+        <table>
+          <tr><th title="接続済／接続中／接続断">接続状態</th><td class="o-pre info-detail-data" id="info-detail-data-websocket-1"></td></tr>
+          <tr><th title="最後に接続が開始された時刻">最終接続開始時刻</th><td class="o-pre info-detail-data" id="info-detail-data-websocket-2">3579/12/24 14:28:56.112</td></tr>
+          <tr><th title="最後にデータを受信した時刻">最終データ受信時刻</th><td class="o-pre info-detail-data" id="info-detail-data-websocket-3"></td></tr>
+          <tr><th title="総受信回数を起動時間で割った数">受信頻度</th><td class="o-pre info-detail-data" id="info-detail-data-websocket-5"></td></tr>
+          <tr><th title="1時間前からの受信した回数">前１時間受信回数</th><td class="o-pre info-detail-data" id="info-detail-data-websocket-6"></td></tr>
+          <tr><th title="今日の接続した回数">今日の受信回数</th><td class="o-pre info-detail-data" id="info-detail-data-websocket-7"></td></tr>
+          <tr><th title="起動からの接続した回数">総受信回数</th><td class="o-pre info-detail-data" id="info-detail-data-websocket-8"></td></tr>
+          <tr><th title="受信したデータ量">受信データ量</th><td class="o-pre info-detail-data" id="info-detail-data-websocket-4"></td></tr>
+        </table>
+        <canvas width="560" height="210" class="canvas_chart" id="canvas_chart_ws"></canvas>
+      </div>
+    </div>
+    <div class="hide info-detail o-http">
+      <div class="center">
+        <table>
+          <tr><th title="最後にリクエストを送信した時刻">最終接続開始時刻</th><td class="o-pre info-detail-data" id="info-detail-data-http-1"></td></tr>
+          <tr><th title="最後にリクエストを受信した時刻">最終取得完了時刻</th><td class="o-pre info-detail-data" id="info-detail-data-http-2">1948/05/02 00:30:00.000</td></tr>
+          <tr><th title="総接続回数を起動時間で割った数">接続頻度</th><td class="o-pre info-detail-data" id="info-detail-data-http-3"></td></tr>
+          <tr><th title="1時間前からの接続した回数">前１時間接続回数</th><td class="o-pre info-detail-data" id="info-detail-data-http-6"></td></tr>
+          <tr><th title="今日の接続した回数">今日の接続回数</th><td class="o-pre info-detail-data" id="info-detail-data-http-4"></td></tr>
+          <tr><th title="起動からの接続した回数">総接続回数</th><td class="o-pre info-detail-data" id="info-detail-data-http-5"></td></tr>
+          <tr><th title="受信したデータ量">受信データ量</th><td class="o-pre info-detail-data" id="info-detail-data-http-7"></td></tr>
+        </table>
+        <canvas width="560" height="210" class="canvas_chart" id="canvas_chart_http"></canvas>
+      </div>
+    </div>
+  </main>
+  <script>
+    const languageId = "ja";
+    const localize = {
+      conectype: { en: "Type", ja: "接続方法" },
+      reqkey: { en: "Request Key", ja: "役割名" },
+      starttime: { en: "Starting Time", ja: "接続開始時刻" },
+      recevtime: { en: "Receiving Time", ja: "取得時刻" },
+      numreq: { en: "Number of Requests", ja: "受信件数" },
+      ttlbyte: { en: "Resource Bytes", ja: "受信データ量" }
+    };
+    const elements = {
+      viewcontainer: document.getElementsByClassName("view-container")[0],
+      viewnav: document.getElementById("view-navi"),
+      viewlist: document.getElementById("view-list"),
+      viewprev: document.getElementById("view-prev"),
+      viewnext: document.getElementById("view-next"),
+      infolist: document.getElementsByClassName("info-list")[0],
+      navviewitem: [],
+      infodetail: Array.from(document.getElementsByClassName("info-detail")),
+      infodataitems: [],
+      infolistcontainer: document.getElementsByClassName("info-list-container")[0],
+      infodetail_ws: document.querySelector(".info-detail.o-websocket"),
+      infodetail_http: document.querySelector(".info-detail.o-http"),
+      infodetaildata: {
+        http: {
+          start_time: document.getElementById("info-detail-data-http-1"),
+          end_time: document.getElementById("info-detail-data-http-2"),
+          freq_hr: document.getElementById("info-detail-data-http-3"),
+          cnt_hr: document.getElementById("info-detail-data-http-6"),
+          cnt_today: document.getElementById("info-detail-data-http-4"),
+          cnt_all: document.getElementById("info-detail-data-http-5"),
+          total_bytes: document.getElementById("info-detail-data-http-7")
+        },
+        ws: {
+          status: document.getElementById("info-detail-data-websocket-1"),
+          open_time: document.getElementById("info-detail-data-websocket-2"),
+          receive_time: document.getElementById("info-detail-data-websocket-3"),
+          freq_hr: document.getElementById("info-detail-data-websocket-5"),
+          cnt_hr: document.getElementById("info-detail-data-websocket-6"),
+          cnt_today: document.getElementById("info-detail-data-websocket-7"),
+          cnt_all: document.getElementById("info-detail-data-websocket-8"),
+          total_bytes: document.getElementById("info-detail-data-websocket-4")
+        }
+      }
+    };
+    const global_data = {
+      is_detail: false,
+      detail_index: -1,
+      detail_type: "",
+      detail_key: "",
+      btn_prev: false,
+      btn_next: false
+    };
+    const canvas_chart = {
+      http: {
+        ctx_10min: document.getElementById("canvas_chart_http").getContext("2d")
+      },
+      ws: {
+        ctx_10min: document.getElementById("canvas_chart_ws").getContext("2d")
+      }
+    };
+
+    function createTableRow(type, contents){
+      const item = [];
+      const tr = document.createElement("tr");
+      type = "t"+type;
+      for (let i=0; i<contents.length; i++){
+        const cell = document.createElement(type);
+        cell.textContent = contents[i];
+        tr.appendChild(cell);
+        item.push(cell);
+      }
+      return {tr, item};
+    }
+
+    // https://zukucode.com/2017/04/javascript-date-format.html
+    function formatDate (date, format) {
+      if(isNaN(date-0)) return "";
+      format = format.replaceAll("yyyy", date.getFullYear());
+      format = format.replaceAll("MM", ('0' + (date.getMonth() + 1)).slice(-2));
+      format = format.replaceAll("dd", ('0' + date.getDate()).slice(-2));
+      format = format.replaceAll("HH", ('0' + date.getHours()).slice(-2));
+      format = format.replaceAll("mm", ('0' + date.getMinutes()).slice(-2));
+      format = format.replaceAll("ss", ('0' + date.getSeconds()).slice(-2));
+      format = format.replaceAll("fff", ('00' + date.getMilliseconds()).slice(-3));
+      return format;
+    };
+    const byteToString = (byte, use1024 = false)=>{
+      byte = BigInt(byte);
+      let table = use1024 ? [
+        [1n, 1n, "B"],
+        [1024n, 1024n, "KiB"],
+        [1048576n, 1024n, "MiB"],
+        [1073741824n, 1024n, "GiB"],
+        [1099511627776n, 1024n, "TiB"],
+        [1125899906842624n, 1024n, "PiB"],
+        [1152921504606846976n, 1024n, "EiB"],
+        [1180591620717411303424n, 1024n, "ZiB"],
+        [1208925819614629174706176n, 1024n, "YiB"],
+        [1237940039285380274899124224n, 0n]
+      ] : [
+        [1n, 1n, "B"],
+        [1000n, 1000n, "kB"],
+        [1000000n, 1000n, "MB"],
+        [1000000000n, 1000n, "GB"],
+        [1000000000000n, 1000n, "TB"],
+        [1000000000000000n, 1000n, "PB"],
+        [1000000000000000000n, 1000n, "EB"],
+        [1000000000000000000000n, 1000n, "ZB"],
+        [1000000000000000000000000n, 1000n, "YB"],
+        [1000000000000000000000000000n, 0n]
+      ];
+      let out = "";
+      for(let item of table){
+        if(byte >= item[0]){
+          out = (Number(byte*1000n/item[0])/1000).toFixed(3)+" "+item[2];
+        } else {
+          break;
+        }
+      }
+      return out;
+    };
+
+    // const ContentBridge = {
+    //   getSocketPort: async function (){ return 51153; }
+    // }
+
+    const scrollFrame = () => {
+      let amountOfMovement = 0;
+      if (global_data.btn_prev) amountOfMovement -= 6;
+      if (global_data.btn_next) amountOfMovement += 6;
+      if (amountOfMovement){
+        elements.viewcontainer.scrollLeft += amountOfMovement;
+        requestAnimationFrame(scrollFrame);
+      }
+    };
+    elements.viewprev.addEventListener("mousedown", () => {
+      global_data.btn_prev = true;
+      requestAnimationFrame(scrollFrame);
+    });
+    elements.viewprev.addEventListener("mouseup", () => {
+      global_data.btn_prev = false;
+    });
+    elements.viewnext.addEventListener("mousedown", () => {
+      global_data.btn_next = true;
+      requestAnimationFrame(scrollFrame);
+    });
+    elements.viewnext.addEventListener("mouseup", () => {
+      global_data.btn_next = false;
+    });
+
+    elements.viewlist.addEventListener("click", () => {
+      global_data.is_detail = false;
+      if (canvas_chart.http.chart_10min) canvas_chart.http.chart_10min.destroy(), canvas_chart.http.chart_10min = null;
+      if (canvas_chart.ws.chart_10min) canvas_chart.ws.chart_10min.destroy(), canvas_chart.ws.chart_10min = null;
+      elements.viewlist.classList.add("o-selected");
+      elements.navviewitem.forEach(item => item && item.classList.remove("o-selected"));
+      elements.infolistcontainer.classList.remove("hide");
+      elements.infodetail_http.classList.add("hide");
+      elements.infodetail_ws.classList.add("hide");
+    });
+    const navbutton_click = event => {
+      wsocket.send(`{"type": "network_key_info", "body": {"requestType": "${event.target.typeName}", "requestKey": "${event.target.keyName}"}}`);
+      global_data.is_detail = true;
+      global_data.detail_index = event.target.indexCount;
+      global_data.detail_type = event.target.typeName;
+      global_data.detail_key = event.target.keyName;
+      elements.infolistcontainer.classList.add("hide");
+      if (event.target.typeName === "WebSocket"){
+        elements.infodetail_http.classList.add("hide");
+        elements.infodetail_ws.classList.remove("hide");
+      } else if (event.target.typeName === "HTTP"){
+        elements.infodetail_http.classList.remove("hide");
+        elements.infodetail_ws.classList.add("hide");
+      } else if (event.target.typeName === "TCP"){
+        elements.infodetail_http.classList.add("hide");
+        elements.infodetail_ws.classList.add("hide");
+      }
+      elements.viewlist.classList.remove("o-selected");
+      elements.navviewitem.forEach(item => item && item.classList.remove("o-selected"));
+      elements.navviewitem[global_data.detail_index].classList.add("o-selected");
+    };
+
+    const socketevent_load = rootdata => {
+      let data;
+      rootdata = JSON.parse(rootdata.data);
+      switch (rootdata.type) {
+        case "connection_established":
+          console.log("*** connection_established ***");
+          break;
+        case "network_activity_list":
+          console.log("! network_activity_list !");
+          data = JSON.parse(rootdata.body);
+          data = data.http.concat(data.ws);
+          console.log(data); /// debug ///
+          elements.viewnav.textContent = "";
+          elements.infolist.textContent = "";
+          elements.navviewitem = [];
+          elements.infolist.appendChild(createTableRow("h", [ localize.conectype[languageId], localize.reqkey[languageId], localize.starttime[languageId], localize.recevtime[languageId], localize.numreq[languageId], localize.ttlbyte[languageId], "Origin" ]).tr);
+          for (let i=0; i<data.length; i++){
+            if (data[i].hidden) {
+              elements.navviewitem.push(null);
+              continue;
+            }
+            const button = document.createElement("button");
+            button.classList.add("view-item");
+            button.textContent = data[i].name;
+            button.indexCount = i;
+            button.typeName = data[i].type;
+            button.keyName = data[i].key;
+            button.addEventListener("click", navbutton_click)
+            elements.viewnav.appendChild(button);
+            elements.navviewitem.push(button);
+            const tableitems = createTableRow("d", [ data[i].type, data[i].name, formatDate(new Date(data[i].timestamp_start), "HH:mm:ss.fff"), formatDate(new Date(data[i].timestamp_end || data[i].timestamp_receive), "HH:mm:ss.fff"), data[i].count, byteToString(data[i].totalBytes ?? 0), data[i].url ]);
+            elements.infolist.appendChild(tableitems.tr);
+            tableitems.item[5].setAttribute("title", (data[i].totalBytes ?? 0) + "バイト");
+            elements.infodataitems[data[i].key] = tableitems.item;
+          }
+          break;
+        case "http_network_event":
+          data = JSON.parse(rootdata.body);
+          if (Object.hasOwn(elements.infodataitems, data.key)) {
+            if(data.type === "send_start") elements.infodataitems[data.key][2].textContent = formatDate(new Date(data.timestamp), "HH:mm:ss.fff");
+            if(data.type === "send_end") elements.infodataitems[data.key][3].textContent = formatDate(new Date(data.timestamp), "HH:mm:ss.fff");
+          }
+          elements.infodataitems[data.key][4].textContent = data.count;
+          elements.infodataitems[data.key][5].textContent = byteToString(data.totalBytes ?? 0);
+          elements.infodataitems[data.key][5].setAttribute("title", (data.totalBytes ?? 0) + "バイト");
+          if (global_data.is_detail && global_data.detail && global_data.detail_type === "HTTP" && global_data.detail_key === data.key){
+            if (data.type === "send_end"){
+              global_data.detail.time.start = data.timestamp / 1000;
+              elements.infodetaildata.http.end_time.textContent = formatDate(new Date(data.timestamp), "yyyy/MM/dd HH:mm:ss.fff");
+            }
+            if (data.type === "send_start"){
+              let tm = new Date();
+              let tmst_1hour = tm - 3600000;
+              tm.setHours(0);
+              tm.setMinutes(0);
+              tm.setSeconds(0);
+              let tmst_today = tm.setMilliseconds(0);
+              let period_ms = data.timestamp - global_data.detail.freq.cfg_tm0;
+              global_data.detail.time.start = data.timestamp / 1000;
+              global_data.detail.freq.total_count = data.count;
+              global_data.detail.freq.cfg_hour.push(data.timestamp);
+              global_data.detail.freq.cfg_today.push(data.timestamp);
+              while (global_data.detail.freq.cfg_hour[0] < tmst_1hour){
+                global_data.detail.freq.cfg_hour.shift();
+              }
+              while (global_data.detail.freq.cfg_today[0] < tmst_today){
+                global_data.detail.freq.cfg_hour.shift();
+              }
+              global_data.detail.freq.hour_count = global_data.detail.freq.cfg_hour.length;
+              global_data.detail.freq.today_count = global_data.detail.freq.cfg_today.length;
+              global_data.detail.freq.hour_freq = (global_data.detail.freq.total_count-1) / period_ms * 3600000 + 1;
+              global_data.detail.freq.today_freq = (global_data.detail.freq.today_count-1) / Math.min(86400000, period_ms) * 86400000 + 1;
+
+              const graph_date_first = Math.floor(global_data.detail.freq.cfg_tm0/600000)*600000;
+              const graph_label_count = Math.ceil((data.timestamp - graph_date_first) / 600000);
+              while (global_data.detail.freq.graph_10min.label.length < graph_label_count){
+                global_data.detail.freq.graph_10min.label.push(formatDate(new Date(graph_date_first + global_data.detail.freq.graph_10min.label.length * 600000), "MM/dd HH:mm"))
+                global_data.detail.freq.graph_10min.data.push(0);
+              }
+              global_data.detail.freq.graph_10min.data[graph_label_count-1]++;
+              canvas_chart.http.chart_10min.update();
+
+              elements.infodetaildata.http.start_time.textContent = formatDate(new Date(data.timestamp), "yyyy/MM/dd HH:mm:ss.fff");
+              elements.infodetaildata.http.freq_hr.textContent = global_data.detail.freq.hour_freq.toFixed(2)+" req/hr.";
+              elements.infodetaildata.http.cnt_hr.textContent = global_data.detail.freq.hour_count+" requests";
+              elements.infodetaildata.http.cnt_today.textContent = global_data.detail.freq.today_count+" requests";
+              elements.infodetaildata.http.cnt_all.textContent = global_data.detail.freq.total_count+" requests";
+            }
+            elements.infodetaildata.http.total_bytes.textContent = BigInt(data.totalBytes ?? 0).toLocaleString("en-US") + " B";
+          }
+          break;
+        case "websocket_network_event":
+          data = JSON.parse(rootdata.body);
+          if (Object.hasOwn(elements.infodataitems, data.key)){
+            if (data.type === "open"){
+              elements.infodataitems[data.key][2].textContent = formatDate(new Date(data.timestamp), "HH:mm:ss.fff");
+            }
+            if (data.type === "message_receive"){
+              elements.infodataitems[data.key][3].textContent = formatDate(new Date(data.timestamp), "HH:mm:ss.fff");
+              elements.infodataitems[data.key][4].textContent = data.count;
+              elements.infodataitems[data.key][5].textContent = byteToString(data.totalBytes ?? 0);
+              elements.infodataitems[data.key][5].setAttribute("title", (data.totalBytes ?? 0) + "バイト");
+            }
+            if (global_data.is_detail && global_data.detail && global_data.detail_type === "WebSocket" && global_data.detail_key === data.key){
+              switch (data.type) {
+                case "open":
+                  elements.infodetaildata.ws.status.textContent = "接続済";
+                  elements.infodetaildata.ws.status.classList.remove("ws-status-disconnect");
+                  elements.infodetaildata.ws.status.classList.remove("ws-status-connecting");
+                  elements.infodetaildata.ws.status.classList.add("ws-status-opening");
+                  break;
+                case "connect":
+                  elements.infodetaildata.ws.status.textContent = "接続中";
+                  elements.infodetaildata.ws.status.classList.remove("ws-status-disconnect");
+                  elements.infodetaildata.ws.status.classList.add("ws-status-connecting");
+                  elements.infodetaildata.ws.status.classList.remove("ws-status-opening");
+                  break;
+                case "closed":
+                case "error":
+                  elements.infodetaildata.ws.status.textContent = "接続断";
+                  elements.infodetaildata.ws.status.classList.add("ws-status-disconnect");
+                  elements.infodetaildata.ws.status.classList.remove("ws-status-connecting");
+                  elements.infodetaildata.ws.status.classList.remove("ws-status-opening");
+                  break;
+                case "message_receive":
+                  {
+                    let tm = new Date();
+                    let tmst_1hour = tm - 3600000;
+                    tm.setHours(0);
+                    tm.setMinutes(0);
+                    tm.setSeconds(0);
+                    let tmst_today = tm.setMilliseconds(0);
+                    let period_ms = data.timestamp - global_data.detail.freq.cfg_tm0;
+                    global_data.detail.freq.total_count = data.count;
+                    global_data.detail.freq.cfg_hour.push(data.timestamp);
+                    global_data.detail.freq.cfg_today.push(data.timestamp);
+                    while (global_data.detail.freq.cfg_hour[0] < tmst_1hour){
+                      global_data.detail.freq.cfg_hour.shift();
+                    }
+                    while (global_data.detail.freq.cfg_today[0] < tmst_today){
+                      global_data.detail.freq.cfg_hour.shift();
+                    }
+                    global_data.detail.freq.hour_count = global_data.detail.freq.cfg_hour.length;
+                    global_data.detail.freq.today_count = global_data.detail.freq.cfg_today.length;
+                    global_data.detail.freq.hour_freq = (global_data.detail.freq.total_count-1) / period_ms * 3600000 + 1;
+                    global_data.detail.freq.today_freq = (global_data.detail.freq.today_count-1) / Math.min(86400000, period_ms) * 86400000 + 1;
+
+                    const graph_date_first = Math.floor(global_data.detail.freq.cfg_tm0/600000)*600000;
+                    const graph_label_count = Math.ceil((data.timestamp - graph_date_first) / 600000);
+                    while (global_data.detail.freq.graph_10min.label.length < graph_label_count){
+                      global_data.detail.freq.graph_10min.label.push(formatDate(new Date(graph_date_first + global_data.detail.freq.graph_10min.label.length * 600000), "MM/dd HH:mm"))
+                      global_data.detail.freq.graph_10min.data.push(0);
+                    }
+                    global_data.detail.freq.graph_10min.data[graph_label_count-1]++;
+                    canvas_chart.ws.chart_10min.update();
+
+                    elements.infodetaildata.ws.receive_time.textContent = formatDate(new Date(data.timestamp), "yyyy/MM/dd HH:mm:ss.fff");
+                    elements.infodetaildata.ws.freq_hr.textContent = global_data.detail.freq.hour_freq.toFixed(2)+" req/hr.";
+                    elements.infodetaildata.ws.cnt_hr.textContent = global_data.detail.freq.hour_count+" requests";
+                    elements.infodetaildata.ws.cnt_today.textContent = global_data.detail.freq.today_count+" requests";
+                    elements.infodetaildata.ws.cnt_all.textContent = global_data.detail.freq.total_count+" requests";
+                    elements.infodetaildata.ws.total_bytes.textContent = BigInt(data.totalBytes ?? 0).toLocaleString("en-US") + " B";
+                  }
+                  break;
+              }
+            }
+          }
+          break;
+        case "network_key_info":
+          data = JSON.parse(rootdata.body);
+          if (data.type === "HTTP"){
+            elements.infodetaildata.http.start_time.textContent = formatDate(new Date(data.detail.time.start*1000), "yyyy/MM/dd HH:mm:ss.fff");
+            elements.infodetaildata.http.end_time.textContent = formatDate(new Date(data.detail.time.end*1000), "yyyy/MM/dd HH:mm:ss.fff");
+            elements.infodetaildata.http.freq_hr.textContent = data.detail.freq.hour_freq.toFixed(2)+" req/hr.";
+            elements.infodetaildata.http.cnt_hr.textContent = data.detail.freq.hour_count+" requests";
+            elements.infodetaildata.http.cnt_today.textContent = data.detail.freq.today_count+" requests";
+            elements.infodetaildata.http.cnt_all.textContent = data.detail.freq.total_count+" requests";
+            elements.infodetaildata.http.total_bytes.textContent = BigInt(data.detail.bytes).toLocaleString("en-US")+" B";
+            if (canvas_chart.http.chart_10min) canvas_chart.http.chart_10min.destroy(), canvas_chart.http.chart_10min = null;
+            if (canvas_chart.ws.chart_10min) canvas_chart.ws.chart_10min.destroy(), canvas_chart.ws.chart_10min = null;
+            canvas_chart.http.chart_10min = new Chart(canvas_chart.http.ctx_10min, {
+              type: "line",
+              data: {
+                labels: data.detail.freq.graph_10min.label,
+                datasets: [{
+                  fill: "origin",
+                  label: "req/10min",
+                  data: data.detail.freq.graph_10min.data,
+                  backgroundColor: "#57d700aa",
+                  lineTension: 0,
+                  pointRadius: 0,
+                  pointHitRadius: 0
+                }]
+              },
+              options: {
+                responsive: false,
+                maintainAspectRatio: true,
+                scales: { y: { suggestedMin: 0 } }
+              }
+            });
+            global_data.detail = data.detail;
+          } else if (data.type === "WebSocket") {
+            elements.infodetaildata.ws.status.textContent = ({ "opening": "接続済", "closed": "接続断", "connecting": "接続中" })[data.detail.status] ?? "不明";
+            elements.infodetaildata.ws.status.classList[data.detail.status === "closed" ? "add" : "remove"]("ws-status-disconnect");
+            elements.infodetaildata.ws.status.classList[data.detail.status === "connecting" ? "add" : "remove"]("ws-status-connecting");
+            elements.infodetaildata.ws.status.classList[data.detail.status === "opening" ? "add" : "remove"]("ws-status-opening");
+            elements.infodetaildata.ws.open_time.textContent = formatDate(new Date(data.summary.timestamp_start), "yyyy/MM/dd HH:mm:ss.fff");
+            elements.infodetaildata.ws.receive_time.textContent = formatDate(new Date(data.summary.timestamp_receive), "yyyy/MM/dd HH:mm:ss.fff");
+            elements.infodetaildata.ws.freq_hr.textContent = data.detail.freq.hour_freq ? data.detail.freq.hour_freq.toFixed(2)+" req/hr." : "";
+            elements.infodetaildata.ws.cnt_hr.textContent = data.detail.freq.hour_count+" requests";
+            elements.infodetaildata.ws.cnt_today.textContent = data.detail.freq.today_count+" requests";
+            elements.infodetaildata.ws.cnt_all.textContent = data.detail.freq.total_count+" requests";
+            elements.infodetaildata.ws.total_bytes.textContent = BigInt(data.detail.bytes).toLocaleString("en-US")+" B";
+            if (canvas_chart.http.chart_10min) canvas_chart.http.chart_10min.destroy(), canvas_chart.http.chart_10min = null;
+            if (canvas_chart.ws.chart_10min) canvas_chart.ws.chart_10min.destroy(), canvas_chart.ws.chart_10min = null;
+            canvas_chart.ws.chart_10min = new Chart(canvas_chart.ws.ctx_10min, {
+              type: "line",
+              data: {
+                labels: data.detail.freq.graph_10min.label,
+                datasets: [{
+                  fill: "origin",
+                  label: "req/10min",
+                  data: data.detail.freq.graph_10min.data,
+                  backgroundColor: "#57d700aa",
+                  lineTension: 0,
+                  pointRadius: 0,
+                  pointHitRadius: 0
+                }]
+              },
+              options: { responsive: false, maintainAspectRatio: true, scales: { y: { suggestedMin: 0 } } }
+            });
+            global_data.detail = data.detail;
+          }
+          break;
+        default:
+          console.log("Unknown WebSocket Type Code: " + rootdata.type);
+          break;
+      }
+    };
+    const socketevent_open = () => {
+      wsocket.send(`{"type": "network_activity_list"}`);
+    };
+    const socketevent_close = () => {
+      console.log("Connection Lost");
+      setTimeout(() => {
+        wsocket = new WebSocket("ws://localhost:"+socket_port);
+        wsocket.addEventListener("message", socketevent_load);
+        wsocket.addEventListener("open", socketevent_open);
+        wsocket.addEventListener("close", socketevent_close);
+      }, 500);
+    };
+
+    var wsocket;
+    var socket_port = null;
+    ContentBridge.getSocketPort().then(async port => {
+      socket_port = port;
+      wsocket = new WebSocket("ws://localhost:"+socket_port);
+      wsocket.addEventListener("message", socketevent_load);
+      wsocket.addEventListener("open", socketevent_open);
+      wsocket.addEventListener("close", socketevent_close);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+body {
+  font-size: 16px;
+  margin: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+.canvas-container {
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+}
+canvas {
+  cursor: move !important;
+  width: 1080px;
+  height: 128px;
+}
+canvas#sub1 {
+  border-left: 4px solid rgb(175 224 240 / 67%);
+  width: 128px;
+  height: 128px;
+}

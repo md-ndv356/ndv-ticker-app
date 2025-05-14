@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Error Detected - Natural Disaster Viewer</title>
+    <style>
+      :root {
+        --top-bg-color: #ffe1e1;
+        --top-border-color: #333;
+        --body-bg-color: #fff1f1;
+        --body-txt-color: #333;
+        --foot-bg-color: #ee00004a;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --top-bg-color: #252525;
+          --top-border-color: #aaa;
+          --foot-bg-color: #333333d8;
+        }
+        a {
+          color: #9696ff;
+        }
+        body {
+          --body-bg-color: #424242;
+          --body-txt-color: #ddd;
+        }
+      }
+      body {
+        background-color: var(--body-bg-color);
+        color: var(--body-txt-color);
+      }
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 105px;
+        border-bottom: double 2px var(--top-border-color);
+        background-color: var(--top-bg-color);
+      }
+      header h1 {
+        text-align: center;
+        margin: 15px 6px;
+        font-size: 30px;
+      }
+      header p {
+        text-align: center;
+        margin: 5px 6px;
+        font-size: 16px;
+      }
+      main {
+        overflow-y: scroll;
+        margin-top: 107px;
+        margin-bottom: 35px;
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 27px;
+        padding: 4px 12px;
+        background: var(--foot-bg-color);
+      }
+      footer button {
+        font-size: 14px;
+        height: 27px;
+      }
+      /* ul.error-sections-whole {} */
+      li.error-section {
+        list-style-type: circle;
+        position: relative;
+        white-space: pre-wrap;
+      }
+      li.error-section h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+        padding-top: 3px;
+      }
+      li.error-section p {
+        margin: 0;
+        margin-left: 12px;
+        font-size: 16px;
+        font-weight: 300;
+        white-space: pre-wrap;
+      }
+      li.error-section h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      /* li.error-section p::before {
+        display: block;
+        position: absolute;
+        top: 20px;
+        left: 5px;
+        height: 16px;
+        padding-right: 4px;
+        color: #b51717;
+        font-size: 10px;
+        line-height: 10px;
+        vertical-align: middle;
+        content: "+";
+      } */
+    </style>
+  </head>
+  <body>
+    <main><ul class="error-sections-whole"></ul></main>
+    <header>
+      <h1>エラーが発生しました</h1>
+      <p id="contactLink">この画面を閉じずに、<a id="link" href="https://twitter.com/Zisin_YT_LiVe">開発者</a>にご連絡ください！ タメ語でも大丈夫です。タメ語で返します。</p>
+    </header>
+    <footer>
+      <button type="button" id="button-close">閉じる</button>
+      <button type="button" id="button-export">出力</button>
+    </footer>
+    <script>
+
+      document.getElementById("link").addEventListener("click", event => {
+        event.preventDefault();
+        ContentBridge.openInDefaultBrowser(event.target.href);
+      });
+
+      const ErrorDetails = {
+        "Exception": {
+          "ja_JP": "ウィンドウ内で例外が発生しました。",
+          "en_US": "I'm sorry, but an uncaught exception occurred.",
+          "showContact": true
+        },
+        "UnhandledRejection": {
+          "ja_JP": "ウィンドウ内の非同期処理の制御に失敗しました。",
+          "en_US": "I'm sorry, but an unhandled promise rejection occurred.",
+          "showContact": true
+        },
+        "Main_Warning": {
+          "ja_JP": "メインプロセスで警告が発生しました。このまま続けると、致命的なエラーが発生する可能性があります。",
+          "en_US": "A warning occurred in the main process. This may cause a fatal error.",
+          "showContact": true
+        },
+        "Main_uncaughtException": {
+          "ja_JP": "メインプロセスで例外が発生しました。このまま続けると、致命的なエラーが発生する可能性があります。",
+          "en_US": "An uncaught exception occurred in the main process. This may cause a fatal error.",
+          "showContact": true
+        },
+        "connection_error": {
+          "ja_JP": "サーバーとの接続に失敗しました。",
+          "en_US": "Failed to connect to server.",
+          "showContact": false
+        }
+      };
+
+      const appendItem = function(title, text){
+        const whole = document.getElementsByClassName("error-sections-whole")[0];
+        const list_item = document.createElement("li");
+        const h2 = document.createElement("h2");
+        const p = document.createElement("p");
+        list_item.classList.add("error-section");
+        if(title) h2.textContent = title;
+        if(text) p.innerText = text;
+        list_item.appendChild(h2);
+        list_item.appendChild(p);
+        whole.appendChild(list_item);
+        return [whole, list_item, h2, p];
+      };
+      ContentBridge.getErrorInfo(ContentBridge.getErrorID()).then(error_obj => {
+        const time = new Date(error_obj.time * 1000);
+        const detail = ErrorDetails[error_obj.type] || {
+          "ja_JP": "不明なエラー",
+          "en_US": "Unknown error",
+          "showContact": true
+        };
+        {
+          const detailElement = appendItem("Detail")[3];
+          const japanese = document.createElement("p");
+          const english = document.createElement("p");
+          japanese.textContent = detail.ja_JP;
+          english.textContent = detail.en_US;
+          japanese.style.fontSize = "18px";
+          english.style.fontSize = "14px";
+          detailElement.appendChild(japanese);
+          detailElement.appendChild(english);
+        }
+        document.getElementById("contactLink").style.visibility = ErrorDetails[error_obj.type].showContact ? "visible" : "hidden";
+        appendItem("Target", error_obj.from);
+        appendItem("Timestamp", error_obj.time+" ("+time.toISOString()+")");
+        appendItem("Exception Type", error_obj.type);
+        let data;
+        switch (error_obj.type) {
+          case "Exception":
+            data = appendItem("Exception Data")[3];
+            [
+              ["Message", error_obj.data.message],
+              ["Position", "line "+error_obj.data.line+" : column "+error_obj.data.column],
+              ["Stacktrace", error_obj.data.stacktrace]
+            ].forEach(item => {
+              const h3 = document.createElement("h3");
+              const p = document.createElement("p");
+              h3.textContent = item[0];
+              p.innerText = item[1];
+              data.appendChild(h3);
+              data.appendChild(p);
+            });
+            break;
+          case "UnhandledRejection":
+            data = appendItem("Exception Data")[3];
+            [
+              ["Message", error_obj.data.reason.message],
+              ["Stacktrace", error_obj.data.reason.stack]
+            ].forEach(item => {
+              const h3 = document.createElement("h3");
+              const p = document.createElement("p");
+              h3.textContent = item[0];
+              p.innerText = item[1];
+              data.appendChild(h3);
+              data.appendChild(p);
+            });
+            break;
+          case "Main_Warning":
+            data = appendItem("Exception Data")[3];
+            [
+              ["Error Type", error_obj.data.type],
+              ["Stacktrace", error_obj.data.stack]
+            ].forEach(item => {
+              const h3 = document.createElement("h3");
+              const p = document.createElement("p");
+              h3.textContent = item[0];
+              p.innerText = item[1];
+              data.appendChild(h3);
+              data.appendChild(p);
+            });
+            break;
+          case "Main_Warning":
+          case "Main_uncaughtException":
+            data = appendItem("Exception Data")[3];
+            [
+              ["Error Type", error_obj.data.type],
+              ["Stacktrace", error_obj.data.stack]
+            ].forEach(item => {
+              const h3 = document.createElement("h3");
+              const p = document.createElement("p");
+              h3.textContent = item[0];
+              p.innerText = item[1];
+              data.appendChild(h3);
+              data.appendChild(p);
+            });
+            break;
+          case "connection_error":
+            data = appendItem("Exception Data")[3];
+            [
+              ["Error Event Type", error_obj.data.type],
+              ["Error Message", error_obj.data.error.message],
+              ["Error Code", error_obj.data.error.code],
+              ["Connection Key", error_obj.data.httpkey]
+            ].forEach(item => {
+              const h3 = document.createElement("h3");
+              const p = document.createElement("p");
+              h3.textContent = item[0];
+              p.innerText = item[1];
+              data.appendChild(h3);
+              data.appendChild(p);
+            });
+            break;
+          default:
+            break;
+        }
+        appendItem("App Version Info", error_obj.version.name);
+        appendItem("OS Version Info", error_obj.osVersion);
+
+        document.getElementById("button-export").addEventListener("click", function (){
+          const a = document.createElement("a");
+          a.download = "ndverror_"+(time.toISOString()+"").replaceAll("-", "").replaceAll(":", "").replace("T", ".")+".json";
+          a.href = URL.createObjectURL(new Blob([JSON.stringify(error_obj)], { type: "application/json" }));
+          a.click();
+          URL.revokeObjectURL(a.href);
+          a.remove();
+        });
+      });
+
+      const close = document.getElementById("button-close");
+      close.addEventListener("click", ()=>{
+        window.close();
+      });
+    </script>
+  </body>
+</html>

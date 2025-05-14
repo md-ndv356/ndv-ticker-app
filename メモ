@@ -1,0 +1,17 @@
+ipcRenderer
+
+contextBridge.exposeInMainWorld
+  window.cBrigde に登録
+
+window.cBrigdeからイベントを登録
+  webContents.changeTimezone に登録
+
+webContents.changeTimezone から動作
+
+
+
+ipcMain
+
+ipcMain.handleからsaveStatusを登録
+
+ipcRenderer.invokeから送信
