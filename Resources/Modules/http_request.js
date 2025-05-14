@@ -58,13 +58,13 @@ const http_request_object = {
 
   send: function (key){
     return new Promise((resolve, reject) => {
-      let request = http_requests[key];
+      const request = http_requests[key];
       if (!request) return;
-      let url = request.url.href + (request.options.cache_invalid ? Date.now()+"" : "");
-      let cancelSource = request.cancelSource = CancelToken.source();
+      const url = request.url.href + (request.options.cache_invalid ? Date.now()+"" : "");
+      const cancelSource = request.cancelSource = CancelToken.source();
 
       if (request.options.method === "GET"){
-        let timestamp_start = Date.now();
+        const timestamp_start = Date.now();
         request.timestamp_start.push(timestamp_start);
         localWebsocketHandler.send("http_network_event", JSON.stringify({
           type: "send_start", key: key,
@@ -75,7 +75,7 @@ const http_request_object = {
           totalBytes: request.receivedBytes
         }));
         axios.get(url, { cancelToken: cancelSource.token }).then(response => {
-          let timestamp_end = Date.now();
+          const timestamp_end = Date.now();
           request.timestamp_end.push(timestamp_end);
           request.receivedBytes += BigInt(response.data.length);
           localWebsocketHandler.send("http_network_event", JSON.stringify({
@@ -86,7 +86,7 @@ const http_request_object = {
             count: request.timestamp_start.length,
             totalBytes: request.receivedBytes
           }));
-          if(request.options.responseType.includes(["text", "json", "xml"])) response.data = iconv.decode(response.data, response.headers["content-type"].match(/charset=([a-zA-Z\-_0-9]+)/)?.[1] ?? "utf-8");
+          if (request.options.responseType.includes(["text", "json", "xml"])) response.data = iconv.decode(response.data, response.headers["content-type"].match(/charset=([a-zA-Z\-_0-9]+)/)?.[1] ?? "utf-8");
           switch (request.options.responseType) {
             case "json":
               response.data = JSON.parse(response.data);

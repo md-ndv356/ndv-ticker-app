@@ -31,7 +31,7 @@ declare const http_request_object: {
    */
   create (key: string, url: string, options: {
     responseType: 'text' | 'json' | 'arraybuffer';
-    method?: string;
+    method?: "HEAD" | "GET" | "POST" | "PUT" | "OPTIONS";
     cache_invalid?: boolean;
     postData?: postDataType;
     calledName?: string;
