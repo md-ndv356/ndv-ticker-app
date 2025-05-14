@@ -1,16 +1,3 @@
-/// <reference path="./Error-reporter.js" />
-/// <reference path="./WebGL/Initialize.js" />
-/// <reference path="./Init-Canvas.js" />
-/// <reference path="./Init-Assets.js" />
-/// <reference path="./settings_epicenter.js" />
-/// <reference path="./settings_SubdivisionArea.js" />
-/// <reference path="../common/library/jquery-3.6.0.min.js" />
-/// <reference path="../common/library/jquery-ui.min.js" />
-/// <reference path="../common/library/jquery.funcResizeBox.js" />
-/// <reference path="./japan.geojson.js" />
-/// <reference path="../common/library/variable-animation-20220504.js" />
-/// <reference path="./font-loading.js" />
-
 // Release Note: アプデ前にアーカイブを取ること (2021-07-29から)
 // Release Note: 必ずバージョンを更新すること
 // Release Note: Update the Created Date!

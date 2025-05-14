@@ -4,6 +4,6 @@ type windowOptions = {
 };
 
 export namespace WindowHandler {
-  function open(name: windowType, options: windowOptions): void;
+  function open(name: windowType, options?: windowOptions): void;
   function setClosable(name: windowType, value: boolean)
 }

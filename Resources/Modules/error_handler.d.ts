@@ -1,11 +1,43 @@
-declare namespace AppErrorHandler {
-  namespace set {
-    function main_warning(warning: ErrorEvent): string;
-    function main_uncaughtException(err: ErrorEvent): string;
-    function connection_error(err: object): string;
-    function window(msg: object): string;
+declare module "error_handler" {
+  interface ErrorData {
+    type: string;
+    from: string;
+    data: any;
+    time: number;
+    osVersion: string;
   }
-  function get(): object;
-}
 
-export = AppErrorHandler;
+  interface ErrorHandlerSet {
+    main_warning(warning: Error): string;
+    main_uncaughtException(err: Error): string;
+    connection_error(err: {
+      error: {
+        toJSON(): {
+          message: string;
+          name: string;
+          code: string;
+          status: number;
+          config: {
+            method: string;
+            url: string;
+          };
+        };
+      };
+      key: string;
+      timestamp: number;
+    }): string;
+    window(msg: {
+      type: string;
+      from: string;
+      data: any;
+    }): string | undefined;
+  }
+
+  interface ErrorHandler {
+    set: ErrorHandlerSet;
+    get(id: string): ErrorData | undefined;
+  }
+
+  const ErrorHandler: ErrorHandler;
+  export = ErrorHandler;
+}

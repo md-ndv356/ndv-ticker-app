@@ -4,7 +4,7 @@ const path = require('path');
 // const axios = require("axios");
 // const fs = require("fs");
 // エラー処理
-const ErrorHandler = require(path.join(__dirname, "./Resources/Modules/error_handler"));
+const ErrorHandler = require("./Resources/Modules/error_handler");
 process.on('warning', (warning) => {
   console.log("catch: warning");
   console.log(warning);
@@ -20,13 +20,13 @@ process.on('unhandledRejection', (reason, pr) => {
   console.log(reason.name + ": " + reason.message);
   console.log(pr.toString());
 });
-// const fileSystem = require(path.join(__dirname, "./Resources/Modules/Preferences-FileSystem"));
-const configReader = require(path.join(__dirname, "./Resources/Modules/config_reader"));
-const AppInitialConfig = require(path.join(__dirname, "./Resources/Modules/application_config"));
-const MenubarHandler = require(path.join(__dirname, "./Resources/Modules/menubar_handler"));
-const WindowHandler = require(path.join(__dirname, "./Resources/Modules/window_handler"));
-const InformationMaster = require(path.join(__dirname, "./Resources/Class/Information_Master"));
-const ntpHandler = require(path.join(__dirname, "./Resources/Modules/ntp_handler"));
+// const fileSystem = require("./Resources/Modules/Preferences-FileSystem");
+const configReader = require("./Resources/Modules/config_reader");
+const AppInitialConfig = require("./Resources/Modules/application_config");
+const MenubarHandler = require("./Resources/Modules/menubar_handler");
+const WindowHandler = require("./Resources/Modules/window_handler");
+const InformationMaster = require("./Resources/Class/Information_Master");
+const ntpHandler = require("./Resources/Modules/ntp_handler");
 const isMac = (process.platform === 'darwin');
 
 InformationMaster.mscale.interval = 25000;
@@ -155,7 +155,7 @@ app.on("ready", async function(){
   DataTables.configData = configData;
 
   // handle: アップデート確認
-  const updateChecker = new (require(path.join(__dirname, "./Resources/window/Modules/UpdateChecker")))(DataTables.configData?.appInfo?.versionCheckAPI || "https://md-ndv356.github.io/ndv-tickers/version-list.json?", DataTables.app.current.code);
+  const updateChecker = new (require("./Resources/window/Modules/UpdateChecker"))(DataTables.configData?.appInfo?.versionCheckAPI || "https://md-ndv356.github.io/ndv-tickers/version-list.json?", DataTables.app.current.code);
   const doCheckUpdate = () => new Promise((resolve, reject) => {
     updateChecker.check().then(data => {
       resolve(data.isExist);

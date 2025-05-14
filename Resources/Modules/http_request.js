@@ -244,3 +244,5 @@ ipcMain.handle("HttpRequest/getStateFromKey", (sender, key) => {
 localWebsocketHandler.regist_event("get_httplist", http_request_object.get_httplist);
 
 module.exports = http_request_object;
+
+
