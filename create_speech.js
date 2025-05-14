@@ -760,7 +760,7 @@ const SpeakerData = {
     // fs.writeFileSync("../md-ndv356.github.io/ndv-tickers/synthesized-speech/speaker"+speakerId+"/quake/magnitude/"+(i+"").padStart(2, "0")+".wav", content.data);
     fs.writeFileSync("../md-ndv356.github.io/ndv-tickers/synthesized-speech/speaker"+speakerId+"/warning/preference/"+id+".wav", content.data);
     console.log(id);
-    // return;
+    //  return;
   }
 })();
 
