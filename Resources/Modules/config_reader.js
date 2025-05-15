@@ -2,7 +2,7 @@
 
 // const {app} = require("electron");
 const { ipcMain } = require("electron");
-const prefFS = require("./Preferences-FileSystem");
+const appdataHandler = require("./appdata_handler");
 const appStatus = (require("./application_config")).get();
 const configInitData = {
   appInfo: {
@@ -71,7 +71,9 @@ const configInitData = {
             winds: "m/s",
             temp: "centi"
           }
-        }
+        },
+        viewTsunamiType: 1,
+        viewLittleTsunami: true
       },
       news: {
         title: "aaaaああああ｜｜",
@@ -98,7 +100,6 @@ const configInitData = {
         ticker: 0,
         clock: 0
       },
-      viewTsunami: true,
       particallyReadingAme: true
     }
   }
@@ -108,20 +109,25 @@ let configCache = null;
 const moduleExports = {
   read: async () => {
     if (configCache) return configCache;
-    if (await prefFS.exists("./config.json")){
-      configCache = await prefFS.read("./config.json", "json", "utf-8");
+    if (await appdataHandler.exists("./config.json")){
+      try {
+        configCache = await appdataHandler.read("./config.json", "json", "utf-8");
+      } catch (e) {
+        // e.showErrorWindow = true;
+        throw e;
+      }
     } else {
-      await prefFS.save("./config.json", JSON.stringify(configInitData));
+      await appdataHandler.save("./config.json", JSON.stringify(configInitData));
       configCache = configInitData;
     }
     return configCache;
   },
   reset: async () => {
-    await prefFS.save("./config.json", JSON.stringify(configInitData));
+    await appdataHandler.save("./config.json", JSON.stringify(configInitData));
     return configInitData;
   },
   save: async (data) => {
-    await prefFS.save("./config.json", JSON.stringify(data));
+    await appdataHandler.save("./config.json", JSON.stringify(data));
     configCache = data;
     return 0;
   }

@@ -11,18 +11,7 @@ declare module "error_handler" {
     main_warning(warning: Error): string;
     main_uncaughtException(err: Error): string;
     connection_error(err: {
-      error: {
-        toJSON(): {
-          message: string;
-          name: string;
-          code: string;
-          status: number;
-          config: {
-            method: string;
-            url: string;
-          };
-        };
-      };
+      error: Error;
       key: string;
       timestamp: number;
     }): string;

@@ -26,7 +26,7 @@ module.exports = {
    * @return {Promise}
    */
   read: (filePath, format = "text", charset = "utf-8") => {
-    let targetPath = path.join(basePath, filePath);
+    const targetPath = path.join(basePath, filePath);
     return new Promise((resolve, reject) => {
       fs.readFile(targetPath, {encoding: charset}, (err, data) => {
         if (err) reject(err);

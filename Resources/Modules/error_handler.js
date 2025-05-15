@@ -62,6 +62,10 @@ const ErrorHandler = {
       const stack = err.stack.replaceAll(path_app, "<path_app>").replaceAll(path_userData, "<path_userData>");
       return addEvent("Main_uncaughtException", "Main Process", { type: err.name, stack });
     },
+    main_unhandledRejection: function (err){
+      const stack = err.stack.replaceAll(path_app, "<path_app>").replaceAll(path_userData, "<path_userData>");
+      return addEvent("Main_unhandledRejection", "Main Process", { type: err.name, stack });
+    },
     connection_error: function (err){
       console.log(err.error.constructor.name);
       let errordata = err.error.toJSON();

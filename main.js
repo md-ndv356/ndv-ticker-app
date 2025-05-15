@@ -19,6 +19,7 @@ process.on('unhandledRejection', (reason, pr) => {
   console.log("catch: \x1b[33munhandledRejection\x1b[39m");
   console.log(reason.name + ": " + reason.message);
   console.log(pr.toString());
+  if (reason.constructor.name !== "AxiosError") ErrorHandler.set.main_unhandledRejection(reason);
 });
 // const fileSystem = require("./Resources/Modules/Preferences-FileSystem");
 const configReader = require("./Resources/Modules/config_reader");
@@ -27,10 +28,13 @@ const MenubarHandler = require("./Resources/Modules/menubar_handler");
 const WindowHandler = require("./Resources/Modules/window_handler");
 const InformationMaster = require("./Resources/Class/Information_Master");
 const ntpHandler = require("./Resources/Modules/ntp_handler");
+const localWebSocketHandler = require("./Resources/Modules/local_websocket_handler");
 const isMac = (process.platform === 'darwin');
 
 InformationMaster.mscale.interval = 25000;
 InformationMaster.eew.interval_kmoni_yahoo_eew = 1500;
+
+localWebSocketHandler.server_start();
 
 // setTimeout(function(){ informationReceiver.load_eew(); }, 1000);
 

@@ -3,8 +3,8 @@ type CreditsData = {
   license: string;
 };
 
-declare module AppInitialConfig {
-  function get(): {
+declare interface AppInitialConfig {
+  get(): {
     current: string;
     lastModified: string;
     history: string[];

@@ -143,6 +143,11 @@
           "en_US": "An uncaught exception occurred in the main process. This may cause a fatal error.",
           "showContact": true
         },
+        "Main_unhandledRejection": {
+          "ja_JP": "メインプロセスで非同期処理の制御に失敗しました。このまま続けると、致命的なエラーが発生する可能性があります。",
+          "en_US": "An uncaught exception occurred in the main process. This may cause a fatal error.",
+          "showContact": true
+        },
         "connection_error": {
           "ja_JP": "サーバーとの接続に失敗しました。",
           "en_US": "Failed to connect to server.",
@@ -232,6 +237,7 @@
             break;
           case "Main_Warning":
           case "Main_uncaughtException":
+          case "Main_unhandledRejection":
             data = appendItem("Exception Data")[3];
             [
               ["Error Type", error_obj.data.type],
