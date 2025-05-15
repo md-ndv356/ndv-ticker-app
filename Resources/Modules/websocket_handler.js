@@ -1,8 +1,9 @@
 /** WebSocket通信管理 */
 
-const WebSocket = require("ws");
 const { ipcMain } = require("electron");
-const localWebsocketHandler = require("./local_websocket_handler");
+const WebSocket = require("ws");
+const { EventEmitter } = require("events");
+const eventEmitter = new EventEmitter();
 
 // https://zukucode.com/2017/04/javascript-date-format.html
 function formatDate (date, format) {
@@ -52,12 +53,12 @@ const requestEvent = {
     request.logs.timestamp.start = Date.now();
     request.status = "opening";
     request.events.open();
-    localWebsocketHandler.send("websocket_network_event", JSON.stringify({
+    eventEmitter.emit("WebSocketNetworkUpdate", {
       type: "open", key: key,
       name: request.options.handlename || key,
       hidden: request.options.hiddenRequest || false,
       timestamp: request.logs.timestamp.start
-    }));
+    });
     if(request.events.ping) request.logs.intervalId = setInterval((key, pingDataCreator) => {
       exportObject.send(key, pingDataCreator());
     }, 60000, key, request.events.ping);
@@ -67,12 +68,12 @@ const requestEvent = {
     const request = websocket_list[key];
     request.status = "closed";
     request.events.close(code, reason);
-    localWebsocketHandler.send("websocket_network_event", JSON.stringify({
+    eventEmitter.emit("WebSocketNetworkUpdate", {
       type: "closed", key: key,
       name: request.options.handlename || key,
       hidden: request.options.hiddenRequest || false,
       timestamp: Date.now()
-    }));
+    });
     clearInterval(request.logs.intervalId);
   },
   error: function (errorobj){
@@ -92,17 +93,18 @@ const requestEvent = {
     request.logs.timestamp.receive.push(timestamp);
     request.logs.timestamp.totalReceive += BigInt(timestamp - request.logs.timestamp.start);
     request.logs.receivedBytes += BigInt(data.length);
-    localWebsocketHandler.send("websocket_network_event", JSON.stringify({
+    eventEmitter.emit("WebSocketNetworkUpdate", {
       type: "message_receive", key: key,
       name: request.options.handlename || key,
       hidden: request.options.hiddenRequest || false,
       timestamp: timestamp,
       count: request.count,
       totalBytes: request.logs.receivedBytes.toString()
-    }));
+    });
     request.events.message(data, isBinary);
   }
 };
+
 const exportObject = {
   create: function (key, url, events, options = {}){
     if (!key) throw new Error('Argument "key" is required.'); else key = key + "";
@@ -136,7 +138,7 @@ const exportObject = {
     let ws = request.ws = new WebSocket(request.url);
     request.status = "connecting";
     ws.keyname = key;
-    localWebsocketHandler.send("websocket_network_event", JSON.stringify({
+    eventEmitter.emit("WebSocketNetworkUpdate", JSON.stringify({
       type: "connect", key: key,
       name: request.options.handlename || key,
       hidden: request.options.hiddenRequest || false,
@@ -168,7 +170,7 @@ const exportObject = {
   },
   set_customdata: function (key, data){
     if (!key) throw new Error('Argument "key" is required.'); else key = key + "";
-    let request = websocket_list[key];
+    const request = websocket_list[key];
     if (!request) return;
     request.logs.customData = data;
   },
@@ -177,16 +179,16 @@ const exportObject = {
     const request = websocket_list[key];
     // const request = websocket_list["_declare"]; // debug
     if (!request) return;
-    let tm = new Date();
-    let tmst_1hour = tm - 3600000;
-    tm.setHours(0);
-    tm.setMinutes(0);
-    tm.setSeconds(0);
-    let tmst_today = tm.setMilliseconds(0);
-    let hour_array = request.logs.timestamp.receive.filter(time => time >= tmst_1hour);
-    let today_array = request.logs.timestamp.receive.filter(time => time >= tmst_today);
-    let period_ms = request.logs.timestamp.receive.at(-1) - request.logs.timestamp.receive.at(0);
-    let graph_10min = { label: [], data: [] };
+    const currentDate = new Date();
+    const date1hourBack = currentDate - 3600000;
+    currentDate.setHours(0);
+    currentDate.setMinutes(0);
+    currentDate.setSeconds(0);
+    const todayTimestamp = currentDate.setMilliseconds(0);
+    const today_array = request.logs.timestamp.receive.filter(time => time >= todayTimestamp);
+    const hour_array = today_array.filter(time => time >= date1hourBack);
+    const period_ms = request.logs.timestamp.receive.at(-1) - request.logs.timestamp.receive.at(0);
+    const graph_10min = { label: [], data: [] };
     {
       let temp0 = request.logs.timestamp.receive.at(-1);
       let temp1 = new Date(request.logs.timestamp.receive[0]);
@@ -246,19 +248,24 @@ const exportObject = {
         status: request.status
       };
     }
+  },
+
+  on: function (event, callback){
+    if (typeof event !== "string") throw new Error('The argument "event" must be string.');
+    if (typeof callback !== "function") throw new Error('The argument "callback" must be function.');
+    eventEmitter.on(event, callback);
   }
 };
 
 // setTimeout(function (){ exportObject.close("p2pquake"); }, 17000);
 // setTimeout(function (){ exportObject.send("p2pquake", `{"type":"ping"}`); }, 26000);
 
-ipcMain.handle("WebSocketRequest/getStatusFromKey", (sender, key) => {
+ipcMain.handle("WebSocketRequest.getStatusFromKey", (sender, key) => {
   if(Object.hasOwn(websocket_list, key)){
     return exportObject.get_detail(key);
   } else {
     return { error: "Not Found" };
   }
 });
-localWebsocketHandler.regist_event("get_websocketlist", exportObject.get_socketlist);
 
 module.exports = exportObject;

@@ -3,8 +3,9 @@
 const { ipcMain } = require("electron");
 const { request } = require("express");
 const iconv = require("iconv-lite");
-const localWebsocketHandler = require("./local_websocket_handler");
+const { EventEmitter } = require("events");
 
+const eventEmitter = new EventEmitter();
 const axios = require("axios").default;
 const CancelToken = axios.CancelToken;
 axios.defaults.responseType = "arraybuffer";
@@ -44,7 +45,7 @@ const http_request_object = {
 
     let request = http_requests[key] = { options, url: new URL(url), timestamp_start: [], timestamp_end: [], receivedBytes: 0n };
 
-    localWebsocketHandler.send("http_network_event", JSON.stringify({
+    eventEmitter.emit("HTTPNetworkUpdate", {
       type: "create",
       key: key,
       name: request.options.handlename || key,
@@ -53,7 +54,7 @@ const http_request_object = {
       timestamp_end: request.timestamp_end.at(-1),
       url: request.options.sourceurl || request.url.origin + request.url.pathname,
       count: 0, totalBytes: 0n
-    }));
+    });
   },
 
   send: function (key){
@@ -66,26 +67,26 @@ const http_request_object = {
       if (request.options.method === "GET"){
         const timestamp_start = Date.now();
         request.timestamp_start.push(timestamp_start);
-        localWebsocketHandler.send("http_network_event", JSON.stringify({
+        eventEmitter.emit("HTTPNetworkUpdate", {
           type: "send_start", key: key,
           name: request.options.handlename || key,
           hidden: request.options.hiddenRequest || false,
           timestamp: timestamp_start,
           count: request.timestamp_start.length,
           totalBytes: request.receivedBytes
-        }));
+        });
         axios.get(url, { cancelToken: cancelSource.token }).then(response => {
           const timestamp_end = Date.now();
           request.timestamp_end.push(timestamp_end);
           request.receivedBytes += BigInt(response.data.length);
-          localWebsocketHandler.send("http_network_event", JSON.stringify({
+          eventEmitter.emit("HTTPNetworkUpdate", {
             type: "send_end", key: key,
             name: request.options.handlename || key,
             hidden: request.options.hiddenRequest || false,
             timestamp: timestamp_end,
             count: request.timestamp_start.length,
             totalBytes: request.receivedBytes
-          }));
+          });
           if (request.options.responseType.includes(["text", "json", "xml"])) response.data = iconv.decode(response.data, response.headers["content-type"].match(/charset=([a-zA-Z\-_0-9]+)/)?.[1] ?? "utf-8");
           switch (request.options.responseType) {
             case "json":
@@ -99,14 +100,14 @@ const http_request_object = {
           resolve(response);
         }).catch(error => {
           const timestamp_error = Date.now();
-          localWebsocketHandler.send("http_network_event", JSON.stringify({
+          eventEmitter.emit("HTTPNetworkUpdate", {
             type: "send_error", key: key,
             name: request.options.handlename || key,
             hidden: request.options.hiddenRequest || false,
             timestamp: timestamp_error,
             count: request.timestamp_start.length,
             totalBytes: request.receivedBytes
-          }));
+          });
           reject(error);
         });
       }
@@ -195,7 +196,6 @@ const http_request_object = {
   },
 
   get_httplist: function (...args){
-    // みかんせい
     if (args.length === 0){
       return Object.keys(http_requests).map(item => {
         return {
@@ -222,15 +222,19 @@ const http_request_object = {
     }
   },
 
+  on: function (event, callback){
+    if (typeof event !== "string") throw new Error('The argument "event" must be string.');
+    if (typeof callback !== "function") throw new Error('The argument "callback" must be function.');
+    eventEmitter.on(event, callback);
+  },
+
   _debug: function (key){
     return http_requests[key];
   }
 };
 
-ipcMain.handle("HttpRequest/getSocketPort", () => {
-  return localWebsocketHandler.get_port();
-});
-ipcMain.handle("HttpRequest/getStateFromKey", (sender, key) => {
+
+ipcMain.handle("HTTPRequest.getStateFromKey", (sender, key) => {
   if(Object.hasOwn(http_requests, key)){
     // 将来的にグラフも表示してみたいね（svir.jpで見られたあのグラフのような）
     return {
@@ -241,7 +245,6 @@ ipcMain.handle("HttpRequest/getStateFromKey", (sender, key) => {
     return { error: "Not Found" };
   }
 });
-localWebsocketHandler.regist_event("get_httplist", http_request_object.get_httplist);
 
 module.exports = http_request_object;
 

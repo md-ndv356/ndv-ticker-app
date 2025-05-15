@@ -14,6 +14,28 @@ type HTTPFrequencyData = {
   cfg_tm0: number;
 };
 
+type HTTPRequestCreateEvent = {
+  type: "create";
+  key: string;
+  name: string;
+  hidden: boolean;
+  timestamp_start: number;
+  timestamp_end: number;
+  url: string;
+  count: number;
+  totalBytes: BigInt;
+}
+
+type HTTPRequestSendEvent = {
+  type: "sned_start" | "send_end" | "send_error";
+  key: string;
+  name: string;
+  hidden: boolean;
+  timestamp: number;
+  count: number;
+  totalBytes: BigInt;
+}
+
 /**
  * HTTPリクエストを管理するオブジェクト
  */
@@ -111,6 +133,12 @@ declare const http_request_object: {
     freq: HTTPFrequencyData;
     bytes: string;
   };
+
+  /**
+   * HTTPNetworkUpdateイベントを登録します。
+   */
+  on (key: "HTTPNetworkUpdate", callback: (data: HTTPRequestCreateEvent | HTTPRequestSendEvent) => any): void;
+
   _debug (key: string): any;
 }
 
