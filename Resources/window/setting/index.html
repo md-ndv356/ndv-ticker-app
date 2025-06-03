@@ -110,8 +110,10 @@
           <button type="button" data-count="1" data-comment="緊急地震速報についての設定です" class="menu-button">緊急地震速報関連</button>
           <button type="button" data-count="2" data-comment="地震情報についての設定です" class="menu-button">地震情報関連</button>
           <button type="button" data-count="3" data-comment="気象速報についての設定です" class="menu-button">ニュース・気象速報関連</button>
-          <button type="button" data-count="4" data-comment="ソラボタンについての表示設定です" class="menu-button">ソラボタン関連</button>
-          <button type="button" data-count="5" data-comment="BGMを再生する機能についての設定です" class="menu-button">BGM再生機能</button>
+          <!-- <button type="button" data-count="4" data-comment="ソラボタンについての表示設定です" class="menu-button">ソラボタン関連</button> -->
+          <!-- <button type="button" data-count="5" data-comment="BGMを再生する機能についての設定です" class="menu-button">BGM再生機能</button> -->
+          <button type="button" data-count="4" data-comment="デバッグ用メニューです" class="menu-button">デバッグ</button>
+          <button type="button" data-count="5" data-comment="VOICEVOXを使用した読み上げ関連の設定です" class="menu-button">読み上げ関連</button>
           <button type="button" data-count="6" data-comment="上記の項目以外の詳細設定です" class="menu-button">その他の詳細設定</button>
           <button type="button" data-count="7" data-comment="Natural Disaster Viewer についての情報です" class="menu-button">About NDV</button>
         </div>
@@ -131,7 +133,22 @@
                 <div style="display: flex; font-size: 10px; font-weight: bold;"><div style="flex: 1;">0.1</div><div>20.0</div></div>
               </div>
             </div>
-            <div class="viewTsunami-container"><label for="settings.viewTsunami">津波情報を表示：</label><input type="checkbox" id="settings.viewTsunami" checked></div>
+            <table class="viewTsunami-container table-2col"><tbody>
+              <tr>
+                <td><label for="normal.viewTsunamiType">津波情報の表示</label></td>
+                <td>
+                  <select id="normal.viewTsunamiType">
+                    <option value="1">上側に常時表示</option>
+                    <option value="2">通常表示を置き換え</option>
+                    <option value="0">表示なし</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="normal.viewLittleTsunami">若干の海面変動を表示</label></td>
+                <td><input type="checkbox" id="normal.viewLittleTsunami" checked disabled></td>
+              </tr>
+            </tbody></table>
             <hidden style="display: none;">自動更新URL: <input type="text" id="NormalMes" value="default_message.json"><input type="checkbox" id="isNormalMes" value="自動更新有効/無効"></hidden>
             <div id="normalText.textList" style="z-index: 20;">
               <table class="border_init" style="width: 100%;" id="normalTextsTable"><thead><tr><th>番号</th><th>タイトル</th><th>本文 / コマンド</th></tr></thead></table>
@@ -353,13 +370,34 @@
             </div>
           </div>
           <div class="menu-tab hide" style="text-align: center;">
-            実装予定は・・・要望があったら
-            <!-- <button type="button" name="sorabtn">ソラボタン表示</button>
-            <button type="button" name="sorabtn">ソラボタンオープン</button>
-            <button type="button" name="sorabtn">ソラボタン表示終了</button><br>
-            ソラボタン 表示: <input type="checkbox" id="isSoraview" checked> -->
+            <!-- 実装予定は・・・要望があったら -->
           </div>
-          <div class="menu-tab hide">実装予定は・・・別アプリにするかも</div>
+          <div class="menu-tab hide">
+            <!-- 実装予定は・・・別アプリにするかも -->
+            <h2>読み上げ</h2>
+            <div class="speech-item">
+              <div>読み上げステータス情報</div>
+              <div id="speech.status.text">準備完了！</div>
+            </div>
+            <div class="speech-item">
+              <div>読み上げ音量</div>
+              <div>
+                <input type="range" min="0" max="1.2" value="1" step="0.01" id="speech.volume.input">
+                <span id="speech.volume.current">100%</span>
+              </div>
+            </div>
+            <div class="speech-item">
+              <div>種別設定</div>
+              <div>
+                <div class="speech-effective"><label><input type="checkbox" id="speech.checkbox.eew" checked><span>: 緊急地震速報</span></label></div>
+                <div class="speech-effective"><label><input type="checkbox" id="speech.checkbox.quake" checked><span>: 地震情報</span></label></div>
+                <div class="speech-effective"><label><input type="checkbox" id="speech.checkbox.vpoa50" checked><span>: 記録的短時間大雨情報</span></label></div>
+                <div class="speech-effective"><label><input type="checkbox" id="speech.checkbox.ground" checked><span>: 土砂災害警戒情報</span></label></div>
+                <div class="speech-effective"><label><input type="checkbox" id="speech.checkbox.specialwarn" checked><span>: 特別警報報知</span></label></div>
+              </div>
+            </div>
+            <div><button id="speech.test.start1">テスト音声を再生</button></div>
+          </div>
           <div class="menu-tab hide">
             <!-- <button type="button" id="dataSaver">保存</button><text> ←ここをクリックするか60秒毎の自動保存を待って設定を保存</text> -->
             <table class="settings-table border_init">
@@ -482,7 +520,7 @@
           </div>
           <div class="menu-tab hide" style="padding: 15px 20px;">
             <div class="program-info" style="margin: 10px 0;">Natural Disaster Viewer <span id="current-version">1.0.0</span><br>Last Modified at <span id="last-created-time"></span><br><span id="programInfo.freeComment"></span></div>
-            <div id="credits" style="background-color: #fff; border-radius: 4px; padding: 5px 12px;">
+            <div id="credits" style="color: #ddd; background-color: #555; border-radius: 4px; padding: 5px 12px;">
               <div style="font-size: 14px; font-weight: 600;">License Informations</div>
             </div>
           </div>
@@ -522,7 +560,10 @@
           ticker: document.getElementById("settings.themeColor.ticker"),
           clock: null
         },
-        viewTsunami: document.getElementById("settings.viewTsunami"),
+        normal: {
+          viewTsunamiType: document.getElementById("normal.viewTsunamiType"),
+          viewLittleTsunami: document.getElementById("normal.viewLittleTsunami")
+        },
         minint: document.getElementById("settings.minint"),
         minmag: document.getElementById("settings.minmag"),
         depmin: document.getElementById("settings.depmin"),
@@ -594,7 +635,7 @@
         programInfo_freeComment.innerText = `
 Ticker ${_applicationState.part.ticker}`;
         for (let item of res.credits){
-          creditsE.insertAdjacentHTML("beforeend", `<div style="background-color: #e0fcff; padding: 5px 12px; margin: 8px 0;">
+          creditsE.insertAdjacentHTML("beforeend", `<div style="background-color: #132628; padding: 5px 12px; margin: 8px 0;">
 <div style="font-size: 12px; font-weight: 600;">${item.name}</div>
 <div style="font-size: 9px; font-weight: 300;">${item.license.replaceAll("\n", "<br>")}</div>
 </div>`);
@@ -604,9 +645,9 @@ Ticker ${_applicationState.part.ticker}`;
         console.log(res);
         normalText_speedInput.value = normalText.speed = res.config.ticker.scrollSpeed;
         normalText_speedResult.textContent = res.config.ticker.scrollSpeed.toFixed(1);
-        settingsE.viewTsunami.checked = res.config.viewTsunami;
         for (let i=0, item=res.config.ticker.normal.text, l=item.length; i<l; i++) { normalText.append(i+1, { title: item[i].title, cmd: item[i].id, text: item[i].text }); }
-        settingsE.viewTsunami.checked = res.config.ticker.viewTsunami;
+        settingsE.normal.viewTsunamiType.value = res.config.ticker.normal.viewTsunamiType;
+        settingsE.normal.viewLittleTsunami.checked = res.config.ticker.normal.viewLittleTsunami;
         settingsE.eewminint.value = res.config.ticker.viewCond.eew.intensity;
         settingsE.eewintunknown.value = res.config.ticker.viewCond.eew.unknown;
         settingsE.eewminmag.value = (res.config.ticker.viewCond.eew.magnitude-0).toFixed(1);
@@ -773,8 +814,8 @@ Ticker ${_applicationState.part.ticker}`;
         let sideWidth = 0;
         if(width < 600){
           sideWidth = 150;
-        } else if(width > 1200){
-          sideWidth = 300;
+        } else if(width > 960){
+          sideWidth = 240;
         } else {
           sideWidth = width / 4;
         }

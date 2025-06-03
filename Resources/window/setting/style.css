@@ -97,10 +97,22 @@ table {
 }
 
 .viewTsunami-container {
+  width: -webkit-fill-available;
   margin: 4px;
-  background: linear-gradient(#0014f0b3 0%, #032088af 100%);
+  padding: 5px;
+  background: linear-gradient(#0010c0b3 0%, #031a6eaf 100%);
   text-align: center;
-  color: #fff;
+}
+.viewTsunami-container input {
+  line-height: 1.4em;
+}
+.viewTsunami-container td {
+  text-align: left;
+  padding: 2px 3px;
+}
+.viewTsunami-container td:first-child {
+  text-align: right;
+  padding-right: 25px;
 }
 
 table#normalTextsTable th, table#normalTextsTable td {
@@ -355,7 +367,7 @@ dialog::backdrop {
   position: relative;
   padding: 4px 2px;
   border-radius: 3px;
-  background-color: #666;
+  background-color: #555;
 }
 #normalText\.speedForm {
   padding: 4px 12px;
@@ -394,3 +406,17 @@ dialog::backdrop {
 #normalText\.speedInput:active + #normalText\.speedCurrentPos {
   display: block;
 } */
+
+/* 読み上げ関連 */
+.speech-item {
+  margin: 5px 15px;
+}
+.speech-item > div:nth-child(2) {
+  margin-left: 20px;
+}
+#speech\.volume\.input {
+  width: 250px;
+}
+#speech\.volume\.view {
+  margin-left: 15px;
+}
