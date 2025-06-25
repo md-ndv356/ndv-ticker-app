@@ -113,7 +113,9 @@ declare global {
 }
 
 declare namespace configReader {
+  function getValue(path: String): Promise<any>;
   function read(): Promise<AppConfig.Model>;
   function reset(): Promise<AppConfig.Model>;
+  function save(data: AppConfig.Model): 0;
 }
 export = configReader;

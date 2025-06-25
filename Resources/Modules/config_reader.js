@@ -4,21 +4,26 @@
 const { ipcMain } = require("electron");
 const appdataHandler = require("./appdata_handler");
 const appStatus = (require("./application_config")).get();
-const configInitData = {
+const defaultConfig = {
   appInfo: {
     lastVersion: appStatus.current.code,
-    versionCheckAPI: "https://md-ndv356.github.io/ndv-tickers/version-list.json?"
+    versionCheckAPI: "https://md-ndv356.github.io/ndv-tickers/version-list.json?",
+    ntpServer: "ntp.nict.jp"
   },
   window: {
-    ticker: { x: 5, y: 5, width: 0, height: 0, scale: 1, showTab: true, showFront: false },
-    settingsMenu: { x: 15, y: 15, width: 1080, height: 720, scale: 1, showTab: true, showFront: false },
-    trafficView: { x: 15, y: 15, width: 1080, height: 720, scale: 1, showTab: true, showFront: false },
-    receivedInfo: { x: 15, y: 15, width: 1080, height: 720, scale: 1, showTab: true, showFront: false }
+    ticker: { x: 5, y: 5, width: 0, height: 0, scale: 1, isFullscreen: false },
+    settingsMenu: { x: 15, y: 15, width: 1080, height: 720, scale: 1, isFullscreen: false },
+    trafficView: { x: 15, y: 15, width: 1080, height: 720, scale: 1, isFullscreen: false },
+    receivedInfo: { x: 15, y: 15, width: 1080, height: 720, scale: 1, isFullscreen: false }
   },
   /* 設定ウィンドウで設定できる項目 */
   config: {
     app: {
-      autoCopy: { eew: true, quake: false },
+      autoStart: false,
+      minimizeToTray: false,
+      language: "ja",
+      timezone: "Asia/Tokyo",
+      autoCopy: { eew: true, quake: false }, // config.app.autoCopy
       interval: {
         iedred7584EEW: 5000,
         nhkQuake: 12000,
@@ -28,7 +33,7 @@ const configInitData = {
         wniSorabtn: 30000,
         wniRiver: 300000,
         wniliveTimeTable: 240000
-      },
+      }, // config.app.interval
       volume: {
         muted: false,
         eewLow: 100,
@@ -54,17 +59,28 @@ const configInitData = {
           {volume: 100, type: "major"}, // 震度7
           {volume: 60, type: "normal"}, // 海外
         ]
+      }, // config.app.volume
+      sendEEWLogs: false, // config.app.sendEEWLogs
+      sendErrorLogs: false // config.app.sendErrorLogs
+    },
+    display: {
+      mainWindow: {
+        opacity: 1.0,
+        alwaysOnTop: false,
+        showFrame: false,
       },
-      sendEEWLogs: false,
-      sendErrorLogs: false
+      themeColor: {
+        ticker: 0,
+        clock: 0,
+      }, // config.ticker.themeColor
     },
     ticker: {
       normal: {
         text: [
-          { title: "タイトル12345", text: "これは文章！！これは文章！！これは文章！！これは文章！！これは文章！！これは文章！！", id: 0 },
-          { title: "", text: "最高気温がみられるよ〜", id: 11 },
-          { title: "作者について", text: "星のカービィやりたい...時間がない...", id: 20 },
-          { title: "お知らせ", text: "深刻な内容不足", id: 35 }
+          { title: "タイトル12345", text: "これは文章！！これは文章！！これは文章！！これは文章！！これは文章！！これは文章！！", id: 0, enabled: true },
+          { title: "", text: "最高気温がみられるよ〜", id: 11, enabled: true },
+          { title: "作者について", text: "星のカービィやりたい...時間がない...", id: 20, enabled: true },
+          { title: "お知らせ", text: "深刻な内容不足", id: 35, enabled: true }
         ],
         cmdOpt: {
           unit: {
@@ -96,17 +112,30 @@ const configInitData = {
           depth: "1000"
         }
       },
-      themeColor: {
-        ticker: 0,
-        clock: 0
-      },
       particallyReadingAme: true
     }
   }
 };
 
 let configCache = null;
-const moduleExports = {
+
+
+const thisModule = {
+  getValue: async path => {
+    if (!configCache) await thisModule.read();
+    const keys = path.split(".");
+    let value = configCache;
+    for (const key of keys) {
+      if (value && typeof value === "object" && key in value) {
+        value = value[key];
+      } else if (value && Array.isArray(value) && !isNaN(key)) {
+        value = value[key-0];
+      } else {
+        return undefined; // Key not found
+      }
+    }
+    return value;
+  },
   read: async () => {
     if (configCache) return configCache;
     if (await appdataHandler.exists("./config.json")){
@@ -117,14 +146,16 @@ const moduleExports = {
         throw e;
       }
     } else {
-      await appdataHandler.save("./config.json", JSON.stringify(configInitData));
-      configCache = configInitData;
+      await appdataHandler.save("./config.json", JSON.stringify(defaultConfig));
+      configCache = defaultConfig;
     }
+    console.log(configCache);
     return configCache;
   },
   reset: async () => {
-    await appdataHandler.save("./config.json", JSON.stringify(configInitData));
-    return configInitData;
+    await appdataHandler.save("./config.json", JSON.stringify(defaultConfig));
+    configCache = defaultConfig;
+    return defaultConfig;
   },
   save: async (data) => {
     await appdataHandler.save("./config.json", JSON.stringify(data));
@@ -132,12 +163,12 @@ const moduleExports = {
     return 0;
   }
 };
-module.exports = moduleExports;
+module.exports = thisModule;
 
-ipcMain.handle("global.config.get", () => {
-  return moduleExports.read();
+ipcMain.handle("global.config.get", (event) => {
+  return thisModule.read();
 });
-ipcMain.handle("global.config.set", data => {
-  moduleExports.save(data);
+ipcMain.handle("global.config.set", (event, data) => {
+  thisModule.save(data);
   return true;
 });

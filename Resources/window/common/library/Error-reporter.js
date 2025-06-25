@@ -33,7 +33,7 @@
       "color: #333; padding: 2px 5px; font-size: 11px;",
       "color: #333; padding: 2px 5px 2px 25px; font-size: 11px;"
     );
-    ContentBridge.send({
+    window.ContentBridge.sendError({
       from: "viewer",
       type: "Exception",
       time: Math.trunc(new Date()/1000),
@@ -55,7 +55,7 @@
       "color: #333333; padding: 0 5px 0 25px; font-size: 11px;"
     );
     console.log(event.reason.stack);
-    ContentBridge.send({
+    window.ContentBridge.sendError({
       from: "viewer",
       type: "UnhandledRejection",
       time: Math.trunc(new Date()/1000),

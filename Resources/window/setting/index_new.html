@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>設定 - Natural Disaster Viewer</title>
+  <link rel="stylesheet" href="./style_new.css">
+</head>
+<body>
+  <div class="settings-container">
+    <!-- Header -->
+    <header class="settings-header">
+      <h1>設定</h1>
+      <div class="header-actions">
+        <!-- <button class="btn btn-secondary" id="reset-btn">リセット</button> -->
+        <button class="btn btn-primary" id="save-btn">保存</button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="settings-content">
+      <!-- Sidebar -->
+      <nav class="settings-sidebar">
+        <div class="sidebar-section">
+          <h3>表示</h3>
+          <ul class="sidebar-menu">
+            <li class="menu-item active" data-section="general">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h3l-1 1v1h12v-1l-1-1h3c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H4V5h16v11z"/>
+                </svg>
+              </span>
+              <span class="menu-text">一般</span>
+            </li>
+            <li class="menu-item" data-section="display">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 10v8l7-4-7-4zm12-4h-7.58l3.29-3.29L16 2l-4 4h-.03l-4-4-.69.71L10.56 6H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 14H3V8h18v12z"/>
+                </svg>
+              </span>
+              <span class="menu-text">表示設定</span>
+            </li>
+            <li class="menu-item" data-section="ticker">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h10v-2H6V4h7V2H6zm16 16-4-4v3H9v2h9v3l4-4z"/>
+                </svg>
+              </span>
+              <span class="menu-text">ティッカー表示</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>情報表示</h3>
+          <ul class="sidebar-menu">
+            <li class="menu-item" data-section="ticker-text">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h8c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 18H7v-1h6v1zm0-3H7v-1h6v1zm0-3H7V8h6v6z"/>
+                </svg>
+              </span>
+              <span class="menu-text">通常画面</span>
+            </li>
+            <li class="menu-item" data-section="eew">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z"/>
+                </svg>
+              </span>
+              <span class="menu-text">緊急地震速報</span>
+            </li>
+            <li class="menu-item" data-section="earthquake">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+              </span>
+              <span class="menu-text">地震情報</span>
+            </li>
+            <li class="menu-item" data-section="tsunami">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9l-5.91 1.74L18 17l-6-3-6 3 1.91-6.26L2 9l6.91-.74L12 2z"/>
+                </svg>
+              </span>
+              <span class="menu-text">津波情報</span>
+            </li>
+            <li class="menu-item" data-section="weather">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+                </svg>
+              </span>
+              <span class="menu-text">気象情報</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>データソース管理</h3>
+          <ul class="sidebar-menu">
+            <li class="menu-item" data-section="intervals">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                </svg>
+              </span>
+              <span class="menu-text">取得間隔</span>
+            </li>
+            <li class="menu-item" data-section="dm-dss">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9l-5.91 1.74L18 17l-6-3-6 3 1.91-6.26L2 9l6.91-.74L12 2zm0 2.18l-2.18 4.41L5.83 9l4.17 1.22L12 17l1.83-6.78L18.17 9l-3.99-.41L12 4.18z"/>
+                </svg>
+              </span>
+              <span class="menu-text">Project DM-D.S.S</span>
+            </li>
+            <li class="menu-item" data-section="source-priority">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"/>
+                </svg>
+              </span>
+              <span class="menu-text">ソース優先順位</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>音声・通知</h3>
+          <ul class="sidebar-menu">
+            <li class="menu-item" data-section="audio">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+              </span>
+              <span class="menu-text">音声設定</span>
+            </li>
+            <li class="menu-item" data-section="speech">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+                </svg>
+              </span>
+              <span class="menu-text">読み上げ</span>
+            </li>
+            <li class="menu-item" data-section="notifications">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                </svg>
+              </span>
+              <span class="menu-text">通知</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>システム</h3>
+          <ul class="sidebar-menu">
+            <li class="menu-item" data-section="advanced">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                </svg>
+              </span>
+              <span class="menu-text">詳細設定</span>
+            </li>
+            <li class="menu-item" data-section="debug">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8z"/>
+                </svg>
+              </span>
+              <span class="menu-text">デバッグ</span>
+            </li>
+            <li class="menu-item" data-section="about">
+              <span class="menu-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+              </span>
+              <span class="menu-text">アプリについて</span>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Settings Panel -->
+      <main class="settings-panel">
+        <!-- General Settings -->
+        <section class="setting-section active" id="general-section">
+          <h2>一般設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">アプリケーション</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="app-startup">システム起動時に自動実行</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="app-startup" data-config="app.autoStart">
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">アプリケーションをシステム起動時に自動的に開始します</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="app-minimize">最小化時にタスクトレイに格納</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="app-minimize" data-config="app.minimizeToTray">
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">ウィンドウを最小化したときにタスクトレイに格納します</div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">言語・地域</label>
+            <div class="setting-item">
+              <label for="app-language">表示言語</label>
+              <select id="app-language" data-config="app.language">
+                <option value="ja">日本語</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <label for="app-timezone">タイムゾーン</label>
+              <select id="app-timezone" data-config="app.timezone">
+                <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
+                <option value="UTC">UTC</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- Data Fetch Intervals Settings -->
+        <section class="setting-section" id="intervals-section">
+          <h2>データ取得間隔</h2>
+          <div class="setting-group">
+            <label class="setting-label">緊急地震速報・地震情報</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="interval-eew">EEW取得間隔</label>
+                <div class="range-input">
+                  <input type="range" id="interval-eew" min="1000" max="10000" step="500" data-config="config.app.interval.iedred7584EEW">
+                  <span class="range-value">5000ms</span>
+                </div>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="interval-quake">地震情報取得間隔</label>
+                <div class="range-input">
+                  <input type="range" id="interval-quake" min="5000" max="60000" step="1000" data-config="config.app.interval.nhkQuake">
+                  <span class="range-value">12000ms</span>
+                </div>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="interval-jma">気象庁フィード取得間隔</label>
+                <div class="range-input">
+                  <input type="range" id="interval-jma" min="10000" max="60000" step="5000" data-config="config.app.interval.jmaDevFeed">
+                  <span class="range-value">15000ms</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">津波・気象情報</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="interval-tsunami">津波情報取得間隔</label>
+                <div class="range-input">
+                  <input type="range" id="interval-tsunami" min="15000" max="120000" step="5000" data-config="config.app.interval.tenkiJPtsunami">
+                  <span class="range-value">30000ms</span>
+                </div>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="interval-mscale">Mスケール取得間隔</label>
+                <div class="range-input">
+                  <input type="range" id="interval-mscale" min="15000" max="120000" step="5000" data-config="config.app.interval.wniMScale">
+                  <span class="range-value">30000ms</span>
+                </div>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="interval-river">河川情報取得間隔</label>
+                <div class="range-input">
+                  <input type="range" id="interval-river" min="120000" max="1800000" step="60000" data-config="config.app.interval.wniRiver">
+                  <span class="range-value">300000ms</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Ticker Text Settings -->
+        <section class="setting-section" id="ticker-text-section">
+          <h2>通常画面設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">表示テキスト</label>
+            <div class="ticker-text-section">
+              <div class="ticker-text-header">
+                <p class="ticker-text-description">ティッカーに表示するテキストを管理します。フリーテキストまたはショートカットを選択できます。</p>
+                <button type="button" class="btn btn-secondary" id="add-ticker-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                  テキストを追加
+                </button>
+              </div>
+              <div class="ticker-text-manager">
+                <div id="ticker-text-list" class="text-list">
+                  <!-- Dynamic content will be added here -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">ニュース設定</label>
+            <div class="setting-item">
+              <label for="news-title">ニュースタイトル</label>
+              <input type="text" id="news-title" data-config="config.ticker.news.title" placeholder="緊急情報">
+            </div>
+            <div class="setting-item">
+              <label for="news-subtitle">ニュースサブタイトル</label>
+              <input type="text" id="news-subtitle" data-config="config.ticker.news.subtitle" placeholder="災害情報をリアルタイムでお届け">
+            </div>
+            <div class="setting-item">
+              <label for="news-text">ニューステキスト</label>
+              <input type="text" id="news-text" data-config="config.ticker.news.text" rows="3" placeholder="現在、特別な情報はありません"></input>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">表示オプション</label>
+            <div class="setting-item">
+              <label for="tsunami-type">津波表示タイプ</label>
+              <select id="tsunami-type" data-config="config.ticker.normal.viewTsunamiType">
+                <option value="0">表示しない</option>
+                <option value="1">標準表示</option>
+                <option value="2">詳細表示</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="little-tsunami">若干の海面変動を表示</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="little-tsunami" data-config="config.ticker.normal.viewLittleTsunami">
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">若干の海面変動が予想される津波予報も表示する対象にします</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="partial-ame">主要アメダス地点のみ表示</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="partial-ame" data-config="config.ticker.particallyReadingAme">
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">アメダスの情報を表示する際、主要な地点を抜き出して表示します</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Display Settings -->
+        <section class="setting-section" id="display-section">
+          <h2>表示設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">ウィンドウ設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="window-opacity">ウィンドウの透明度</label>
+                <div class="range-input">
+                  <input type="range" id="window-opacity" min="0.1" max="1.0" step="0.1" data-config="display.window.opacity">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-description">ウィンドウの透明度を調整します</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="window-topmost">常に最前面に表示</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="window-topmost" data-config="display.window.alwaysOnTop">
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">ウィンドウを常に他のアプリケーションより前面に表示します</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="window-frame">ウィンドウフレームを表示</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="window-frame" data-config="display.window.showFrame">
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">ウィンドウのフレーム（境界線）を表示します</div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">テーマ設定</label>
+            <div class="setting-item">
+              <label for="theme-mode">テーマ</label>
+              <select id="theme-mode" data-config="display.theme.mode">
+                <option value="light">ライト</option>
+                <option value="dark">ダーク</option>
+                <option value="mono">モノトーン</option>
+                <option value="auto">システムに従う</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- Ticker Settings -->
+        <section class="setting-section" id="ticker-section">
+          <h2>ティッカー表示設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">スクロール設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="ticker-speed">スクロール速度</label>
+                <div class="range-input">
+                  <input type="range" id="ticker-speed" min="0.1" max="20.0" step="0.1" data-config="ticker.scrollSpeed" value="5.0">
+                  <span class="range-value">5.0 px/f</span>
+                </div>
+              </div>
+              <div class="setting-description">ティッカーのスクロール速度を調整します</div>
+            </div>
+            <div class="setting-item">
+              <label for="ticker-direction">スクロール方向</label>
+              <select id="ticker-direction" data-config="ticker.direction">
+                <option value="left">左方向</option>
+                <option value="right">右方向</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">フォント設定</label>
+            <div class="setting-item">
+              <label for="ticker-font-family">フォント</label>
+              <select id="ticker-font-family" data-config="ticker.font.family">
+                <option value="system">システムフォント</option>
+                <option value="noto-sans">Noto Sans JP</option>
+                <option value="meiryo">メイリオ</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- EEW Settings -->
+        <section class="setting-section" id="eew-section">
+          <h2>緊急地震速報設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">基本設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="eew-enabled">緊急地震速報を表示</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="eew-enabled" data-config="eew.enabled" checked>
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">緊急地震速報の表示を有効にします</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="eew-test-mode">訓練報も表示</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="eew-test-mode" data-config="eew.showTestAlerts">
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">訓練用の緊急地震速報も表示します</div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">表示条件</label>
+            <div class="setting-item">
+              <label for="eew-condition-type">条件タイプ</label>
+              <select id="eew-condition-type" data-config="config.ticker.viewCond.eew.type">
+                <option value="and">すべての条件を満たす (AND)</option>
+                <option value="or">いずれかの条件を満たす (OR)</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <label for="eew-min-intensity">最小予想震度</label>
+              <select id="eew-min-intensity" data-config="config.ticker.viewCond.eew.intensity">
+                <option value="1">震度1以上</option>
+                <option value="2">震度2以上</option>
+                <option value="3">震度3以上</option>
+                <option value="4">震度4以上</option>
+                <option value="5-">震度5弱以上</option>
+                <option value="5+">震度5強以上</option>
+                <option value="6-">震度6弱以上</option>
+                <option value="6+">震度6強以上</option>
+                <option value="7">震度7</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="eew-show-unknown">震度不明を表示</label>
+                <input type="checkbox" id="eew-show-unknown" data-config="config.ticker.viewCond.eew.unknown">
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="eew-min-magnitude">最小マグニチュード</label>
+                <div class="range-input">
+                  <input type="range" id="eew-min-magnitude" min="0" max="9" step="0.1" data-config="config.ticker.viewCond.eew.magnitude">
+                  <span class="range-value">M0.0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Earthquake Settings -->
+        <section class="setting-section" id="earthquake-section">
+          <h2>地震情報設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">表示設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="eq-enabled">地震情報を表示</label>
+                <input type="checkbox" id="eq-enabled" data-config="earthquake.enabled" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="eq-auto-update">自動更新</label>
+                <input type="checkbox" id="eq-auto-update" data-config="earthquake.autoUpdate" checked>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">表示条件</label>
+            <div class="setting-item">
+              <label for="quake-condition-type">条件タイプ</label>
+              <select id="quake-condition-type" data-config="config.ticker.viewCond.earthquake.type">
+                <option value="and">すべての条件を満たす (AND)</option>
+                <option value="or">いずれかの条件を満たす (OR)</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <label for="quake-min-intensity">最小震度</label>
+              <select id="quake-min-intensity" data-config="config.ticker.viewCond.earthquake.intensity">
+                <option value="1">震度1以上</option>
+                <option value="2">震度2以上</option>
+                <option value="3">震度3以上</option>
+                <option value="4">震度4以上</option>
+                <option value="5-">震度5弱以上</option>
+                <option value="5+">震度5強以上</option>
+                <option value="6-">震度6弱以上</option>
+                <option value="6+">震度6強以上</option>
+                <option value="7">震度7</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="quake-min-magnitude">最小マグニチュード</label>
+                <div class="range-input">
+                  <input type="range" id="quake-min-magnitude" min="0" max="9" step="0.1" data-config="config.ticker.viewCond.earthquake.magnitude">
+                  <span class="range-value">M0.0</span>
+                </div>
+              </div>
+              <div class="setting-description">表示する地震情報の最小マグニチュード</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="quake-max-depth">最大深さ</label>
+                <div class="range-input">
+                  <input type="range" id="quake-max-depth" min="0" max="1000" step="10" data-config="config.ticker.viewCond.earthquake.depth">
+                  <span class="range-value">1000km</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Audio Settings -->
+        <section class="setting-section" id="audio-section">
+          <h2>音声設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">基本設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="audio-muted">音声をミュート</label>
+                <input type="checkbox" id="audio-muted" data-config="config.app.volume.muted">
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">緊急地震速報音量</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="eew-low-volume">通知音</label>
+                <div class="range-input">
+                  <input type="range" id="eew-low-volume" min="0" max="100" step="1" data-config="config.app.volume.eewLow">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-description">一般的な緊急地震速報の音量</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="eew-beep-volume">警報時のビープ音</label>
+                <div class="range-input">
+                  <input type="range" id="eew-beep-volume" min="0" max="100" step="1" data-config="config.app.volume.eewBeep">
+                  <span class="range-value">10%</span>
+                </div>
+              </div>
+              <div class="setting-description">警報レベルのEEW時のビープ音量</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="eew-custom-volume">EEWカスタム音</label>
+                <div class="range-input">
+                  <input type="range" id="eew-custom-volume" min="0" max="100" step="1" data-config="config.app.volume.eewCustom">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-description">カスタムEEW音声の音量</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="eew-plum-volume">PLUM法</label>
+                <div class="range-input">
+                  <input type="range" id="eew-plum-volume" min="0" max="100" step="1" data-config="config.app.volume.eewPlum">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-description">PLUM法による緊急地震速報の音量</div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">災害警報音量</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="tsunami-volume">津波警報</label>
+                <div class="range-input">
+                  <input type="range" id="tsunami-volume" min="0" max="100" step="1" data-config="config.app.volume.tsunami">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-description">津波警報・注意報の音量</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="emergency-volume">緊急警報</label>
+                <div class="range-input">
+                  <input type="range" id="emergency-volume" min="0" max="100" step="1" data-config="config.app.volume.emergency">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-description">気象特別警報の音量</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="tornado-volume">竜巻警報</label>
+                <div class="range-input">
+                  <input type="range" id="tornado-volume" min="0" max="100" step="1" data-config="config.app.volume.tornado">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-description">竜巻注意情報の音量</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="dosha-volume">土砂災害警報</label>
+                <div class="range-input">
+                  <input type="range" id="dosha-volume" min="0" max="100" step="1" data-config="config.app.volume.dosha">
+                  <span class="range-value">40%</span>
+                </div>
+              </div>
+              <div class="setting-description">土砂災害警戒情報の音量</div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">気象警報音量</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="heavy-rain-volume">大雨警報</label>
+                <div class="range-input">
+                  <input type="range" id="heavy-rain-volume" min="0" max="100" step="1" data-config="config.app.volume.heavyRain">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="flood4-volume">洪水レベル4</label>
+                <div class="range-input">
+                  <input type="range" id="flood4-volume" min="0" max="100" step="1" data-config="config.app.volume.flood4">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="flood5-volume">洪水レベル5</label>
+                <div class="range-input">
+                  <input type="range" id="flood5-volume" min="0" max="100" step="1" data-config="config.app.volume.flood5">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">地震情報音量（震度別）</label>
+            <div class="quake-volume-grid">
+              <div class="setting-item">
+                <label for="quake-vol-1">震度1</label>
+                <div class="range-input">
+                  <input type="range" id="quake-vol-1" min="0" max="100" step="1" data-config="config.app.volume.quake.0.volume">
+                  <span class="range-value">30%</span>
+                </div>
+              </div>
+              <div class="setting-item">
+                <label for="quake-vol-2">震度2</label>
+                <div class="range-input">
+                  <input type="range" id="quake-vol-2" min="0" max="100" step="1" data-config="config.app.volume.quake.1.volume">
+                  <span class="range-value">50%</span>
+                </div>
+              </div>
+              <div class="setting-item">
+                <label for="quake-vol-3">震度3</label>
+                <div class="range-input">
+                  <input type="range" id="quake-vol-3" min="0" max="100" step="1" data-config="config.app.volume.quake.2.volume">
+                  <span class="range-value">70%</span>
+                </div>
+              </div>
+              <div class="setting-item">
+                <label for="quake-vol-4">震度4</label>
+                <div class="range-input">
+                  <input type="range" id="quake-vol-4" min="0" max="100" step="1" data-config="config.app.volume.quake.3.volume">
+                  <span class="range-value">80%</span>
+                </div>
+              </div>
+              <div class="setting-item">
+                <label for="quake-vol-5m">震度5弱</label>
+                <div class="range-input">
+                  <input type="range" id="quake-vol-5m" min="0" max="100" step="1" data-config="config.app.volume.quake.4.volume">
+                  <span class="range-value">90%</span>
+                </div>
+              </div>
+              <div class="setting-item">
+                <label for="quake-vol-5p">震度5強</label>
+                <div class="range-input">
+                  <input type="range" id="quake-vol-5p" min="0" max="100" step="1" data-config="config.app.volume.quake.5.volume">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-item">
+                <label for="quake-vol-6m">震度6弱</label>
+                <div class="range-input">
+                  <input type="range" id="quake-vol-6m" min="0" max="100" step="1" data-config="config.app.volume.quake.6.volume">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-item">
+                <label for="quake-vol-6p">震度6強</label>
+                <div class="range-input">
+                  <input type="range" id="quake-vol-6p" min="0" max="100" step="1" data-config="config.app.volume.quake.7.volume">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-item">
+                <label for="quake-vol-7">震度7</label>
+                <div class="range-input">
+                  <input type="range" id="quake-vol-7" min="0" max="100" step="1" data-config="config.app.volume.quake.8.volume">
+                  <span class="range-value">100%</span>
+                </div>
+              </div>
+              <div class="setting-item">
+                <label for="quake-vol-overseas">海外</label>
+                <div class="range-input">
+                  <input type="range" id="quake-vol-overseas" min="0" max="100" step="1" data-config="config.app.volume.quake.9.volume">
+                  <span class="range-value">60%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="setting-group">
+            <label class="setting-label">ログ送信設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="send-eew-logs">EEWログを送信</label>
+                <input type="checkbox" id="send-eew-logs" data-config="config.app.sendEEWLogs">
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="send-error-logs">エラーログを送信</label>
+                <input type="checkbox" id="send-error-logs" data-config="config.app.sendErrorLogs">
+              </div>
+            </div>
+          </div> -->
+        </section>
+
+        <!-- Speech Settings -->
+        <section class="setting-section" id="speech-section">
+          <h2>読み上げ設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">基本設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="speech-enabled">音声読み上げを有効にする</label>
+                <input type="checkbox" id="speech-enabled" data-config="speech.enabled">
+              </div>
+            </div>
+            <div class="setting-item">
+              <label for="speech-voice">音声エンジン</label>
+              <select id="speech-voice" data-config="speech.voice">
+                <option value="default">システムデフォルト</option>
+                <option value="voicevox">VOICEVOX</option>
+                <option value="web-speech">Web Speech API</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="speech-volume">音声音量</label>
+                <div class="range-input">
+                  <input type="range" id="speech-volume" min="0" max="100" step="1" data-config="speech.volume" value="70">
+                  <span class="range-value">70%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tsunami Settings -->
+        <section class="setting-section" id="tsunami-section">
+          <h2>津波情報設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">表示設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="tsunami-enabled">津波情報を表示</label>
+                <input type="checkbox" id="tsunami-enabled" data-config="tsunami.enabled" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="tsunami-minor-events">若干の海面変動も表示</label>
+                <input type="checkbox" id="tsunami-minor-events" data-config="tsunami.showMinorEvents" checked>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">表示設定</label>
+            <div class="setting-item">
+              <label for="tsunami-display-mode">表示位置</label>
+              <select id="tsunami-display-mode" data-config="tsunami.displayMode">
+                <option value="top">上側に常時表示</option>
+                <option value="replace">通常表示を置き換え</option>
+                <option value="overlay">オーバーレイ表示</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <label for="tsunami-priority">優先度</label>
+              <select id="tsunami-priority" data-config="tsunami.priority">
+                <option value="high">高（他の情報より優先）</option>
+                <option value="normal">通常</option>
+                <option value="low">低</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">表示条件</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="tsunami-show-minor">微小津波も表示</label>
+                <input type="checkbox" id="tsunami-show-minor" data-config="config.ticker.viewCond.tsunami.showMinor" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="tsunami-show-watch">津波注意報も表示</label>
+                <input type="checkbox" id="tsunami-show-watch" data-config="config.ticker.viewCond.tsunami.showWatch" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="tsunami-show-forecast">津波予報も表示</label>
+                <input type="checkbox" id="tsunami-show-forecast" data-config="config.ticker.viewCond.tsunami.showForecast">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Weather Settings -->
+        <section class="setting-section" id="weather-section">
+          <h2>気象情報設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">表示設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="weather-enabled">気象情報を表示</label>
+                <input type="checkbox" id="weather-enabled" data-config="weather.enabled" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="weather-auto-update">自動更新</label>
+                <input type="checkbox" id="weather-auto-update" data-config="weather.autoUpdate" checked>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">表示項目</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="weather-temperature">気温情報</label>
+                <input type="checkbox" id="weather-temperature" data-config="weather.showTemperature" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="weather-warnings">気象警報</label>
+                <input type="checkbox" id="weather-warnings" data-config="weather.showWarnings" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="weather-precipitation">降水量</label>
+                <input type="checkbox" id="weather-precipitation" data-config="weather.showPrecipitation" checked>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Notifications Settings -->
+        <section class="setting-section" id="notifications-section">
+          <h2>通知設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">通知方法</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="notifications-enabled">通知を有効にする</label>
+                <input type="checkbox" id="notifications-enabled" data-config="notifications.enabled" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="notifications-desktop">デスクトップ通知</label>
+                <input type="checkbox" id="notifications-desktop" data-config="notifications.showDesktop" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="notifications-sound">通知音</label>
+                <input type="checkbox" id="notifications-sound" data-config="notifications.playSound" checked>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">通知対象</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="notifications-eew">緊急地震速報</label>
+                <input type="checkbox" id="notifications-eew" data-config="notifications.eew" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="notifications-earthquake">地震情報</label>
+                <input type="checkbox" id="notifications-earthquake" data-config="notifications.earthquake" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="notifications-tsunami">津波情報</label>
+                <input type="checkbox" id="notifications-tsunami" data-config="notifications.tsunami" checked>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="notifications-weather">気象警報</label>
+                <input type="checkbox" id="notifications-weather" data-config="notifications.weather">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Advanced Settings -->
+        <section class="setting-section" id="advanced-section">
+          <h2>詳細設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">システム設定</label>
+            <div class="setting-item">
+              <label for="advanced-log-level">ログレベル</label>
+              <select id="advanced-log-level" data-config="advanced.logLevel">
+                <option value="error">エラーのみ</option>
+                <option value="warn">警告以上</option>
+                <option value="info">情報以上</option>
+                <option value="debug">デバッグ情報</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="advanced-max-log-size">最大ログサイズ</label>
+                <div class="range-input">
+                  <input type="range" id="advanced-max-log-size" min="1" max="100" step="1" data-config="advanced.maxLogSize" value="10">
+                  <span class="range-value">10MB</span>
+                </div>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="advanced-caching">キャッシュを有効にする</label>
+                <input type="checkbox" id="advanced-caching" data-config="advanced.enableCaching" checked>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">ネットワーク設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="advanced-timeout">タイムアウト（秒）</label>
+                <div class="range-input">
+                  <input type="range" id="advanced-timeout" min="5" max="60" step="5" data-config="advanced.timeout" value="30">
+                  <span class="range-value">30秒</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">危険な設定</label>
+            <div class="setting-item">
+              <button class="btn btn-secondary" id="clear-cache-btn">キャッシュをクリア</button>
+            </div>
+            <div class="setting-item">
+              <button class="btn btn-danger" id="reset-all-btn">すべての設定をリセット</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Debug Settings -->
+        <section class="setting-section" id="debug-section">
+          <h2>デバッグ設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">開発者オプション</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="debug-enabled">デバッグモードを有効にする</label>
+                <input type="checkbox" id="debug-enabled" data-config="debug.enabled">
+              </div>
+            </div>
+            <div class="setting-item">
+              <button class="btn btn-secondary" id="show-console-btn">コンソールを開く</button>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">テスト機能</label>
+            <div class="setting-item">
+              <button class="btn btn-secondary" id="test-eew-btn">テスト用EEWを送信</button>
+            </div>
+            <div class="setting-item">
+              <button class="btn btn-secondary" id="test-earthquake-btn">テスト用地震情報を送信</button>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">システム情報</label>
+            <div class="setting-item">
+              <div class="debug-info">
+                <div class="debug-item">
+                  <strong>アプリバージョン:</strong> <span id="app-version">0.6.0</span>
+                </div>
+                <div class="debug-item">
+                  <strong>プラットフォーム:</strong> <span id="platform">--</span>
+                </div>
+                <div class="debug-item">
+                  <strong>Node.js:</strong> <span id="node-version">--</span>
+                </div>
+                <div class="debug-item">
+                  <strong>Electron:</strong> <span id="electron-version">--</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="setting-section" id="about-section">
+          <h2>Natural Disaster Viewer について</h2>
+          <div class="about-content">
+            <div class="app-info">
+              <img src="../../../img/icon128.png" alt="NDV Icon" class="app-icon">
+              <div class="app-details">
+                <h3>Natural Disaster Viewer</h3>
+                <p class="version">バージョン 1.0.0</p>
+                <p class="description">
+                  自然災害情報を表示するティッカーアプリケーションです。<br>
+                  地震情報、津波情報、気象情報などをリアルタイムで表示します。
+                </p>
+              </div>
+            </div>
+
+            <div class="links-section">
+              <h4>リンク</h4>
+              <ul class="link-list">
+                <li><a href="#" onclick="openExternal('https://github.com')">GitHub</a></li>
+                <li><a href="#" onclick="openExternal('https://example.com')">公式サイト</a></li>
+                <li><a href="#" onclick="openExternal('https://example.com/docs')">ドキュメント</a></li>
+              </ul>
+            </div>
+
+            <div class="credits-section">
+              <h4>データ提供</h4>
+              <ul class="credit-list">
+                <li>気象庁</li>
+                <li>P2P地震情報</li>
+                <li>ウェザーニュース</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Project DM-D.S.S Settings -->
+        <section class="setting-section" id="dm-dss-section">
+          <h2>Project DM-D.S.S 設定</h2>
+
+          <div class="setting-group">
+            <label class="setting-label">接続ステータス</label>
+            <div class="dm-dss-status-panel">
+              <div class="connection-status">
+                <div id="dm-dss-indicator" class="dm-dss-indicator status-disconnected"></div>
+                <div class="status-info">
+                  <span id="dm-dss-status-text" class="status-text">未接続</span>
+                  <span id="dm-dss-status-detail" class="status-detail">OAuth認証が必要です</span>
+                </div>
+              </div>
+              <div class="connection-details">
+                <div class="detail-item">
+                  <span class="detail-label">OAuth2.0:</span>
+                  <span id="oauth-status" class="detail-value status-pending">未認証</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">WebSocket:</span>
+                  <span id="websocket-status" class="detail-value status-pending">未接続</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">最終接続:</span>
+                  <span id="last-connection" class="detail-value">なし</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">DM-D.S.S 基本設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="dm-dss-enabled">Project DM-D.S.S を有効にする</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="dm-dss-enabled" data-config="dataSources.dmDss.enabled">
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">Project DM-D.S.S（Disaster Management - Data Source System）によるマルチソース災害情報配信を有効にします</div>
+            </div>
+            <div class="setting-item">
+              <label for="dm-dss-priority">DM-D.S.S 優先度</label>
+              <select id="dm-dss-priority" data-config="dataSources.dmDss.priority">
+                <option value="low">低</option>
+                <option value="medium">中</option>
+                <option value="high">高</option>
+                <option value="critical">最優先</option>
+              </select>
+              <div class="setting-description">他のデータソースとの競合時の優先度を設定します</div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">OAuth2.0 認証設定</label>
+            <div class="setting-item">
+              <label for="dm-dss-auth-server">認証サーバー URL</label>
+              <input type="url" id="dm-dss-auth-server" data-config="dataSources.dmDss.oauth.authServer" placeholder="https://auth.dm-dss.example.com">
+              <div class="setting-description">OAuth2.0認証サーバーのエンドポイント URL</div>
+            </div>
+            <div class="setting-item">
+              <label for="dm-dss-client-id">クライアント ID</label>
+              <input type="text" id="dm-dss-client-id" data-config="dataSources.dmDss.oauth.clientId" placeholder="クライアント ID">
+              <div class="setting-description">OAuth2.0 アプリケーションのクライアント ID</div>
+            </div>
+            <div class="setting-item">
+              <label for="dm-dss-client-secret">クライアントシークレット</label>
+              <input type="password" id="dm-dss-client-secret" data-config="dataSources.dmDss.oauth.clientSecret" placeholder="クライアントシークレット">
+              <div class="setting-description">OAuth2.0 アプリケーションのクライアントシークレット</div>
+            </div>
+            <div class="setting-item">
+              <label for="dm-dss-scopes">アクセススコープ</label>
+              <input type="text" id="dm-dss-scopes" data-config="dataSources.dmDss.oauth.scopes" value="socket.start eew.get.forecast eew.get.warning telegram.get.earthquake" placeholder="スペース区切りでスコープを入力">
+              <div class="setting-description">要求するアクセス権限のスコープ</div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">WebSocket 接続設定</label>
+            <div class="setting-item">
+              <label for="dm-dss-ws-endpoint">WebSocket エンドポイント</label>
+              <input type="url" id="dm-dss-ws-endpoint" data-config="dataSources.dmDss.websocket.endpoint" placeholder="wss://ws.dm-dss.example.com">
+              <div class="setting-description">リアルタイム災害情報受信用 WebSocket エンドポイント</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="dm-dss-reconnect">自動再接続</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="dm-dss-reconnect" data-config="dataSources.dmDss.websocket.autoReconnect" checked>
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">接続が切断された場合の自動再接続を有効にします</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="dm-dss-reconnect-interval">再接続間隔</label>
+                <div class="range-input">
+                  <input type="range" id="dm-dss-reconnect-interval" min="5000" max="60000" step="5000" data-config="dataSources.dmDss.websocket.reconnectInterval">
+                  <span class="range-value">15000ms</span>
+                </div>
+              </div>
+              <div class="setting-description">WebSocket 再接続試行の間隔</div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">データフィルタリング</label>
+            <div class="setting-item">
+              <label for="dm-dss-regions">対象地域</label>
+              <select multiple id="dm-dss-regions" data-config="dataSources.dmDss.regions">
+                <option value="all">全地域</option>
+                <option value="hokkaido">北海道</option>
+                <option value="tohoku">東北</option>
+                <option value="kanto">関東</option>
+                <option value="chubu">中部</option>
+                <option value="kansai">関西</option>
+                <option value="chugoku">中国</option>
+                <option value="shikoku">四国</option>
+                <option value="kyushu">九州・沖縄</option>
+              </select>
+              <div class="setting-description">DM-D.S.S から取得する災害情報の対象地域（複数選択可）</div>
+            </div>
+            <div class="setting-item">
+              <label for="dm-dss-types">配信区分設定</label>
+              <div class="dm-dss-types-config">
+
+                <!-- 緊急地震速報 -->
+                <div class="type-category">
+                  <h5 class="category-title">緊急地震速報</h5>
+                  <div class="checkbox-grid">
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.eew.forecast" checked>
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">予報</span>
+                        <span class="option-desc">一般向け緊急地震速報</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.eew.warning" checked>
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">警報</span>
+                        <span class="option-desc">強い揺れの警報</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.eew.realtime">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">リアルタイム震度</span>
+                        <span class="option-desc">観測点での実測震度</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- 地震・津波関連 -->
+                <div class="type-category">
+                  <h5 class="category-title">地震・津波関連</h5>
+                  <div class="checkbox-grid">
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.earthquake.telegram" checked>
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">地震情報全般</span>
+                        <span class="option-desc">震源・震度情報</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.earthquake.hypocenter" checked>
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">震源情報</span>
+                        <span class="option-desc">地震の発生地点情報</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.earthquake.tsunami" checked>
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">津波情報</span>
+                        <span class="option-desc">津波警報・注意報</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- 火山関連 -->
+                <div class="type-category">
+                  <h5 class="category-title">火山関連</h5>
+                  <div class="checkbox-grid">
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.volcano.telegram">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">火山情報全般</span>
+                        <span class="option-desc">火山活動に関する情報</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.volcano.eruption">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">噴火警報・予報</span>
+                        <span class="option-desc">噴火レベル情報</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.volcano.ashfall">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">降灰予報</span>
+                        <span class="option-desc">火山灰の飛散予測</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- 気象警報・注意報 -->
+                <div class="type-category">
+                  <h5 class="category-title">気象警報・注意報</h5>
+                  <div class="checkbox-grid">
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.weather.telegram">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">気象情報全般</span>
+                        <span class="option-desc">警報・注意報全体</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.weather.warning">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">気象警報</span>
+                        <span class="option-desc">大雨・暴風等の警報</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.weather.advisory">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">気象注意報</span>
+                        <span class="option-desc">注意が必要な気象現象</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.weather.typhoon">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">台風情報</span>
+                        <span class="option-desc">台風の進路・強度情報</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- 天気予報関連 -->
+                <div class="type-category">
+                  <h5 class="category-title">天気予報関連</h5>
+                  <div class="checkbox-grid">
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.forecast.telegram">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">天気予報全般</span>
+                        <span class="option-desc">予報情報全体</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.forecast.daily">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">日々の天気予報</span>
+                        <span class="option-desc">今日・明日の天気</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.forecast.weekly">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">週間天気予報</span>
+                        <span class="option-desc">1週間の天気見通し</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- 気象観測関連 -->
+                <div class="type-category">
+                  <h5 class="category-title">気象観測関連</h5>
+                  <div class="checkbox-grid">
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.observation.telegram">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">観測データ全般</span>
+                        <span class="option-desc">気象観測情報全体</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.observation.surface">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">地上観測</span>
+                        <span class="option-desc">地上気象観測データ</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.observation.upper">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">高層観測</span>
+                        <span class="option-desc">上空の気象データ</span>
+                      </div>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" data-config="dataSources.dmDss.types.observation.radar">
+                      <span class="checkmark"></span>
+                      <div class="option-info">
+                        <span class="option-name">レーダー観測</span>
+                        <span class="option-desc">降水レーダーデータ</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+              <div class="setting-description">受信したい電文の種別を詳細に設定できます。必要な情報のみを選択することで、効率的な情報取得が可能です。</div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">認証・接続テスト</label>
+            <div class="connection-test-panel">
+              <div class="test-buttons">
+                <button type="button" class="btn btn-secondary" id="dm-dss-test-oauth">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                  OAuth設定検証
+                </button>
+                <button type="button" class="btn btn-secondary" id="dm-dss-test-websocket">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22,4 12,14.01 9,11.01"></polyline>
+                  </svg>
+                  WebSocket設定検証
+                </button>
+                <button type="button" class="btn btn-primary" id="dm-dss-connect">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12,6 12,12 16,14"></polyline>
+                  </svg>
+                  接続要求送信
+                </button>
+                <button type="button" class="btn btn-secondary" id="dm-dss-disconnect">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                  </svg>
+                  切断要求送信
+                </button>
+              </div>
+              <div class="test-results">
+                <div class="test-result-item">
+                  <span class="test-label">OAuth設定:</span>
+                  <span id="oauth-test-result" class="test-result">未検証</span>
+                </div>
+                <div class="test-result-item">
+                  <span class="test-label">WebSocket設定:</span>
+                  <span id="websocket-test-result" class="test-result">未検証</span>
+                </div>
+                <div class="test-result-item">
+                  <span class="test-label">接続状態:</span>
+                  <span id="data-test-result" class="test-result">未接続</span>
+                </div>
+              </div>
+              <div id="test-log" class="test-log"></div>
+            </div>
+            <div class="setting-description">設定値の検証とメインプロセスへの接続要求を行います。実際の接続はバックグラウンドで処理されます。</div>
+          </div>
+        </section>
+
+        <!-- Source Priority Settings -->
+        <section class="setting-section" id="source-priority-section">
+          <h2>ソース優先順位設定</h2>
+          <div class="setting-group">
+            <label class="setting-label">データソース優先度</label>
+            <div class="setting-description">複数のソースから同じ種類の情報を取得した場合の優先順位を設定します。上位のソースが優先されます。</div>
+
+            <div class="priority-section">
+              <h4>緊急地震速報</h4>
+              <div class="priority-list" data-type="eew">
+                <div class="priority-item" data-source="jma-official">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">気象庁（公式）</span>
+                    <span class="source-desc">最も信頼性の高い公式データ</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.eew.jmaOfficial.enabled" checked>
+                  </div>
+                </div>
+                <div class="priority-item" data-source="dm-dss">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">Project DM-D.S.S</span>
+                    <span class="source-desc">複数ソース統合システム</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.eew.dmDss.enabled">
+                  </div>
+                </div>
+                <div class="priority-item" data-source="p2pquake">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">P2P地震情報</span>
+                    <span class="source-desc">コミュニティベースの早期情報</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.eew.p2pquake.enabled">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="priority-section">
+              <h4>地震情報</h4>
+              <div class="priority-list" data-type="earthquake">
+                <div class="priority-item" data-source="jma-feed">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">気象庁フィード</span>
+                    <span class="source-desc">気象庁公式データフィード</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.earthquake.jmaFeed.enabled" checked>
+                  </div>
+                </div>
+                <div class="priority-item" data-source="nhk">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">NHK地震情報</span>
+                    <span class="source-desc">NHK提供の地震情報</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.earthquake.nhk.enabled" checked>
+                  </div>
+                </div>
+                <div class="priority-item" data-source="dm-dss">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">Project DM-D.S.S</span>
+                    <span class="source-desc">複数ソース統合システム</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.earthquake.dmDss.enabled">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="priority-section">
+              <h4>津波情報</h4>
+              <div class="priority-list" data-type="tsunami">
+                <div class="priority-item" data-source="jma-feed">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">気象庁フィード</span>
+                    <span class="source-desc">気象庁公式津波情報</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.tsunami.jmaFeed.enabled" checked>
+                  </div>
+                </div>
+                <div class="priority-item" data-source="tenki-jp">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">tenki.jp</span>
+                    <span class="source-desc">日本気象協会提供情報</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.tsunami.tenkiJp.enabled" checked>
+                  </div>
+                </div>
+                <div class="priority-item" data-source="dm-dss">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">Project DM-D.S.S</span>
+                    <span class="source-desc">複数ソース統合システム</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.tsunami.dmDss.enabled">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="priority-section">
+              <h4>気象情報</h4>
+              <div class="priority-list" data-type="weather">
+                <div class="priority-item" data-source="jma-feed">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">気象庁フィード</span>
+                    <span class="source-desc">気象庁公式気象情報</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.weather.jmaFeed.enabled" checked>
+                  </div>
+                </div>
+                <div class="priority-item" data-source="wni">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">ウェザーニュース</span>
+                    <span class="source-desc">WNI提供の詳細気象データ</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.weather.wni.enabled">
+                  </div>
+                </div>
+                <div class="priority-item" data-source="dm-dss">
+                  <div class="priority-handle">⋮⋮</div>
+                  <div class="source-info">
+                    <span class="source-name">Project DM-D.S.S</span>
+                    <span class="source-desc">複数ソース統合システム</span>
+                  </div>
+                  <div class="priority-controls">
+                    <input type="checkbox" data-config="dataSources.priority.weather.dmDss.enabled">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">フォールバック設定</label>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="fallback-enabled">自動フォールバックを有効にする</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="fallback-enabled" data-config="dataSources.fallback.enabled" checked>
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
+              <div class="setting-description">優先ソースが利用できない場合に下位ソースを自動使用</div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-item-top">
+                <label for="fallback-timeout">フォールバックタイムアウト</label>
+                <div class="range-input">
+                  <input type="range" id="fallback-timeout" min="5000" max="30000" step="1000" data-config="dataSources.fallback.timeout">
+                  <span class="range-value">10000ms</span>
+                </div>
+              </div>
+              <div class="setting-description">ソースが応答しない場合のフォールバック判定時間</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Status Bar -->
+    <footer class="settings-footer">
+      <div class="status-info">
+        <span id="connection-status" class="status-indicator">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" class="status-icon online">
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+          接続中
+        </span>
+        <span id="last-update">最終更新: --:--</span>
+      </div>
+      <div class="footer-actions">
+        <button class="btn btn-ghost" id="import-btn">設定をインポート</button>
+        <button class="btn btn-ghost" id="export-btn">設定をエクスポート</button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Ticker Text Modal -->
+  <div id="ticker-text-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">通常画面テキストを追加</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="ticker-text-title">タイトル (オプション)</label>
+          <input type="text" id="ticker-text-title" class="modal-input" placeholder="通常画面テキストのタイトル">
+        </div>
+
+        <div class="form-group">
+          <label class="text-type-label">テキストタイプ</label>
+          <div class="text-type-selector">
+            <label class="radio-option">
+              <input type="radio" name="text-type" value="custom" id="text-type-custom" checked>
+              <span class="radio-label">メッセージを作る</span>
+              <p class="radio-description">リッチテキストエディタでカスタムメッセージを作成</p>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="text-type" value="shortcut" id="text-type-shortcut">
+              <span class="radio-label">ショートカット</span>
+              <p class="radio-description">スタイルが完成された定型メッセージを選択</p>
+            </label>
+          </div>
+        </div>
+
+        <!-- Custom Text Section -->
+        <div class="form-group" id="custom-text-section">
+          <label>メッセージ内容</label>
+          <div class="rich-text-editor-control">
+            <button type="button" id="open-rich-text-editor" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14,17H7V15H14M17,13H7V11H17M17,9H7V7H17M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z"/>
+              </svg>
+              リッチテキストエディタで編集
+            </button>
+            <div id="rich-text-preview" class="rich-text-preview">
+              <p class="preview-placeholder">編集ボタンをクリックしてメッセージを作成してください</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shortcut Preset Section -->
+        <div class="form-group" id="shortcut-info-section" style="display: none;">
+          <label>定型メッセージ</label>
+          <div class="shortcut-options">
+            <label class="radio-option shortcut-option">
+              <input type="radio" name="shortcut-type" value="temperature" id="shortcut-temperature" checked>
+              <span class="radio-label">天気概況メッセージ</span>
+              <p class="radio-description">気温と天気の状況を含む完成されたメッセージ</p>
+            </label>
+            <label class="radio-option shortcut-option">
+              <input type="radio" name="shortcut-type" value="precipitation" id="shortcut-precipitation">
+              <span class="radio-label">降水情報メッセージ</span>
+              <p class="radio-description">降水量と予報を含む完成されたメッセージ</p>
+            </label>
+            <label class="radio-option shortcut-option">
+              <input type="radio" name="shortcut-type" value="wind" id="shortcut-wind">
+              <span class="radio-label">風・気圧メッセージ</span>
+              <p class="radio-description">風速・気圧・湿度を含む完成されたメッセージ</p>
+            </label>
+            <label class="radio-option shortcut-option">
+              <input type="radio" name="shortcut-type" value="warning" id="shortcut-warning">
+              <span class="radio-label">警報・注意報メッセージ</span>
+              <p class="radio-description">気象警報・注意報の発表状況メッセージ</p>
+            </label>
+          </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="text-preview">
+          <label>プレビュー:</label>
+          <div id="ticker-text-preview" class="preview-area">プレビューがここに表示されます</div>
+        </div>
+
+        <div class="modal-checkbox-container">
+          <input type="checkbox" id="ticker-text-enabled" class="modal-checkbox" checked>
+          <label for="ticker-text-enabled" class="modal-checkbox-label">有効にする</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="modal-button modal-button-secondary" id="cancel-ticker-text">キャンセル</button>
+        <button type="button" class="modal-button modal-button-primary" id="save-ticker-text">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./settings-manager.js"></script>
+  <script src="../common/library/Error-reporter.js"></script>
+</body>
+</html>

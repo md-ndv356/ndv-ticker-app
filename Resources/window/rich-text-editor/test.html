@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リッチテキストエディタ テスト</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .test-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .test-button {
+      background: #007acc;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 10px 5px;
+    }
+    .test-button:hover {
+      background: #005fa3;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+    }
+    .sample-data {
+      background: #e9ecef;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-family: monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>NDV リッチテキストエディタ テスト</h1>
+
+    <p>このページは、NDVティッカー用のリッチテキストエディタをテストするためのページです。</p>
+
+    <h2>テスト機能</h2>
+
+    <button class="test-button" onclick="openNewEditor()">
+      新規エディタを開く
+    </button>
+
+    <button class="test-button" onclick="openEditEditor()">
+      サンプルデータで編集エディタを開く
+    </button>
+
+    <button class="test-button" onclick="showSampleData()">
+      サンプルデータを表示
+    </button>
+
+    <div id="result" class="result" style="display: none;">
+      <h3>結果</h3>
+      <div id="result-content"></div>
+    </div>
+
+    <div id="sample-data" class="sample-data" style="display: none;"></div>
+  </div>
+
+  <script>
+    // サンプルデータ
+    const samplePlainData = {
+      id: 1234567890,
+      title: "プレーンテキストサンプル",
+      enabled: true,
+      type: "plain",
+      text: "これはプレーンテキストのサンプルです。気温: <weather/temperature/high>度"
+    };
+
+    const sampleRichData = {
+      id: 1234567891,
+      title: "リッチテキストサンプル",
+      enabled: true,
+      type: "rich",
+      content: [
+        {
+          type: "text",
+          text: "今日の天気: ",
+          style: { fontWeight: "bold", color: "#007acc" }
+        },
+        {
+          type: "icon",
+          iconType: "weather:sunny",
+          text: "☀️",
+          style: {}
+        },
+        {
+          type: "text",
+          text: " 気温: ",
+          style: {}
+        },
+        {
+          type: "variable",
+          variable: "weather/temperature/high",
+          style: { color: "#ff6600", fontWeight: "bold" }
+        },
+        {
+          type: "text",
+          text: "度",
+          style: {}
+        }
+      ]
+    };
+
+    function openNewEditor() {
+      const editorUrl = './rich-text-editor/index.html';
+      const windowFeatures = 'width=1200,height=800,resizable=yes,scrollbars=yes';
+
+      const editorWindow = window.open(editorUrl, 'richTextEditor', windowFeatures);
+
+      if (editorWindow) {
+        // エディタからのデータ受信
+        window.receiveTickerTextData = (data, isEditing) => {
+          showResult('新規作成結果', data);
+        };
+      }
+    }
+
+    function openEditEditor() {
+      const editorUrl = './rich-text-editor/index.html';
+      const windowFeatures = 'width=1200,height=800,resizable=yes,scrollbars=yes';
+
+      const editorWindow = window.open(editorUrl, 'richTextEditor', windowFeatures);
+
+      if (editorWindow) {
+        // エディタウィンドウがロードされたら編集データを送信
+        editorWindow.addEventListener('load', () => {
+          if (editorWindow.receiveEditData) {
+            editorWindow.receiveEditData(sampleRichData);
+          }
+        });
+
+        // エディタからのデータ受信
+        window.receiveTickerTextData = (data, isEditing) => {
+          showResult('編集結果', data);
+        };
+      }
+    }
+
+    function showSampleData() {
+      const sampleDiv = document.getElementById('sample-data');
+      sampleDiv.innerHTML = `
+<strong>プレーンテキストサンプル:</strong>
+${JSON.stringify(samplePlainData, null, 2)}
+
+<strong>リッチテキストサンプル:</strong>
+${JSON.stringify(sampleRichData, null, 2)}
+      `;
+      sampleDiv.style.display = 'block';
+    }
+
+    function showResult(title, data) {
+      const resultDiv = document.getElementById('result');
+      const contentDiv = document.getElementById('result-content');
+
+      contentDiv.innerHTML = `
+        <h4>${title}</h4>
+        <pre>${JSON.stringify(data, null, 2)}</pre>
+      `;
+
+      resultDiv.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

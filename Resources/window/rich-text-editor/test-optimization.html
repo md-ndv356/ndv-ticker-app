@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM最適化テスト</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #1e1e1e;
+      color: #ccc;
+    }
+
+    .test-area {
+      border: 2px solid #444;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+
+    .test-area h3 {
+      margin-top: 0;
+      color: #fff;
+    }
+
+    .result-area {
+      background: #2a2a2a;
+      padding: 10px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+
+    button {
+      background: #0078d4;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin: 5px 5px 5px 0;
+    }
+
+    button:hover {
+      background: #106ebe;
+    }
+
+    .example-text {
+      padding: 10px;
+      border: 1px solid #555;
+      border-radius: 3px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 DOM構造最適化テスト</h1>
+
+  <div class="test-area">
+    <h3>🔬 問題のあるDOM構造を生成</h3>
+    <p>ネストしたspanタグで構成された複雑なDOM構造を作成し、最適化機能をテストします。</p>
+    <button onclick="createProblematicDOM()">問題のあるDOM構造を生成</button>
+    <button onclick="optimizeDOM()">DOM構造を最適化</button>
+    <button onclick="showDOMStructure()">DOM構造を表示</button>
+
+    <div class="example-text" id="test-content" contenteditable="true">
+      テスト用のコンテンツです
+    </div>
+  </div>
+
+  <div class="test-area">
+    <h3>📊 DOM構造の表示</h3>
+    <div class="result-area" id="dom-structure">
+      DOM構造がここに表示されます
+    </div>
+  </div>
+
+  <div class="test-area">
+    <h3>📈 最適化結果</h3>
+    <div class="result-area" id="optimization-result">
+      最適化結果がここに表示されます
+    </div>
+  </div>
+
+  <script>
+    // RichTextEditorクラスの最適化メソッドを単独で使用
+    class DOMOptimizer {
+      optimizeDOMStructure(element) {
+        this.optimizeElement(element);
+      }
+
+      optimizeElement(element) {
+        const childNodes = Array.from(element.childNodes);
+
+        for (let i = 0; i < childNodes.length; i++) {
+          const child = childNodes[i];
+
+          if (child.nodeType === Node.ELEMENT_NODE) {
+            this.optimizeElement(child);
+
+            if (child.tagName === 'SPAN') {
+              this.mergeAdjacentSpans(child);
+            }
+
+            if (child.tagName === 'SPAN' && this.isEmptySpan(child)) {
+              child.remove();
+              i--;
+            }
+          }
+        }
+
+        this.mergeAdjacentTextNodes(element);
+      }
+
+      mergeAdjacentSpans(span) {
+        let nextSibling = span.nextSibling;
+
+        while (nextSibling) {
+          if (nextSibling.nodeType === Node.ELEMENT_NODE &&
+              nextSibling.tagName === 'SPAN' &&
+              this.hasSameStyles(span, nextSibling)) {
+
+            while (nextSibling.firstChild) {
+              span.appendChild(nextSibling.firstChild);
+            }
+
+            const toRemove = nextSibling;
+            nextSibling = nextSibling.nextSibling;
+            toRemove.remove();
+          } else {
+            break;
+          }
+        }
+      }
+
+      mergeAdjacentTextNodes(element) {
+        const walker = document.createTreeWalker(
+          element,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          textNodes.push(node);
+        }
+
+        for (let i = 0; i < textNodes.length - 1; i++) {
+          const current = textNodes[i];
+          const next = textNodes[i + 1];
+
+          if (current.nextSibling === next && current.parentNode === next.parentNode) {
+            current.textContent += next.textContent;
+            next.remove();
+            textNodes.splice(i + 1, 1);
+            i--;
+          }
+        }
+      }
+
+      hasSameStyles(span1, span2) {
+        const style1 = span1.style;
+        const style2 = span2.style;
+
+        const properties = ['color', 'fontSize', 'fontWeight', 'fontStyle', 'textDecoration'];
+
+        for (const prop of properties) {
+          if (style1[prop] !== style2[prop]) {
+            return false;
+          }
+        }
+
+        return true;
+      }
+
+      isEmptySpan(span) {
+        if (!span.textContent.trim()) {
+          return true;
+        }
+
+        const style = span.style;
+        const hasStyle = style.color || style.fontSize || style.fontWeight ||
+                        style.fontStyle || style.textDecoration;
+
+        if (!hasStyle && !span.className) {
+          return true;
+        }
+
+        return false;
+      }
+    }
+
+    const optimizer = new DOMOptimizer();
+
+    function createProblematicDOM() {
+      const content = document.getElementById('test-content');
+
+      // 添付画像と同様の複雑なネスト構造を作成
+      content.innerHTML = `
+        12<span style="color: rgb(245, 91, 212);">34</span><span style="color: rgb(227, 245, 91);"><span style="color: rgb(245, 91, 212);">567890</span></span><span style="color: rgb(91, 194, 245);">abcdefghijk</span>
+      `;
+
+      updateDisplay('問題のあるDOM構造を生成しました');
+    }
+
+    function optimizeDOM() {
+      const content = document.getElementById('test-content');
+      const beforeHTML = content.innerHTML;
+
+      optimizer.optimizeDOMStructure(content);
+
+      const afterHTML = content.innerHTML;
+
+      const result = `最適化前:
+${beforeHTML}
+
+最適化後:
+${afterHTML}
+
+結果: ${beforeHTML !== afterHTML ? '最適化されました ✅' : '変更なし'}`;
+
+      document.getElementById('optimization-result').textContent = result;
+    }
+
+    function showDOMStructure() {
+      const content = document.getElementById('test-content');
+      document.getElementById('dom-structure').textContent = formatHTML(content.innerHTML);
+    }
+
+    function formatHTML(html) {
+      return html
+        .replace(/></g, '>\n<')
+        .replace(/^\s+|\s+$/g, '')
+        .split('\n')
+        .map((line, index) => '  '.repeat(Math.max(0, (line.match(/</g) || []).length - (line.match(/\//g) || []).length)) + line)
+        .join('\n');
+    }
+
+    function updateDisplay(message) {
+      showDOMStructure();
+      document.getElementById('optimization-result').textContent = message;
+    }
+
+    // 初期表示
+    showDOMStructure();
+  </script>
+</body>
+</html>

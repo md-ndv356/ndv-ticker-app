@@ -3,7 +3,7 @@ console.log("ipcRenderer");
 
 contextBridge.exposeInMainWorld("ContentBridge", {
   receive: (fun) => ipcRenderer.on("sendToWindow", (event, ...args) => fun(...args)),
-  send: (data) => ipcRenderer.invoke("ErrorHandler.windowError", data),
+  sendError: (data) => ipcRenderer.invoke("ErrorHandler.windowError", data),
   requestAppInfo: () => ipcRenderer.invoke("requestAppInfo"),
   requestUpdateCheck: () => new Promise((resolve, reject) => {
     ipcRenderer.invoke("updateCheck")

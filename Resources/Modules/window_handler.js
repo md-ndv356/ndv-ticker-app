@@ -9,8 +9,11 @@ let Windows = { main: null, settings: null, info: null, traffic: null };
 ipcMain.handle("setIsResizable", (sender, isResizable) => {
   Windows.main.setResizable(isResizable);
 });
+ipcMain.handle("global.config.opacity", (sender, value) => {
+  if (Windows.main) Windows.main.setOpacity(value);
+});
 
-const PreventClosing = event => { if (!event.sender.closeable){ event.preventDefault(); } };
+// const PreventClosing = event => { if (!event.sender.closeable){ event.preventDefault(); } };
 
 const CreateMainWindow = (options) => {
   // Create a browser window.
@@ -26,7 +29,7 @@ const CreateMainWindow = (options) => {
     frame: false
   });
   if (Object.hasOwn((options ?? {}), "closeable")) Windows.main.closeable = !!options?.closeable; else Windows.main.closeable = true;
-  Windows.main.on("close", PreventClosing);
+  // Windows.main.on("close", PreventClosing);
   Windows.main.on("closed", function() {
     Windows.main = null;
   });
@@ -39,19 +42,26 @@ const CreateMainWindow = (options) => {
 };
 const ShowSettingsWindow = () => {
   Windows.settings = new BrowserWindow({
-    width: 875,
-    height: 666,
+    width: 1200,
+    height: 800,
+    minWidth: 900,
+    minHeight: 600,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       preload: path.join(__dirname, '../window/setting/preload.js')
     },
-    resizable: true
+    resizable: true,
+    titleBarStyle: 'default',
+    show: false
   });
   Windows.settings.on('closed', function() {
     Windows.settings = null;
   });
-  Windows.settings.loadFile(path.join(__dirname, '../window/setting/index.html'));
+  Windows.settings.loadFile(path.join(__dirname, '../window/setting/index_new.html'));
+  Windows.settings.once('ready-to-show', () => {
+    Windows.settings.show();
+  });
 };
 const ShowInfoWindow = () => {
   Windows.info = new BrowserWindow({
@@ -60,14 +70,14 @@ const ShowInfoWindow = () => {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, '../window/info/preload.js')
+      preload: path.join(__dirname, '../window/setting/preload.js')
     },
     resizable: true
   });
   Windows.info.on('closed', function() {
     Windows.info = null;
   });
-  Windows.info.loadFile(path.join(__dirname, '../window/info/index.html'));
+  Windows.info.loadFile(path.join(__dirname, '../window/setting/index.html'));
 };
 const ShowTrafficWindow = () => {
   Windows.traffic = new BrowserWindow({

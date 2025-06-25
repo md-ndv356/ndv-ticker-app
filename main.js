@@ -173,6 +173,69 @@ app.on("ready", async function(){
   ipcMain.handle("window.main.closeable", async () => {
     return WindowHandler.setCloseable("main", true);
   });
+
+  // Additional IPC handlers for settings
+  ipcMain.handle("system.getInfo", () => {
+    return {
+      nodeVersion: process.versions.node,
+      electronVersion: process.versions.electron,
+      platform: process.platform,
+      arch: process.arch
+    };
+  });
+
+  ipcMain.handle("app.isDev", () => {
+    return !app.isPackaged;
+  });
+
+  ipcMain.handle("app.getVersion", () => {
+    return app.getVersion();
+  });
+
+  ipcMain.handle("debug.showDevTools", () => {
+    const focusedWindow = BrowserWindow.getFocusedWindow();
+    if (focusedWindow) {
+      focusedWindow.webContents.openDevTools();
+    }
+  });
+
+  ipcMain.handle("debug.clearCache", async () => {
+    const focusedWindow = BrowserWindow.getFocusedWindow();
+    if (focusedWindow) {
+      await focusedWindow.webContents.session.clearStorageData();
+      return true;
+    }
+    return false;
+  });
+
+  ipcMain.handle("debug.sendTestData", (event, data) => {
+    console.log("Test data received:", data);
+    return { success: true, timestamp: Date.now() };
+  });
+
+  const fs = require('fs');
+  const os = require('os');
+
+  ipcMain.handle("file.save", async (event, data, filename) => {
+    try {
+      const filePath = path.join(os.homedir(), 'Downloads', filename || 'settings-backup.json');
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+      return { success: true, path: filePath };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  });
+
+  ipcMain.handle("file.load", async (event, filename) => {
+    try {
+      const filePath = path.join(os.homedir(), 'Downloads', filename);
+      const data = fs.readFileSync(filePath, 'utf8');
+      return { success: true, data: JSON.parse(data) };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  });
+
   WindowHandler.open("main", { closeable: false });
 
   app.on('activate', () => {
