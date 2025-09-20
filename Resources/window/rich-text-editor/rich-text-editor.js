@@ -11,6 +11,7 @@ class RichTextEditor {
     this.suppressDOMSync = false; // DOM同期を防ぐフラグ
     this.savedSelection = null; // 選択範囲保存用
     this.syncTimeout = null; // DOM同期タイムアウトID
+  this.parentIndex = null; // 親リスト内のインデックス
 
     this.init();
   }
@@ -525,7 +526,7 @@ class RichTextEditor {
 
     const color = computedStyle.color;
     // デフォルト色（白や灰色）以外の場合
-    if (color && color !== 'rgb(204, 204, 204)' && color !== 'rgb(255, 255, 255)') {
+    if (color && color !== 'rgb(255, 255, 255)') {
       styles.color = color;
     }
 
@@ -554,18 +555,17 @@ class RichTextEditor {
       styles: {}
     };
 
-    // 親ウィンドウにデータを送信
-    if (window.opener) {
-      window.opener.postMessage({
-        type: 'EDITOR_SAVE',
-        data: data
-      }, '*');
+    // IPC 経由で親へ送信
+    try {
+      if (window.ContentBridge?.sendToParent) {
+        window.ContentBridge.sendToParent({ type: "EDITOR_SAVE", index: this.parentIndex, data });
+      } else if (window.opener) {
+        // フォールバック: postMessage
+        window.opener.postMessage({ type: "EDITOR_SAVE", index: this.parentIndex, data }, "*");
+      }
       window.close();
-    } else {
-      // テスト環境では localStorageに保存
-      localStorage.setItem('rich-text-data', JSON.stringify(data));
-      console.log('データを保存しました:', data);
-      alert('データを保存しました！');
+    } catch (error) {
+      console.error("保存送信失敗", error);
     }
   }
 
@@ -1395,18 +1395,34 @@ document.addEventListener('DOMContentLoaded', () => {
       editor.loadData(data);
     }
   }
+
+  // 親へ READY 通知 (IPC)
+  try {
+    if (window.ContentBridge?.sendToParent) {
+      window.ContentBridge.sendToParent({ type: "RICH_READY" });
+    } else if (window.opener) {
+      window.opener.postMessage({ type: "RICH_READY" }, "*");
+    }
+  } catch (error) {
+    console.warn("READY送信失敗", error);
+  }
 });
 
 // 親ウィンドウからのメッセージを受信
-window.addEventListener('message', (event) => {
-  if (event.data.type === 'INIT_EDITOR' && editor) {
-    editor.loadData(event.data.data);
+window.addEventListener("message", (event) => {
+  if (!editor) return;
+  const msg = event.data;
+  if (!msg) return;
+  switch (msg.type) {
+    case "INIT_EDITOR":
+      editor.loadData(msg.data);
+      break;
+    case "INIT_RICH":
+      editor.parentIndex = msg.index;
+      editor.loadData(msg.data);
+      break;
   }
 });
 
 // 親ウィンドウからデータを受信する関数（レガシー互換性）
-window.receiveEditData = function(data) {
-  if (editor) {
-    editor.loadData(data);
-  }
-};
+window.receiveEditData = function(data) { if(editor) editor.loadData(data); };

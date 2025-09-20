@@ -306,18 +306,16 @@
         <section class="setting-section" id="ticker-text-section">
           <h2>通常画面設定</h2>
           <div class="setting-group">
-            <label class="setting-label">表示テキスト</label>
+            <label class="setting-label" style="padding: 0;">
+              <div style="padding: 12px 16px;">表示テキスト</div>
+              <button type="button" class="btn btn-secondary" id="add-ticker-text">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+            </label>
             <div class="ticker-text-section">
-              <div class="ticker-text-header">
-                <p class="ticker-text-description">ティッカーに表示するテキストを管理します。フリーテキストまたはショートカットを選択できます。</p>
-                <button type="button" class="btn btn-secondary" id="add-ticker-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                  </svg>
-                  テキストを追加
-                </button>
-              </div>
               <div class="ticker-text-manager">
                 <div id="ticker-text-list" class="text-list">
                   <!-- Dynamic content will be added here -->
@@ -1747,17 +1745,14 @@
         </div>
 
         <div class="form-group">
-          <label class="text-type-label">テキストタイプ</label>
           <div class="text-type-selector">
             <label class="radio-option">
               <input type="radio" name="text-type" value="custom" id="text-type-custom" checked>
               <span class="radio-label">メッセージを作る</span>
-              <p class="radio-description">リッチテキストエディタでカスタムメッセージを作成</p>
             </label>
             <label class="radio-option">
               <input type="radio" name="text-type" value="shortcut" id="text-type-shortcut">
               <span class="radio-label">ショートカット</span>
-              <p class="radio-description">スタイルが完成された定型メッセージを選択</p>
             </label>
           </div>
         </div>
@@ -1770,10 +1765,10 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M14,17H7V15H14M17,13H7V11H17M17,9H7V7H17M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z"/>
               </svg>
-              リッチテキストエディタで編集
+              テキストエディタで編集
             </button>
             <div id="rich-text-preview" class="rich-text-preview">
-              <p class="preview-placeholder">編集ボタンをクリックしてメッセージを作成してください</p>
+              <p class="preview-placeholder">編集ボタンをクリックしてメッセージを作成しましょう</p>
             </div>
           </div>
         </div>
@@ -1785,22 +1780,18 @@
             <label class="radio-option shortcut-option">
               <input type="radio" name="shortcut-type" value="temperature" id="shortcut-temperature" checked>
               <span class="radio-label">天気概況メッセージ</span>
-              <p class="radio-description">気温と天気の状況を含む完成されたメッセージ</p>
             </label>
             <label class="radio-option shortcut-option">
               <input type="radio" name="shortcut-type" value="precipitation" id="shortcut-precipitation">
               <span class="radio-label">降水情報メッセージ</span>
-              <p class="radio-description">降水量と予報を含む完成されたメッセージ</p>
             </label>
             <label class="radio-option shortcut-option">
               <input type="radio" name="shortcut-type" value="wind" id="shortcut-wind">
               <span class="radio-label">風・気圧メッセージ</span>
-              <p class="radio-description">風速・気圧・湿度を含む完成されたメッセージ</p>
             </label>
             <label class="radio-option shortcut-option">
               <input type="radio" name="shortcut-type" value="warning" id="shortcut-warning">
               <span class="radio-label">警報・注意報メッセージ</span>
-              <p class="radio-description">気象警報・注意報の発表状況メッセージ</p>
             </label>
           </div>
         </div>

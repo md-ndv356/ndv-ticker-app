@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>設定（rev1） - Natural Disaster Viewer</title>
+  <!-- borrow modern design -->
+  <link rel="stylesheet" href="./style_new.css" />
+  <style>
+    /* Normal Text cards (read-only) */
+    .normal-text-block { display:flex; flex-direction:column; gap:12px; }
+    .nt-toolbar { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:4px 4px 0; }
+  .nt-toolbar .btn.tiny { font-size:12px; padding:6px 14px; background:#1f2124; border:1px solid #3a3d42; color:#e5e7eb; border-radius:8px; font-weight:500; line-height:1; letter-spacing:.5px; cursor:pointer; transition:background .15s,border-color .15s,color .15s; }
+  .nt-toolbar .btn.tiny:hover { background:#272b30; }
+  .nt-toolbar .btn.tiny:active { background:#30353a; }
+  .nt-toolbar .btn.tiny:focus-visible { outline:2px solid #2563eb; outline-offset:2px; }
+  .nt-toolbar .btn.tiny[disabled] { opacity:.5; cursor:not-allowed; }
+    .nt-cards { display:flex; flex-direction:column; gap:14px; }
+    .nt-card { background:#2b2d31; border:1px solid #383b40; border-radius:10px; padding:12px 16px 10px; position:relative; box-shadow:0 1px 2px rgba(0,0,0,.35); }
+    .nt-card-header { display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
+    .nt-index { background:linear-gradient(135deg,#2563eb,#1e3a8a); color:#fff; font-weight:600; font-size:13px; padding:2px 8px; border-radius:14px; line-height:1; }
+    .nt-title-wrap { flex:1; min-width:180px; }
+    .nt-title-input { width:100%; background:#1f2124; border:1px solid #3a3d42; padding:6px 10px; border-radius:6px; color:#e5e7eb; font-size:15px; }
+    .nt-title-input:disabled { opacity:.75; }
+  /* command badge select */
+  .nt-command-badge { appearance:none; -webkit-appearance:none; background:#111a2b; color:#81b6ff; font-size:12px; padding:6px 30px 6px 14px; border-radius:20px; border:1px solid #1d3554; font-weight:500; line-height:1; cursor:pointer; position:relative; }
+  .nt-command-badge:focus { outline:2px solid #2563eb; outline-offset:2px; }
+  .nt-command-badge[data-kind='rank']{ background:#2e1a11; color:#ffb68b; border-color:#5a3324; }
+  .nt-command-badge[data-kind='precip']{ background:#112a2e; color:#7fe5ff; border-color:#17454c; }
+  .nt-command-badge[data-kind='snow']{ background:#1c2234; color:#c2dbff; border-color:#2d3a55; }
+  .nt-command-badge[data-kind='live']{ background:#1d2e17; color:#b0f09a; border-color:#2d4b23; }
+  .nt-command-badge[data-kind='river']{ background:#12263a; color:#7ec5ff; border-color:#1f4363; }
+  .nt-command-badge[data-kind='evac']{ background:#3a1212; color:#ff9090; border-color:#5c1d1d; }
+  .nt-command-badge-wrapper { position:relative; }
+  .nt-command-badge-wrapper:after { content:'▾'; position:absolute; right:12px; top:50%; transform:translateY(-55%); font-size:13px; pointer-events:none; opacity:.85; }
+    .nt-card-body { display:flex; flex-direction:column; gap:8px; }
+    .nt-command-select { width:100%; background:#1f2124; border:1px solid #3a3d42; color:#e5e7eb; padding:6px 10px; border-radius:6px; font-size:13px; }
+  .nt-preview { background:#1b1d20; border:1px solid #34373c; padding:10px 12px; border-radius:6px; font-size:15px; color:#e5e7eb; line-height:1.55; white-space:pre-wrap; position:relative; cursor:pointer; transition:background .15s,border-color .15s; max-height:calc(1.55em * 3); overflow:hidden; }
+  .nt-preview:hover { background:#23262a; }
+  .nt-preview:focus { outline:2px solid #2563eb; outline-offset:2px; }
+  .nt-preview.disabled { opacity:.6; font-style:italic; cursor:not-allowed; }
+  /* 3行を超える場合のフェード (clamped クラス付与時) */
+  .nt-preview.clamped::after { content:""; position:absolute; left:0; right:0; bottom:0; height:32%; background:linear-gradient(to bottom, rgba(27,29,32,0), #1b1d20); pointer-events:none; }
+  /* nt-meta / nt-status 削除済 (トグルボタンで状態表示) */
+    @media (min-width:960px){
+      .nt-card { padding:14px 20px 12px; }
+      .nt-card-body { flex-direction:row; }
+      .nt-command-select { max-width:240px; }
+      .nt-preview { flex:1; }
+    }
+    #normalText.textList .nt-cards { padding-bottom:20px; }
+  /* interactive actions */
+  .nt-actions { display:flex; gap:6px; align-items:center; margin-left:auto; }
+  .nt-icon-btn { background:#1f2124; border:1px solid #3a3d42; color:#cbd5e1; padding:4px 6px; font-size:12px; border-radius:6px; cursor:pointer; line-height:1; display:inline-flex; align-items:center; gap:4px; }
+  .nt-icon-btn:hover { background:#273038; }
+  .nt-icon-btn.danger { color:#fda4af; border-color:#7f1d1d; }
+  .nt-icon-btn.danger:hover { background:#3f1515; }
+  .nt-icon-btn.disabled { opacity:.4; cursor:not-allowed; }
+  /* Toggle (Eye pattern colors) */
+  .nt-icon-btn.toggle { transition:background .18s, color .18s, border-color .18s; min-width:60px; justify-content:center; }
+  .nt-icon-btn.toggle span { display:inline-block; width:28px; text-align:center; }
+  .nt-icon-btn.toggle[data-state='on'] { background:#13252a; color:#7fe5ff; border-color:#17454c; }
+  .nt-icon-btn.toggle[data-state='on']:hover { background:#173039; }
+  .nt-icon-btn.toggle[data-state='off'] { background:#1f2326; color:#9ca3af; border-color:#3a3d42; }
+  .nt-icon-btn.toggle[data-state='off']:hover { background:#262b2f; }
+  .nt-icon-btn svg { width:14px; height:14px; display:block; }
+  .nt-icon-btn svg path { fill:currentColor; }
+  .nt-card.dragging { opacity:.4; }
+  .nt-card.drag-over { outline:2px dashed #3b82f6; }
+  .nt-badge.editing { box-shadow:0 0 0 2px #2563eb inset; }
+  /* contenteditable 利用は廃止。上記 :focus で代用 */
+  .nt-reorder-handle { cursor:grab; }
+  .nt-reorder-handle:active { cursor:grabbing; }
+  /* .nt-meta .hint 削除 */
+  /* Toggle demo styles 削除済 */
+  .section-separator { height:1px; background:#3a3d42; margin:28px 0 22px; border:0; }
+  /* DM-D.S.S. section */
+  .card-grid.two-col { display:grid; grid-template-columns:1fr; gap:14px; }
+  @media (min-width: 980px){ .card-grid.two-col { grid-template-columns:1fr 1fr; } }
+  .card-block .field { display:flex; flex-direction:column; gap:6px; margin:8px 0; }
+  .card-block .field label { font-size:12px; color:#cbd5e1; }
+  .card-block .field input[type="text"],
+  .card-block .field input[type="password"] { background:#1f2124; border:1px solid #3a3d42; color:#e5e7eb; border-radius:6px; padding:8px 10px; }
+  .inline-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .hint { font-size:12px; color:#9ca3af; }
+  .secret-wrap { position:relative; }
+  .secret-wrap .reveal { position:absolute; right:8px; top:50%; transform:translateY(-50%); font-size:11px; background:#2b2d31; border:1px solid #3a3d42; color:#cbd5e1; border-radius:5px; padding:3px 6px; cursor:pointer; }
+  .badge { display:inline-block; font-size:11px; padding:3px 8px; border-radius:999px; border:1px solid #3a3d42; color:#cbd5e1; background:#1f2124; }
+  /* DM-D.S.S extended */
+  .dmdata-desc { color:#cbd5e1; font-size:13px; line-height:1.6; background:#23262a; border:1px solid #35383d; border-radius:8px; padding:10px 12px; }
+  .status-toolbar { display:flex; justify-content:flex-end; margin-top:8px; }
+  .status-grid { display:grid; grid-template-columns:1fr; gap:14px; margin-top:10px; }
+  @media (min-width: 980px){ .status-grid { grid-template-columns:1fr 1fr; } }
+  .card-block .mono-box { background:#1b1d20; border:1px solid #34373c; border-radius:6px; padding:10px; color:#e5e7eb; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; white-space:pre-wrap; min-height:66px; }
+  .ws-status { display:flex; flex-direction:column; gap:8px; }
+  .ws-status .row { display:flex; align-items:center; gap:10px; }
+  .ws-badge { display:inline-block; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:600; border:1px solid #3a3d42; }
+  .ws-badge.ok { background:#13301f; color:#9af0b0; border-color:#1f4a30; }
+  .ws-badge.ng { background:#2d1c1c; color:#fca5a5; border-color:#5c1d1d; }
+  .conn-list { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+  .conn-item { display:grid; grid-template-columns: 1fr auto auto; gap:10px; align-items:center; background:#1b1d20; border:1px solid #34373c; border-radius:6px; padding:10px; }
+  .conn-item .id { font-weight:600; letter-spacing:.3px; }
+  .conn-item .meta { color:#9ca3af; font-size:12px; }
+  .dmdata-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+  .btn-danger.solid { background:#7f1d1d; border-color:#7f1d1d; color:#fff; }
+  .btn-danger.solid:hover { background:#991b1b; }
+  details.dm-adv { margin-top:18px; }
+  details.dm-adv summary { cursor:pointer; color:#cbd5e1; font-weight:600; }
+  /* DM-D.S.S state switch */
+  #section-dmdata .dm-before-linked { display:none; }
+  #section-dmdata .dm-after-linked { display:none; }
+  #section-dmdata[data-state="unlinked"] .dm-before-linked { display:block; }
+  #section-dmdata[data-state="linked"] .dm-after-linked { display:block; }
+  #section-dmdata[data-state="connected"] .dm-after-linked { display:block; }
+  </style>
+</head>
+<body>
+  <div class="settings-container">
+    <!-- Header -->
+    <header class="settings-header">
+      <h1>設定</h1>
+      <div class="header-actions">
+        <button class="btn btn-primary" id="save-btn">保存</button>
+      </div>
+    </header>
+
+    <div class="settings-content">
+      <!-- Sidebar (複数セクション構造) -->
+      <nav class="settings-sidebar">
+        <div class="sidebar-section">
+          <h3>表示</h3>
+          <ul class="sidebar-menu" id="sidebar-menu">
+            <li class="menu-item active" data-target="section-normal">
+              <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5h18v4H3V5zm0 6h10v8H3v-8zm12 0h6v8h-6v-8z"/></svg></span>
+              <span class="menu-text">通常表示</span>
+            </li>
+            <li class="menu-item" data-target="section-eew">
+              <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 2 20h20L12 2zm0 5.5 6.15 11H5.85L12 7.5zM11 11h2v4h-2v-4zm0 5h2v2h-2v-2z"/></svg></span>
+              <span class="menu-text">緊急地震速報</span>
+            </li>
+            <li class="menu-item" data-target="section-earthquake">
+              <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 13h4l3 7 4-14 3 7h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+              <span class="menu-text">地震情報</span>
+            </li>
+            <li class="menu-item" data-target="section-news">
+              <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5zm12 2H8v2h8V7zm0 4H8v2h8v-2zm-6 4H8v2h2v-2z"/></svg></span>
+              <span class="menu-text">気象速報</span>
+            </li>
+          </ul>
+        </div>
+        <div class="sidebar-section">
+          <h3>設定</h3>
+          <ul class="sidebar-menu">
+            <li class="menu-item" data-target="section-themeUnits">
+              <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.62-.07-1.23-.2-1.81-.14-.63-.76-1.05-1.4-.94-.71.12-1.4.18-2.17.18-3.87 0-7-3.13-7-7 0-.77.06-1.46.18-2.17.11-.64-.31-1.26-.94-1.4A9.1 9.1 0 0 0 12 3z"/></svg></span>
+              <span class="menu-text">テーマ / 単位</span>
+            </li>
+            <li class="menu-item" data-target="section-intervals">
+              <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1a11 11 0 1 0 11 11A11.013 11.013 0 0 0 12 1zm0 2a9 9 0 1 1-9 9 9.01 9.01 0 0 1 9-9zm-.5 2h1v7l5 3-.5.87L11.5 13V5z"/></svg></span>
+              <span class="menu-text">取得間隔</span>
+            </li>
+            <li class="menu-item" data-target="section-sound">
+              <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.54 3a4.5 4.5 0 0 0-2.31-3.95v7.9A4.5 4.5 0 0 0 16.54 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg></span>
+              <span class="menu-text">サウンド</span>
+            </li>
+            <li class="menu-item" data-target="section-speech">
+              <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0h-2zm-5 8a9.01 9.01 0 0 0 7.48-4H22a11 11 0 0 1-20 0h2.52A9.01 9.01 0 0 0 12 19z"/></svg></span>
+              <span class="menu-text">読み上げ</span>
+            </li>
+          </ul>
+        </div>
+        <div class="sidebar-section">
+            <h3>システム</h3>
+            <ul class="sidebar-menu">
+              <li class="menu-item" data-target="section-debug">
+                <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 2v2H5v2h2v6.586l-1.293 1.293 1.414 1.414L9 13.414V6h2V4H9V2H7zm10 0v2h-2v2h2v7.414l1.293 1.293 1.414-1.414L19 12.586V6h2V4h-2V2h-2zM8 18h8v2H8v-2z"/></svg></span>
+                <span class="menu-text">デバッグ</span>
+              </li>
+              <li class="menu-item" data-target="section-dmdata">
+                <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5h18v4H3V5zm0 6h18v8H3v-8zm2 2v4h14v-4H5z"/></svg></span>
+                <span class="menu-text">データソース / DM-D.S.S.</span>
+              </li>
+              <li class="menu-item" data-target="section-about">
+                <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm0 3a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 12 5zm2 12h-4v-2h1v-3h-1V10h3v5h1v2z"/></svg></span>
+                <span class="menu-text">About</span>
+              </li>
+            </ul>
+        </div>
+      </nav>
+
+      <!-- Main Panel (sections keep legacy IDs/fields) -->
+      <main class="settings-panel">
+        <!-- 通常画面関連 -->
+        <section class="setting-section active" id="section-normal" aria-label="通常表示">
+          <div id="normalText.speedForm" class="ticker-speed-card">
+            <div class="speed-card-header">
+              <div class="title">テキストスクロール速度</div>
+              <div class="value"><span id="normalText.speedResult">4.5</span><span class="unit"> px/f</span></div>
+            </div>
+            <div class="speed-range-wrapper">
+              <div class="speed-track" aria-hidden="true">
+                <div class="speed-track-fill"></div>
+              </div>
+              <div class="speed-scale" aria-hidden="true">
+                <span class="min">0.1</span>
+                <span class="max">20.0</span>
+              </div>
+              <input id="normalText.speedInput" type="range" value="4.5" min="0.1" max="20" step="0.1" />
+            </div>
+          </div>
+          <table class="table-2col"><tbody>
+            <tr>
+              <td><label for="normal.viewTsunamiType">津波情報の表示</label></td>
+              <td>
+                <select id="normal.viewTsunamiType">
+                  <option value="1">上側に常時表示</option>
+                  <option value="2">通常表示を置き換え</option>
+                  <option value="0">表示なし</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="normal.viewLittleTsunami">若干の海面変動を表示</label></td>
+              <td><input type="checkbox" id="normal.viewLittleTsunami" checked disabled /></td>
+            </tr>
+          </tbody></table>
+
+          <!-- 通常テキストリスト セクション開始 -->
+          <hr class="section-separator" aria-hidden="true" />
+          <div id="normalText.textList" class="normal-text-block" style="z-index:20;">
+            <!-- 互換用レガシーテーブル（非表示） -->
+            <table id="normalTextsTable" style="display:none;">
+              <thead><tr><th></th><th></th><th></th></tr></thead><tbody></tbody>
+            </table>
+            <div class="nt-toolbar">
+              <div class="nt-toolbar-left" style="display:flex; gap:6px;">
+                <button type="button" id="normalText.addText" class="btn tiny">＋ 追加</button>
+                <button type="button" id="normalText.resetLocal" class="btn tiny">元に戻す</button>
+              </div>
+              <div class="nt-toolbar-right" style="font-size: 13px; font-weight: 600; color: #d1d6de;">通常テキストを編集しよう</div>
+            </div>
+            <!-- 下部区切り線不要のため削除 -->
+            <div class="nt-cards" id="normalTextsCards" aria-label="通常テキスト一覧"></div>
+          </div>
+
+          <div class="legacy-actions" style="margin-top: 10px; display: flex; gap: 8px;">
+            <button type="button" name="recordingstart">録画開始</button>
+            <button type="button" name="recordingstop">録画停止</button>
+            <button type="button" name="recordingreset">録画済データリセット</button>
+          </div>
+          <div id="download_movie"></div>
+        </section>
+
+        <!-- 緊急地震速報関連 -->
+        <section class="setting-section" id="section-eew" aria-label="緊急地震速報">
+          <div class="btn-row" style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <button type="button" id="stopWarnAudio">アラーム音強制停止</button>
+            <button type="button" id="startEEWfcstTest">テスト受信（予報）</button>
+            <button type="button" id="startEEWwarnTest">テスト受信（警報）</button>
+            <button type="button" id="startEEWcancelTest">テスト受信（キャンセル報）</button>
+            <button type="button" id="stopEEWtest">テスト受信を停止</button>
+          </div>
+          <table class="settings-table border_init" style="margin-top: 10px;">
+            <tbody>
+              <tr>
+                <td>緊急地震速報表示条件（OR）</td>
+                <td>
+                  <div>
+                    最大震度
+                    <select id="settings.eewminint">
+                      <option value="1">１ 以上</option>
+                      <option value="2">２ 以上</option>
+                      <option value="3">３ 以上</option>
+                      <option value="4">４ 以上</option>
+                      <option value="5">５弱 以上</option>
+                      <option value="6">５強 以上</option>
+                      <option value="7">６弱 以上</option>
+                      <option value="8">６強 以上</option>
+                      <option value="9">７ 以上</option>
+                    </select>
+                    でかつ不明を
+                    <select id="settings.eewintunknown">
+                      <option value="1">含む</option>
+                      <option value="0">含まない</option>
+                    </select>
+                    <br />M
+                    <select id="settings.eewminmag">
+                      <option value="0.0">指定なし</option>
+                      <option value="2.0">2.0 以上</option>
+                      <option value="3.0">3.0 以上</option>
+                      <option value="3.5">3.5 以上</option>
+                      <option value="4.0">4.0 以上</option>
+                      <option value="4.5">4.5 以上</option>
+                      <option value="5.0">5.0 以上</option>
+                      <option value="5.5">5.5 以上</option>
+                      <option value="6.0">6.0 以上</option>
+                      <option value="6.5">6.5 以上</option>
+                      <option value="7.0">7.0 以上</option>
+                      <option value="7.5">7.5 以上</option>
+                      <option value="8.0">8.0 以上</option>
+                      <option value="8.5">8.5 以上</option>
+                      <option value="9.0">9.0 以上</option>
+                    </select>
+                    <br />深さ
+                    <select id="settings.eewdepmin">
+                      <option value="1000">指定なし</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 地震情報関連 -->
+        <section class="setting-section" id="section-earthquake" aria-label="地震情報">
+          <button type="button" id="ChangeToEq">地震情報に切り替え</button>
+          <table class="settings-table border_init" style="margin-top: 10px;">
+            <tbody>
+              <tr>
+                <td>地震情報表示条件（AND）</td>
+                <td>
+                  <div>
+                    最大震度
+                    <select id="settings.minint">
+                      <option value="1">１ 以上</option>
+                      <option value="2">２ 以上</option>
+                      <option value="3">３ 以上</option>
+                      <option value="4">４ 以上</option>
+                      <option value="6">５弱 以上</option>
+                      <option value="7">５強 以上</option>
+                      <option value="8">６弱 以上</option>
+                      <option value="9">６強 以上</option>
+                      <option value="10">７ 以上</option>
+                    </select>
+                    <br />M
+                    <select id="settings.minmag">
+                      <option value="0.0">指定なし</option>
+                      <option value="2.0">2.0 以上</option>
+                      <option value="3.0">3.0 以上</option>
+                      <option value="3.5">3.5 以上</option>
+                      <option value="4.0">4.0 以上</option>
+                      <option value="4.5">4.5 以上</option>
+                      <option value="5.0">5.0 以上</option>
+                      <option value="5.5">5.5 以上</option>
+                      <option value="6.0">6.0 以上</option>
+                      <option value="6.5">6.5 以上</option>
+                      <option value="7.0">7.0 以上</option>
+                      <option value="7.5">7.5 以上</option>
+                      <option value="8.0">8.0 以上</option>
+                      <option value="8.5">8.5 以上</option>
+                      <option value="9.0">9.0 以上</option>
+                    </select>
+                    <br />深さ
+                    <select id="settings.depmin">
+                      <option value="1000">指定なし</option>
+                      <option value="0">ごく浅い のみ</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- legacy template area (kept hidden) -->
+          <div style="display: none;">
+            <div class="temp-tx">
+              テンプレートを
+              <button class="tmpSH-btn" name="tmpSH-btn">表示/非表示</button>
+            </div>
+            <div class="tmp-box">
+              <button type="button" name="tmp-btn" class="tmp-btn">平成30年山形県沖地震</button>
+              <button type="button" name="tmp-btn" class="tmp-btn">平成30年北海道胆振東部地震</button>
+              <button type="button" name="tmp-btn" class="tmp-btn">平成30年大阪府北部地震</button>
+              <button type="button" name="tmp-btn" class="tmp-btn">平成28年鳥取県中部地震</button>
+              <button type="button" name="tmp-btn" class="tmp-btn">平成28年熊本地震(本震)</button>
+              <button type="button" name="tmp-btn" class="tmp-btn">平成28年熊本地震(前震)</button>
+              <button type="button" name="tmp-btn" class="tmp-btn">平成27年小笠原諸島西方沖地震</button>
+              <button type="button" name="tmp-btn" class="tmp-btn">平成25年オホーツク海深発地震</button>
+              <button type="button" name="tmp-btn" class="tmp-btn">東日本大震災(地震速報)</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ニュース・気象速報関連 -->
+        <section class="setting-section" id="section-news" aria-label="気象速報">
+          <div style="color: #410070;">
+            タイトル　　<br /><input type="text" id="BNtitle" style="width: 100%;" /><br />
+            サブタイトル<br /><input type="text" id="BNtext1" style="width: 100%;" /><br />
+            テキスト　　<br /><input type="text" id="BNtext2" style="width: 100%;" /><br />
+          </div>
+          <button type="button" name="BreakingNewsView">反映</button>
+          <div class="wtWarnChecking" style="margin-top: 10px;">
+            <div class="wtWarnListMsg">表示待機中の気象情報はありません</div>
+            <div class="wtWarnListFeeds">
+              <table class="border_init">
+                <tbody id="wtWarnTableBody">
+                  <tr>
+                    <td class="title"><div>タイトル</div></td>
+                    <td class="subtitle"><div>サブタイトル</div></td>
+                    <td class="maintext"><div>本文（テキスト）</div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 読み上げ関連 -->
+        <section class="setting-section" id="section-speech" aria-label="読み上げ">
+          <div class="speech-item"><div>読み上げステータス情報</div><div id="speech.status.text">準備完了！</div></div>
+          <div class="speech-item">
+            <div>読み上げ音量</div>
+            <div>
+              <input type="range" min="0" max="1.2" value="1" step="0.01" id="speech.volume.input" />
+              <span id="speech.volume.current">100%</span>
+            </div>
+          </div>
+          <div class="speech-item">
+            <div>種別設定</div>
+            <div>
+              <div class="speech-effective"><label><input type="checkbox" id="speech.checkbox.eew" checked /><span>: 緊急地震速報</span></label></div>
+              <div class="speech-effective"><label><input type="checkbox" id="speech.checkbox.quake" checked /><span>: 地震情報</span></label></div>
+              <div class="speech-effective"><label><input type="checkbox" id="speech.checkbox.vpoa50" checked /><span>: 記録的短時間大雨情報</span></label></div>
+              <div class="speech-effective"><label><input type="checkbox" id="speech.checkbox.ground" checked /><span>: 土砂災害警戒情報</span></label></div>
+              <div class="speech-effective"><label><input type="checkbox" id="speech.checkbox.specialwarn" checked /><span>: 特別警報報知</span></label></div>
+            </div>
+          </div>
+          <div><button id="speech.test.start1">テスト音声を再生</button></div>
+        </section>
+
+        <!-- テーマ / 単位 / クリップボード -->
+        <section class="setting-section" id="section-themeUnits" aria-label="テーマ / 単位 / クリップボード">
+          <div class="card-grid">
+            <div class="card-block">
+              <h3 class="card-title">テーマカラー</h3>
+              <select id="settings.themeColor.ticker">
+                <option value="0">ライト</option>
+                <option value="1">ダーク</option>
+                <option value="2">モノトーン</option>
+              </select>
+            </div>
+            <div class="card-block">
+              <h3 class="card-title">クリップボード自動コピー</h3>
+              <label for="settings.setClipEEW" class="inline-label"><input type="checkbox" id="settings.setClipEEW" /> 緊急地震速報</label><br />
+              <label for="settings.setClipQuake" class="inline-label"><input type="checkbox" id="settings.setClipQuake" /> 地震情報</label>
+            </div>
+            <div class="card-block">
+              <h3 class="card-title">単位設定</h3>
+              <div class="unit-setting">風速：
+                <select id="settings.unitWinds">
+                  <option value="m/s">m/s</option>
+                  <option value="km/h">km/h</option>
+                  <option value="mph">mph</option>
+                  <option value="kt">kt</option>
+                  <option value="ft/s">ft/s</option>
+                </select>
+              </div>
+              <div class="unit-setting">気温：
+                <select id="settings.unitTemp">
+                  <option value="centi">℃</option>
+                  <option value="kelvin">K</option>
+                  <option value="fahren">℉</option>
+                </select>
+              </div>
+              <button type="button" id="settings.unitsReflect" class="btn btn-secondary small">反映して再読み込み</button>
+            </div>
+          </div>
+          <div class="section-footer">
+            <button class="btn btn-danger subtle" disabled>全ての設定をデフォルトに戻す（未実装）</button>
+          </div>
+        </section>
+
+        <!-- 取得間隔 / AMeDAS 抜粋 -->
+        <section class="setting-section" id="section-intervals" aria-label="情報取得間隔">
+          <div class="interval-table-wrapper">
+            <table class="xhr-interval modern">
+              <thead><tr><th>種別</th><th>間隔 (ms)</th></tr></thead>
+              <tbody>
+                <tr><td>緊急地震速報</td><td><input type="number" min="1100" value="5000" step="50" id="settings.intervalIedred" /></td></tr>
+                <tr><td>地震情報</td><td><input type="number" min="5000" value="12000" step="50" id="settings.intervalNHKquake" /></td></tr>
+                <tr><td>気象情報</td><td><input type="number" min="5000" value="15000" step="50" id="settings.intervalJmaWt" /></td></tr>
+                <tr><td>津波情報</td><td><input type="number" min="25000" value="30000" step="250" id="settings.intervalTenkiJpTsu" /></td></tr>
+                <tr><td>Mスケール</td><td><input type="number" min="10000" value="30000" step="250" id="settings.intervalWNImscale" /></td></tr>
+                <tr><td>ソラボタン</td><td><input type="number" min="10000" value="30000" step="250" id="settings.intervalWNIsorabtn" /></td></tr>
+                <tr><td>河川情報</td><td><input type="number" min="30000" value="300000" step="1000" id="settings.intervalWNIriver" /></td></tr>
+                <tr><td>WNL番組表</td><td><input type="number" min="60000" value="240000" step="250" id="settings.intervalWNItm" /></td></tr>
+                <tr><td>東京電力停電情報</td><td><input type="number" min="30000" value="60000" step="250" id="settings.intervalTpcBlackOut" /></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ame-setting">
+            <label for="settings.setParticallyReadingAme" class="inline-label"><input type="checkbox" id="settings.setParticallyReadingAme" checked /> アメダス地点 抜粋読み込みを有効化</label>
+          </div>
+        </section>
+
+        <!-- サウンド -->
+        <section class="setting-section" id="section-sound" aria-label="サウンド">
+          <div class="sound-groups">
+            <div class="sound-group">
+              <h3 class="card-title">イベント別音量</h3>
+              <ul class="sound-volume-list">
+                <li><button id="settings.voltestEewLow" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="100" id="settings.volEewLow" />%：緊急地震速報</li>
+                <li><button id="settings.voltestEewBeep" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="10" id="settings.volEewBeep" />%：緊急地震速報(ビープ)</li>
+                <li><button id="settings.voltestEewCustom" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="100" id="settings.volEewCustom" />%：緊急地震速報(カスタム)</li>
+                <li><button id="settings.voltestEewPlum" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="100" id="settings.volEewPlum" />%：緊急地震速報(PLUM)</li>
+                <li><button id="settings.voltestGL" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="100" id="settings.volGL" />%：土砂災害警戒情報</li>
+                <li><button id="settings.voltestNtc" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="100" id="settings.volNtc" />%：竜巻注意情報</li>
+                <li><button id="settings.voltestSpW" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="100" id="settings.volSpW" />%：気象特別警報</li>
+                <li><button id="settings.voltestTnm" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="100" id="settings.volTnm" />%：津波情報</li>
+                <li><button id="settings.voltestHvRa" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="100" id="settings.volHvRa" />%：記録的短時間大雨情報</li>
+                <li><button id="settings.voltestFldOc4" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="100" id="settings.volFldOc4" />%：氾濫危険情報</li>
+                <li><button id="settings.voltestFldOc5" class="btn tiny">Test</button> <input type="number" min="0" max="100" value="100" id="settings.volFldOc5" />%：氾濫発生情報</li>
+              </ul>
+            </div>
+            <div class="sound-group">
+              <h3 class="card-title">地震情報 音量プロファイル</h3>
+              <table class="settings_volume_quake_table compact">
+                <tbody>
+                  <tr>
+                    <th></th>
+                    <th class="sound_quake_type" data-type="normal" data-index="1">震度1</th>
+                    <th class="sound_quake_type" data-type="normal" data-index="2">震度2</th>
+                    <th class="sound_quake_type" data-type="normal" data-index="3">震度3</th>
+                    <th class="sound_quake_type" data-type="normal" data-index="4">震度4</th>
+                    <th class="sound_quake_type" data-type="normal" data-index="5">震度5弱</th>
+                    <th class="sound_quake_type" data-type="major" data-index="6">震度5強</th>
+                    <th class="sound_quake_type" data-type="major" data-index="7">震度6弱</th>
+                    <th class="sound_quake_type" data-type="major" data-index="8">震度6強</th>
+                    <th class="sound_quake_type" data-type="major" data-index="9">震度7</th>
+                  </tr>
+                  <tr>
+                    <th>音量(%)</th>
+                    <td><input type="number" min="0" max="100" value="30" class="sound_quake_volume" /></td>
+                    <td><input type="number" min="0" max="100" value="50" class="sound_quake_volume" /></td>
+                    <td><input type="number" min="0" max="100" value="70" class="sound_quake_volume" /></td>
+                    <td><input type="number" min="0" max="100" value="80" class="sound_quake_volume" /></td>
+                    <td><input type="number" min="0" max="100" value="90" class="sound_quake_volume" /></td>
+                    <td><input type="number" min="0" max="100" value="100" class="sound_quake_volume" /></td>
+                    <td><input type="number" min="0" max="100" value="100" class="sound_quake_volume" /></td>
+                    <td><input type="number" min="0" max="100" value="100" class="sound_quake_volume" /></td>
+                    <td><input type="number" min="0" max="100" value="100" class="sound_quake_volume" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- デバッグ -->
+        <section class="setting-section" id="section-debug" aria-label="デバッグ">
+          <p>（将来拡張）</p>
+        </section>
+
+        <!-- DM-D.S.S. 設定 -->
+        <section class="setting-section" id="section-dmdata" aria-label="DM-D.S.S." data-state="unlinked">
+          <div class="dmdata-desc">
+            このタブでは、有料サービス「Project DM-D.S.S.」の連携状況を確認できます。有効な契約として挙げられているデータについては、WebSocketが正常に接続されていれば、Project DM-D.S.Sからの各種情報を受信するようになります。なお、1アカウントあたりのWebSocket最大同時接続枠はデフォルトで1となっていますが、Project DM-D.S.SのコントロールパネルにてWebSocket同時接続枠を拡張する契約を行うことで、より多くの接続を同時に行うことができるようになります。以下のリストには、連携しているProject DM-D.S.SアカウントのアクティブなWebSocketの接続が表示されています。
+          </div>
+          <!-- 未連携時 CTA -->
+          <div class="dm-before-linked">
+            <div class="card-block" style="margin-top:12px;">
+              <h3 class="card-title">NDV と Project DM-D.S.S を連携</h3>
+              <div class="hint">まだ連携が完了していません。連携を開始してコントロールパネルで許可すると、NDVがデータにアクセスできるようになります。</div>
+              <div class="inline-row" style="margin-top:10px;">
+                <button class="btn btn-primary" id="dmdata.btn.authorize.cta">連携を開始</button>
+                <button class="btn btn-secondary" id="dmdata.btn.copyRedirect2">リダイレクトURIをコピー</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="dm-after-linked">
+          <div class="status-toolbar">
+            <button class="btn tiny" id="dmdata.btn.refresh">利用状況を更新</button>
+          </div>
+          <div class="status-grid">
+            <div class="card-block">
+              <h3 class="card-title">有効な契約</h3>
+              <div id="dmdata.contracts" class="mono-box">（未取得）</div>
+            </div>
+            <div class="card-block">
+              <h3 class="card-title">WebSocketの接続状況</h3>
+              <div class="ws-status">
+                <div class="row">
+                  <span id="dmdata.ws.badge" class="ws-badge ng">未接続</span>
+                </div>
+                <div class="row"><span class="hint">ID：</span><span id="dmdata.ws.id" class="mono">-</span></div>
+                <div class="row"><button class="btn btn-secondary small" id="dmdata.btn.disconnectWs" disabled>WebSocketを切断する</button></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-block" style="margin-top:14px;">
+            <h3 class="card-title">現在の接続リスト <span id="dmdata.conn.counter" class="hint">(0/0)</span></h3>
+            <div id="dmdata.conn.list" class="conn-list"></div>
+            <div id="dmdata.conn.slot" class="hint" style="margin-top:6px;">利用可能な接続枠</div>
+          </div>
+          <div class="dmdata-actions">
+            <button class="btn btn-danger solid" id="dmdata.btn.unlink">Project DM-D.S.S アカウントとの連携を解除</button>
+            <button class="btn btn-secondary" id="dmdata.btn.openConsole">Project DM-D.S.S コントロールパネルを開く</button>
+          </div>
+          </div>
+          <details class="dm-adv">
+            <summary>詳細設定（OAuth 2.0）</summary>
+            <div class="card-grid two-col" style="margin-top:10px;">
+              <div class="card-block" style="grid-column: 1 / -1;">
+                <h3 class="card-title">OAuth 2.0 クライアント設定</h3>
+                <div class="field">
+                  <label>連携エンドポイント（Authorization Endpoint）</label>
+                  <input type="text" id="dmdata.oauth.authorization_endpoint" placeholder="https://api.dmdata.jp/oauth2/authorize" />
+                </div>
+                <div class="field">
+                  <label>トークンエンドポイント (Token Endpoint)</label>
+                  <input type="text" id="dmdata.oauth.token_endpoint" placeholder="https://api.dmdata.jp/oauth2/token" />
+                </div>
+                <div class="field">
+                  <label>クライアントID (Client ID)</label>
+                  <input type="text" id="dmdata.oauth.client_id" placeholder="xxxxxxxxxxxxxxxx" />
+                </div>
+                <div class="field secret-wrap">
+                  <label>クライアントシークレット (Client Secret)</label>
+                  <input type="password" id="dmdata.oauth.client_secret" placeholder="********" />
+                  <button type="button" class="reveal" data-reveal-for="dmdata.oauth.client_secret">表示</button>
+                </div>
+                <div class="field">
+                  <label>リダイレクトURI</label>
+                  <input type="text" id="dmdata.oauth.redirect_uri" value="ndv://oauth/dmdata" />
+                </div>
+                <div class="inline-row" style="margin-top:10px;">
+                  <label class="inline-label"><input type="radio" name="dmdata.openIn" value="external" checked /> 既定ブラウザで開く</label>
+                  <label class="inline-label"><input type="radio" name="dmdata.openIn" value="inapp" /> アプリ内で開く</label>
+                </div>
+                <div class="inline-row" style="margin-top:10px;">
+                  <button class="btn btn-primary" id="dmdata.btn.authorize">連携を開始</button>
+                  <button class="btn btn-secondary" id="dmdata.btn.copyRedirect">リダイレクトURIをコピー</button>
+                </div>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- About -->
+        <section class="setting-section" id="section-about" aria-label="About NDV">
+          <div class="program-info">Natural Disaster Viewer <span id="current-version">1.0.0</span><br />Last Modified at <span id="last-created-time"></span><br /><span id="programInfo.freeComment"></span></div>
+          <div id="credits" class="credits-box">
+            <div style="font-size: 14px; font-weight: 600;">License Informations</div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Minimal section switcher (keep design behavior simple)
+    const menuItems = Array.from(document.querySelectorAll('.menu-item'));
+    const sections = Array.from(document.querySelectorAll('.setting-section'));
+    function activate(targetId){
+      menuItems.forEach(mi => mi.classList.toggle('active', mi.dataset.target === targetId));
+      sections.forEach(sec => sec.classList.toggle('active', sec.id === targetId));
+    }
+    menuItems.forEach(mi => mi.addEventListener('click', () => activate(mi.dataset.target)));
+    // Enhance range background like legacy UI
+    const speedInput = document.getElementById('normalText.speedInput');
+    const speedOut = document.getElementById('normalText.speedResult');
+    let trackFill, rangeMin, rangeMax;
+    function updateSpeedTrack(){
+      if (!speedInput || !speedOut) return;
+      const v = speedInput.valueAsNumber;
+      speedOut.textContent = v.toFixed(1);
+      if (trackFill){
+        const ratio = (v - rangeMin) / (rangeMax - rangeMin);
+        trackFill.style.setProperty('--fill-ratio', ratio);
+        trackFill.style.width = (ratio * 100).toFixed(2) + '%';
+        trackFill.dataset.speed = v.toFixed(1);
+      }
+    }
+    if (speedInput){
+      trackFill = document.querySelector('.speed-track-fill');
+      rangeMin = parseFloat(speedInput.min);
+      rangeMax = parseFloat(speedInput.max);
+      speedInput.addEventListener('input', updateSpeedTrack);
+      updateSpeedTrack();
+    }
+
+    // -------- Load and reflect configuration (read-only) --------
+    // Legacy-like element map (IDs are kept as in old settings)
+    const settingsE = {
+      themeColor: { ticker: document.getElementById('settings.themeColor.ticker') },
+      normal: {
+        viewTsunamiType: document.getElementById('normal.viewTsunamiType'),
+        viewLittleTsunami: document.getElementById('normal.viewLittleTsunami'),
+      },
+      // EEW
+      eewminint: document.getElementById('settings.eewminint'),
+      eewintunknown: document.getElementById('settings.eewintunknown'),
+      eewminmag: document.getElementById('settings.eewminmag'),
+      eewdepmin: document.getElementById('settings.eewdepmin'),
+      // Earthquake
+      minint: document.getElementById('settings.minint'),
+      minmag: document.getElementById('settings.minmag'),
+      depmin: document.getElementById('settings.depmin'),
+      // News
+      BNtitle: document.getElementById('BNtitle'),
+      BNtext1: document.getElementById('BNtext1'),
+      BNtext2: document.getElementById('BNtext2'),
+      // Units
+      unitWinds: document.getElementById('settings.unitWinds'),
+      unitTemp: document.getElementById('settings.unitTemp'),
+      // Clipboard
+      setClipEEW: document.getElementById('settings.setClipEEW'),
+      setClipQuake: document.getElementById('settings.setClipQuake'),
+      // Intervals
+      intervalIedred: document.getElementById('settings.intervalIedred'),
+      intervalNHKquake: document.getElementById('settings.intervalNHKquake'),
+      intervalJmaWt: document.getElementById('settings.intervalJmaWt'),
+      intervalTenkiJpTsu: document.getElementById('settings.intervalTenkiJpTsu'),
+      intervalWNImscale: document.getElementById('settings.intervalWNImscale'),
+      intervalWNIsorabtn: document.getElementById('settings.intervalWNIsorabtn'),
+      intervalWNIriver: document.getElementById('settings.intervalWNIriver'),
+      intervalWNItm: document.getElementById('settings.intervalWNItm'),
+      intervalTpcBlackOut: document.getElementById('settings.intervalTpcBlackOut'),
+      // Volumes
+      volEewLow: document.getElementById('settings.volEewLow'),
+      volEewBeep: document.getElementById('settings.volEewBeep'),
+      volEewCustom: document.getElementById('settings.volEewCustom'),
+      volEewPlum: document.getElementById('settings.volEewPlum'),
+      volGL: document.getElementById('settings.volGL'),
+      volNtc: document.getElementById('settings.volNtc'),
+      volSpW: document.getElementById('settings.volSpW'),
+      volTnm: document.getElementById('settings.volTnm'),
+      volHvRa: document.getElementById('settings.volHvRa'),
+      volFldOc4: document.getElementById('settings.volFldOc4'),
+      volFldOc5: document.getElementById('settings.volFldOc5'),
+      volQuake: {
+        type: Array.from(document.getElementsByClassName('sound_quake_type')),
+        volume: Array.from(document.getElementsByClassName('sound_quake_volume')),
+      },
+      // Others
+      setParticallyReadingAme: document.getElementById('settings.setParticallyReadingAme'),
+    };
+
+    // Depth options generator (legacy behavior)
+    function populateDepthOptions() {
+      if (settingsE.depmin) {
+        settingsE.depmin.innerHTML = '';
+        settingsE.depmin.insertAdjacentHTML('beforeend', '<option value="1000">指定なし</option><option value="0">ごく浅い のみ</option>');
+      }
+      if (settingsE.eewdepmin) {
+        settingsE.eewdepmin.innerHTML = '';
+        settingsE.eewdepmin.insertAdjacentHTML('beforeend', '<option value="1000">指定なし</option>');
+      }
+      const RANGE_10 = [...Array(10).keys()];
+      for (let group of RANGE_10){
+        group = group * 100 + 10; // 10..910 => 110..1010 after +100 below, but legacy used 110..1000
+        const start = group + 100; // 110, 210, ... 1010
+        const label = `${start}km〜${start+90}km`;
+        let text = `<optgroup label="${label}">`;
+        for (let val of RANGE_10){
+          const depth = start + val*10;
+          if (depth > 1000) continue;
+          text += `<option value="${depth}">${depth}km またはそれより浅い</option>`;
+        }
+        text += '</optgroup>';
+        if (settingsE.depmin) settingsE.depmin.insertAdjacentHTML('beforeend', text);
+        if (settingsE.eewdepmin) settingsE.eewdepmin.insertAdjacentHTML('beforeend', text);
+      }
+    }
+
+    // Normal text table helper (read-only rendering)
+  const normalText = (function(){
+      const table = document.getElementById('normalTextsTable'); // legacy hidden
+      const host = document.getElementById('normalTextsCards');
+      const COMMANDS = [
+        { text: 'コマンドなし', id: 0, kind: 'text' },
+        { text: '最高気温（ランキング）', id: 11, kind: 'rank' },
+        { text: '最低気温（ランキング）', id: 12, kind: 'rank' },
+        { text: '1時間降水量（ランキング）', id: 13, kind: 'rank' },
+        { text: '24時間降水量（ランキング）', id: 14, kind: 'rank' },
+        { text: '風速（ランキング）', id: 15, kind: 'rank' },
+        { text: '実況気温', id: 20, kind: 'live' },
+        { text: '過去10分の降水量', id: 30, kind: 'precip' },
+        { text: '過去1時間の降水量', id: 31, kind: 'precip' },
+        { text: '過去3時間の降水量', id: 32, kind: 'precip' },
+        { text: '過去24時間の降水量', id: 33, kind: 'precip' },
+        { text: '現在の湿度', id: 34, kind: 'live' },
+        { text: '現在の風速', id: 35, kind: 'live' },
+        { text: '現在の日照時間', id: 36, kind: 'live' },
+        { text: '現在の積雪高さ', id: 37, kind: 'snow' },
+        { text: '過去1時間の降雪量', id: 38, kind: 'snow' },
+        { text: '過去6時間の降雪量', id: 39, kind: 'snow' },
+        { text: '過去12時間の降雪量', id: 40, kind: 'snow' },
+        { text: '過去24時間の降雪量', id: 41, kind: 'snow' },
+        { text: '現在の気圧', id: 42, kind: 'live' },
+        { text: '河川情報', id: 60, kind: 'river' },
+        { text: '避難情報', id: 70, kind: 'evac' },
+      ];
+      const state = { original: [], list: [] };
+
+      // コマンドIDから定義を取得
+      const getCommand = (id) => {
+        return COMMANDS.find((c) => c.id === id) || COMMANDS[0];
+      };
+
+      // オブジェクトの簡易ディープクローン
+      const clone = (obj) => {
+        return JSON.parse(JSON.stringify(obj));
+      };
+
+      // レガシーテーブルの行番号を再構築（互換用）
+      const rebuildLegacy = () => {
+        if (!table) return;
+        const tbody = table.querySelector('tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        state.list.forEach((_, index) => {
+          const tr = document.createElement('tr');
+          const td = document.createElement('td');
+          td.textContent = String(index + 1);
+          tr.appendChild(td);
+          tbody.appendChild(tr);
+        });
+      };
+      const Icons = {
+        up: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5 5 12h4v7h6v-7h4L12 5z"/></svg>',
+        down: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19l7-7h-4V5h-6v7H5l7 7z"/></svg>',
+        // ON: eye
+        enable: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C5 5 2 12 2 12s3 7 10 7 10-7 10-7-3-7-10-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/></svg>',
+        // OFF: eye with slash (簡素化しクリッピング感を除去)
+        disable: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.7 4.27 1.3 5.73l2.11 2.1A11.78 11.78 0 0 0 2 12s3 7 10 7c2.06 0 3.85-.52 5.37-1.27l2.3 2.27 1.41-1.41L2.7 4.27ZM12 17c-2.76 0-5-2.24-5-5 0-.64.12-1.25.34-1.81l6.47 6.47c-.56.22-1.17.34-1.81.34Zm8.64-2.05c1.48-2.02 2.36-3.95 2.36-3.95s-3-7-10-7c-1.4 0-2.68.22-3.84.58l1.74 1.74c.68-.2 1.42-.32 2.1-.32 2.76 0 5 2.24 5 5 0 .73-.16 1.43-.42 2.06l3.06 3.06Z"/><path d="M9.5 12c0 .84.33 1.6.87 2.13l3.76 3.76A4.98 4.98 0 0 0 17 12c0-2.76-2.24-5-5-5-.84 0-1.63.2-2.32.54l3.78 3.78c.03.23.04.46.04.68 0 0-.02.43-.1.62L9.83 11.13c-.22.56-.33 1.17-.33 1.8Z" fill="none"/></svg>',
+        delete: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3 8 4H4v2h16V4h-4l-1-1H9zm-1 6v10h2V9H8zm4 0v10h2V9h-2zm4 0v10h2V9h-2z"/></svg>'
+      };
+      const render = () => {
+        if (!host) return;
+        host.innerHTML = '';
+        state.list.forEach((item, index) => {
+          const info = getCommand((item.id-0) || 0);
+          const card = document.createElement('div');
+          card.className = 'nt-card';
+          card.dataset.index = index;
+          card.dataset.kind = info.kind;
+          card.draggable = true;
+
+          const header = document.createElement('div');
+          header.className = 'nt-card-header';
+          header.innerHTML = `<div class=\"nt-index nt-reorder-handle\" title=\"ドラッグで並び替え\">${index + 1}</div>`;
+
+          const titleWrap = document.createElement('div');
+          titleWrap.className = 'nt-title-wrap';
+          titleWrap.innerHTML = `<input type=\"text\" class=\"Ntitle nt-title-input\" value=\"${(item.title || '').replace(/"/g, '&quot;')}\" data-field=\"title\">`;
+          header.appendChild(titleWrap);
+
+          // コマンド選択 (バッジ風セレクト)
+          const badgeWrap = document.createElement('div');
+          badgeWrap.className = 'nt-command-badge-wrapper';
+          const badgeSel = document.createElement('select');
+          badgeSel.className = 'nt-command-badge';
+          badgeSel.dataset.field = 'id';
+          badgeSel.dataset.kind = info.kind;
+          for (const c of COMMANDS) {
+            const opt = document.createElement('option');
+            opt.value = c.id;
+            opt.textContent = c.text;
+            if (c.id === info.id) opt.selected = true;
+            badgeSel.appendChild(opt);
+          }
+          badgeWrap.appendChild(badgeSel);
+          header.appendChild(badgeWrap);
+
+          // アクションボタン群
+          const actions = document.createElement('div');
+          actions.className = 'nt-actions';
+            const toggleLabel = item.disabled ? 'ON にする' : 'OFF にする';
+          actions.innerHTML = `
+              <button class=\"nt-icon-btn up\" title=\"上へ\" aria-label=\"上へ\">${Icons.up}</button>
+              <button class=\"nt-icon-btn down\" title=\"下へ\" aria-label=\"下へ\">${Icons.down}</button>
+              <button class=\"nt-icon-btn toggle\" data-state=\"${item.disabled ? 'off' : 'on'}\" title=\"${toggleLabel}\" aria-label=\"${toggleLabel}\">${item.disabled ? Icons.disable : Icons.enable}<span style=\"font-size:10px; margin-left:4px; font-weight:600; letter-spacing:.5px;\">${item.disabled ? 'OFF' : 'ON'}</span></button>
+              <button class=\"nt-icon-btn delete danger\" title=\"削除\" aria-label=\"削除\">${Icons.delete}</button>`;
+          header.appendChild(actions);
+          card.appendChild(header);
+
+          // 本文・プレビュー
+          const body = document.createElement('div');
+          body.className = 'nt-card-body';
+          const preview = document.createElement('div');
+          preview.className = 'nt-preview';
+          if (info.id !== 0) preview.classList.add('disabled');
+          preview.dataset.field = 'text';
+          preview.setAttribute('tabindex', info.id === 0 ? '0' : '-1');
+          preview.setAttribute('role', 'button');
+          preview.setAttribute('aria-label', 'リッチテキスト編集を開く');
+          preview.textContent = item.text || '';
+          // 3行超過判定 (仮想計測用に一時挿入後に判定)
+          body.appendChild(preview);
+          requestAnimationFrame(()=>{
+            const lh = parseFloat(getComputedStyle(preview).lineHeight) || 20;
+            const maxH = lh * 3 + 1;
+            if (preview.scrollHeight > maxH) preview.classList.add('clamped');
+          });
+          // body.appendChild 既に実行済み
+          card.appendChild(body);
+
+          // nt-meta / nt-status は廃止: 状態はトグルボタン表示に統合
+
+          host.appendChild(card);
+        });
+        rebuildLegacy();
+      };
+
+      const setList = (list) => {
+        const norm = (arr) => (arr || []).map((it) => {
+          const o = { title: it.title + "", id: (it.id - 0) || 0, text: (it.text + "") };
+          // enabled/disabled の正規化
+          if (typeof it.disabled === 'boolean') {
+            o.disabled = !!it.disabled;
+          } else if (typeof it.enabled === 'boolean') {
+            o.disabled = !it.enabled;
+          } else {
+            o.disabled = false; // 既定は有効
+          }
+          return o;
+        });
+        state.original = norm(list);
+        state.list = clone(state.original);
+        render();
+      };
+
+      const reset = () => {
+        state.list = clone(state.original);
+        render();
+      };
+
+      const add = () => {
+        state.list.push({ title: '', id: 0, text: '新しいテキスト', disabled: false });
+        render();
+      };
+
+      const move = (index, dir) => {
+        const target = index + dir;
+        if (target < 0 || target >= state.list.length) return;
+        const temp = state.list[index];
+        state.list[index] = state.list[target];
+        state.list[target] = temp;
+        render();
+      };
+
+      const del = (index) => {
+        state.list.splice(index, 1);
+        render();
+      };
+
+      const toggle = (index) => {
+        if (index == null) return;
+        const item = state.list[index];
+        if (!item) return;
+        item.disabled = !item.disabled;
+        render();
+      };
+
+      // アイテムのプロパティ更新
+      const update = (index, field, value) => {
+        if (field === 'id') {
+          state.list[index].id = value-0;
+          // テキストは保持する。編集可否のみ反映のため再描画
+          render();
+          return;
+        }
+        if (field === 'title') {
+          state.list[index].title = value; // タイピング中は再描画しない
+          return;
+        }
+        if (field === 'text') {
+          state.list[index].text = value;
+        }
+      };
+
+      // ドラッグ & ドロップ並び替え
+      const handleDnd = () => {
+        let dragIndex = null;
+        host.addEventListener('dragstart', (event) => {
+          const card = event.target.closest('.nt-card');
+          if (!card) return;
+          dragIndex = card.dataset.index-0;
+          card.classList.add('dragging');
+        });
+        host.addEventListener('dragend', (event) => {
+          const card = event.target.closest('.nt-card');
+          if (card) card.classList.remove('dragging');
+          host.querySelectorAll('.drag-over').forEach((c) => c.classList.remove('drag-over'));
+          dragIndex = null;
+        });
+        host.addEventListener('dragover', (event) => {
+          event.preventDefault();
+          const card = event.target.closest('.nt-card');
+          if (!card) return;
+          card.classList.add('drag-over');
+        });
+        host.addEventListener('dragleave', (event) => {
+          const card = event.target.closest('.nt-card');
+          if (card) card.classList.remove('drag-over');
+        });
+        host.addEventListener('drop', (event) => {
+          event.preventDefault();
+          const card = event.target.closest('.nt-card');
+          if (!card) return;
+          card.classList.remove('drag-over');
+          const targetIndex = card.dataset.index - 0;
+          if (dragIndex === null || dragIndex === targetIndex) return;
+          const item = state.list.splice(dragIndex, 1)[0];
+          state.list.splice(targetIndex, 0, item);
+          render();
+        });
+      };
+      function bindGlobal(){
+        document.getElementById('normalText.addText')?.addEventListener('click',()=>add());
+        document.getElementById('normalText.resetLocal')?.addEventListener('click',()=>reset());
+        host.addEventListener('click', (event) => {
+          const card = event.target.closest('.nt-card');
+          if (!card) return;
+          const i = card.dataset.index - 0;
+          if (event.target.closest('.delete')) del(i);
+          else if (event.target.closest('.up')) move(i, -1);
+          else if (event.target.closest('.down')) move(i, 1);
+          else if (event.target.closest('.toggle')) toggle(i);
+          else if (event.target.classList.contains('nt-preview')) {
+            if (event.target.classList.contains('disabled')) return; // 無効時は開かない
+            if (!window.ContentBridge || !window.ContentBridge.openEditor) throw new Error('ContentBridge.openEditor が利用できません。');
+            pendingRichIndex = i; // READY 待ち
+            window.ContentBridge.openEditor();
+          }
+        });
+        host.addEventListener('change', (event) => {
+          const sel = event.target;
+          if (sel.classList.contains('nt-command-badge')) {
+            const card = sel.closest('.nt-card');
+            const i = card.dataset.index - 0;
+            update(i, 'id', sel.value);
+            const info = getCommand(sel.value - 0);
+            sel.dataset.kind = info.kind;
+            card.dataset.kind = info.kind;
+          }
+        });
+        host.addEventListener('input', (event) => {
+          const card = event.target.closest('.nt-card');
+          if (!card) return;
+          const i = card.dataset.index-0;
+          if (event.target.matches('.nt-title-input')) update(i, 'title', event.target.value);
+        });
+  // 直接編集は廃止したため blur 保存処理は不要
+        handleDnd();
+      }
+      bindGlobal();
+      // 指定インデックスのアイテムを取得 (外部送信用にクローン)
+      function getItem(i) { return clone(state.list[i]); }
+      // リッチエディタ保存内容を適用
+      function applyRichSave(i, richPayload) {
+        if (i == null || !state.list[i]) return;
+        const contentArr = richPayload?.data?.content;
+        if (Array.isArray(contentArr)) {
+          // TODO: 将来的に runs 構造を保持する (現状はプレーン文字列へ落とし込む)
+          const plain = contentArr.map((part) => {
+            if (part.type === 'text') return part.content || part.text || '';
+            if (part.type === 'variable') return `{${part.name || part.variable || ''}}`;
+            if (part.type === 'icon') return part.svg || part.text || '';
+            return '';
+          }).join("");
+          state.list[i].text = plain;
+        } else if (typeof richPayload?.data?.text === 'string') {
+          state.list[i].text = richPayload.data.text;
+        }
+        render();
+      }
+      // 現在のリストを保存用に返す（enabled/disabled を含める）
+      function getList(){
+        const clone = JSON.parse(JSON.stringify(state.list || []));
+        return clone.map(it => ({
+          title: (it.title + ""),
+          id: (it.id - 0) || 0,
+          text: (it.text + ""),
+          enabled: !(!!it.disabled)
+        }));
+      }
+      return { setList, getItem, applyRichSave, getList };
+    })();
+
+    // ===== リッチテキストエディタ IPC ハンドシェイク処理 =====
+    let pendingRichIndex = null; // READY 前にクリックされたカードのインデックス
+    if (window.ContentBridge?.onMessageFromChild) {
+      window.ContentBridge.onMessageFromChild((msg) => {
+        if (!msg || typeof msg !== 'object') return;
+        switch (msg.type) {
+          case 'RICH_READY': {
+            if (pendingRichIndex !== null) {
+              const item = normalText.getItem(pendingRichIndex);
+              window.ContentBridge.sendToChild({
+                type: 'INIT_RICH',
+                index: pendingRichIndex,
+                data: { text: item.text || '', title: item.title || '', id: item.id }
+              });
+            }
+            break;
+          }
+          case 'EDITOR_SAVE': {
+            if (typeof msg.index === 'number') {
+              normalText.applyRichSave(msg.index, msg);
+            }
+            break;
+          }
+        }
+      });
+    }
+
+    function reflectConfig(cfg){
+      // Scroll speed (default 4.5)
+      if (speedInput) {
+        const v = (cfg?.config?.ticker?.scrollSpeed ?? 4.5);
+        speedInput.value = v;
+        updateSpeedTrack();
+      }
+      // Normal texts
+      const list = cfg?.config?.ticker?.normal?.text ?? [];
+      normalText.setList(list);
+      // Normal view options
+      if (settingsE.normal.viewTsunamiType) settingsE.normal.viewTsunamiType.value = cfg?.config?.ticker?.normal?.viewTsunamiType ?? '1';
+      if (settingsE.normal.viewLittleTsunami) settingsE.normal.viewLittleTsunami.checked = !!(cfg?.config?.ticker?.normal?.viewLittleTsunami ?? true);
+
+      // EEW view condition
+      if (settingsE.eewminint) settingsE.eewminint.value = (cfg?.config?.ticker?.viewCond?.eew?.intensity ?? '4') + "";
+      if (settingsE.eewintunknown) settingsE.eewintunknown.value = (cfg?.config?.ticker?.viewCond?.eew?.unknown ?? '1') + "";
+      if (settingsE.eewminmag) settingsE.eewminmag.value = ((cfg?.config?.ticker?.viewCond?.eew?.magnitude ?? 0).toFixed ? (cfg.config.ticker.viewCond.eew.magnitude).toFixed(1) : (cfg?.config?.ticker?.viewCond?.eew?.magnitude ?? '0.0')) + "";
+      if (settingsE.eewdepmin) settingsE.eewdepmin.value = (cfg?.config?.ticker?.viewCond?.eew?.depth ?? '1000') + "";
+
+      // Earthquake view condition
+      if (settingsE.minint) settingsE.minint.value = (cfg?.config?.ticker?.viewCond?.earthquake?.intensity ?? '4') + "";
+      if (settingsE.minmag) settingsE.minmag.value = ((cfg?.config?.ticker?.viewCond?.earthquake?.magnitude ?? 0).toFixed ? (cfg.config.ticker.viewCond.earthquake.magnitude).toFixed(1) : (cfg?.config?.ticker?.viewCond?.earthquake?.magnitude ?? '0.0')) + "";
+      if (settingsE.depmin) settingsE.depmin.value = (cfg?.config?.ticker?.viewCond?.earthquake?.depth ?? '1000') + "";
+
+      // News
+      if (settingsE.BNtitle) settingsE.BNtitle.value = cfg?.config?.ticker?.news?.title ?? '';
+      if (settingsE.BNtext1) settingsE.BNtext1.value = cfg?.config?.ticker?.news?.subtitle ?? '';
+      if (settingsE.BNtext2) settingsE.BNtext2.value = cfg?.config?.ticker?.news?.text ?? '';
+
+  // Theme / clipboard
+  // defaultConfig では display.themeColor.ticker 配下
+  const themeTicker = cfg?.config?.display?.themeColor?.ticker ?? cfg?.config?.ticker?.themeColor?.ticker ?? '0';
+  if (settingsE.themeColor?.ticker) settingsE.themeColor.ticker.value = (themeTicker + "");
+      if (settingsE.setClipEEW) settingsE.setClipEEW.checked = !!(cfg?.config?.app?.autoCopy?.eew ?? false);
+      if (settingsE.setClipQuake) settingsE.setClipQuake.checked = !!(cfg?.config?.app?.autoCopy?.quake ?? false);
+
+      // Units
+      if (settingsE.unitWinds) settingsE.unitWinds.value = cfg?.config?.ticker?.normal?.cmdOpt?.unit?.winds ?? 'm/s';
+      if (settingsE.unitTemp) settingsE.unitTemp.value = cfg?.config?.ticker?.normal?.cmdOpt?.unit?.temp ?? 'centi';
+
+      // Intervals
+      if (settingsE.intervalIedred) settingsE.intervalIedred.value = cfg?.config?.app?.interval?.iedred7584EEW ?? 5000;
+      if (settingsE.intervalNHKquake) settingsE.intervalNHKquake.value = cfg?.config?.app?.interval?.nhkQuake ?? 12000;
+      if (settingsE.intervalJmaWt) settingsE.intervalJmaWt.value = cfg?.config?.app?.interval?.jmaDevFeed ?? 15000;
+      if (settingsE.intervalTenkiJpTsu) settingsE.intervalTenkiJpTsu.value = cfg?.config?.app?.interval?.tenkiJPtsunami ?? 30000;
+      if (settingsE.intervalWNImscale) settingsE.intervalWNImscale.value = cfg?.config?.app?.interval?.wniMScale ?? 30000;
+  // defaultConfig: wniSorabtn, wniliveTimeTable
+  if (settingsE.intervalWNIsorabtn) settingsE.intervalWNIsorabtn.value = cfg?.config?.app?.interval?.wniSorabtn ?? cfg?.config?.app?.interval?.wniSoraBtn ?? 30000;
+  if (settingsE.intervalWNIriver) settingsE.intervalWNIriver.value = cfg?.config?.app?.interval?.wniRiver ?? 300000;
+  if (settingsE.intervalWNItm) settingsE.intervalWNItm.value = cfg?.config?.app?.interval?.wniliveTimeTable ?? cfg?.config?.app?.interval?.wniTimeTable ?? 240000;
+      if (settingsE.intervalTpcBlackOut) settingsE.intervalTpcBlackOut.value = cfg?.config?.app?.interval?.tpcBlackOut ?? 60000;
+
+      // Volumes
+      if (settingsE.volEewLow) settingsE.volEewLow.value = cfg?.config?.app?.volume?.eewLow ?? 100;
+      if (settingsE.volEewBeep) settingsE.volEewBeep.value = cfg?.config?.app?.volume?.eewBeep ?? 10;
+      if (settingsE.volEewCustom) settingsE.volEewCustom.value = cfg?.config?.app?.volume?.eewCustom ?? 100;
+      if (settingsE.volEewPlum) settingsE.volEewPlum.value = cfg?.config?.app?.volume?.eewPlum ?? 100;
+      if (settingsE.volGL) settingsE.volGL.value = cfg?.config?.app?.volume?.dosha ?? 100;
+      if (settingsE.volNtc) settingsE.volNtc.value = cfg?.config?.app?.volume?.tornado ?? 100;
+      if (settingsE.volSpW) settingsE.volSpW.value = cfg?.config?.app?.volume?.emergency ?? 100;
+      if (settingsE.volTnm) settingsE.volTnm.value = cfg?.config?.app?.volume?.tsunami ?? 100;
+      if (settingsE.volHvRa) settingsE.volHvRa.value = cfg?.config?.app?.volume?.heavyRain ?? 100;
+      if (settingsE.volFldOc4) settingsE.volFldOc4.value = cfg?.config?.app?.volume?.flood4 ?? 100;
+      if (settingsE.volFldOc5) settingsE.volFldOc5.value = cfg?.config?.app?.volume?.flood5 ?? 100;
+
+      // Quake volumes (1..9)
+      const qv = cfg?.config?.app?.volume?.quake ?? [];
+      for (let i=0; i<settingsE.volQuake.volume.length && i<qv.length; i++){
+        const typeCell = settingsE.volQuake.type[i];
+        const volInput = settingsE.volQuake.volume[i];
+        if (qv[i]?.type && typeCell) typeCell.setAttribute('data-type', qv[i].type);
+        if (typeof qv[i]?.volume === 'number' && volInput) volInput.value = qv[i].volume;
+      }
+
+      // AMeDAS partially reading
+      if (settingsE.setParticallyReadingAme) settingsE.setParticallyReadingAme.checked = !!(cfg?.config?.ticker?.particallyReadingAme ?? true);
+
+      // DM-D.S.S. 三状態の反映（未連携 / 連携済み・未接続 / 接続済）
+      try {
+        const root = document.getElementById('section-dmdata');
+        const ds = cfg?.config?.datasource?.dmdata || cfg?.config?.dataSource?.dmdata || {};
+        const hasTokens = !!(ds.tokens?.accessToken || ds.token?.access_token);
+        // 可能なら接続状態も推定（将来の実装に備えて複数キーを参照）
+        const wsInfo = ds.ws || cfg?.runtime?.dmdata?.ws || cfg?.state?.dmdata?.ws || {};
+        const isConnected = wsInfo?.connected === true;
+        if (root) {
+          root.dataset.state = hasTokens ? (isConnected ? 'connected' : 'linked') : 'unlinked';
+        }
+        // WS バッジ/ID の見た目だけ更新（情報がなければ未接続）
+        const badge = document.getElementById('dmdata.ws.badge');
+        const wsIdEl = document.getElementById('dmdata.ws.id');
+        if (badge) {
+          badge.classList.remove('ok','ng');
+          if (isConnected) { badge.classList.add('ok'); badge.textContent = '接続中'; }
+          else { badge.classList.add('ng'); badge.textContent = hasTokens ? '未接続' : '未連携'; }
+        }
+        if (wsIdEl) wsIdEl.textContent = (wsInfo?.id ? (wsInfo.id + '') : '-');
+        const btnDiscWs = document.getElementById('dmdata.btn.disconnectWs');
+        if (btnDiscWs) btnDiscWs.disabled = !isConnected;
+      } catch {}
+    }
+
+    // About info
+    const currentVersionE = document.getElementById('current-version');
+    const lastCreatedDateE = document.getElementById('last-created-time');
+    const programInfo_freeComment = document.getElementById('programInfo.freeComment');
+    const creditsE = document.getElementById('credits');
+
+    function reflectAppState(state){
+      if (currentVersionE && state?.current?.name) currentVersionE.textContent = state.current.name;
+      if (lastCreatedDateE && state?.lastModified) {
+        const d = new Date(state.lastModified);
+        lastCreatedDateE.textContent = d.toLocaleString('ja-JP', { dateStyle: 'long', timeStyle: 'medium' });
+      }
+      if (programInfo_freeComment && state?.part?.ticker) programInfo_freeComment.textContent = `Ticker ${state.part.ticker}`;
+      if (Array.isArray(state?.credits) && creditsE){
+        for (const item of state.credits){
+          const box = document.createElement('div');
+          box.style.backgroundColor = '#132628';
+          box.style.padding = '5px 12px';
+          box.style.margin = '8px 0';
+          const name = document.createElement('div');
+          name.style.fontSize = '12px';
+          name.style.fontWeight = '600';
+          name.textContent = item.name ?? '';
+          const lic = document.createElement('div');
+          lic.style.fontSize = '9px';
+          lic.style.fontWeight = '300';
+          lic.innerHTML = (item.license ?? '') + "";
+          lic.innerHTML = lic.innerHTML.replaceAll('\n', '<br>');
+          box.appendChild(name);
+          box.appendChild(lic);
+          creditsE.appendChild(box);
+        }
+      }
+    }
+
+    // 起動処理: ContentBridge が必須。存在しない/必要メソッド未実装なら即エラーを投げてフェイルファスト。
+    (function (){
+      populateDepthOptions();
+      const bridge = window.ContentBridge || window.contentBridge;
+      if (!bridge) throw new Error("ContentBridge が preload で提供されていません。");
+      if (typeof bridge.getApplicationState !== 'function') throw new Error("ContentBridge.getApplicationState が存在しません。");
+      let currentConfig = null;
+      bridge.getApplicationState().then(state => {
+        reflectAppState(state);
+        if (typeof bridge.getConfig !== 'function') throw new Error("ContentBridge.getConfig が存在しません。");
+        return bridge.getConfig();
+      }).then(cfg => {
+        if (cfg) {
+          currentConfig = cfg;
+          reflectConfig(cfg);
+        }
+
+        // 保存ボタンの動作を登録
+        const saveBtn = document.getElementById('save-btn');
+        if (saveBtn) {
+          saveBtn.addEventListener('click', async () => {
+            if (!currentConfig) {
+              // 初回未読込の場合は読みに行く
+              currentConfig = await (window.ContentBridge?.getConfig?.() || Promise.resolve(null));
+            }
+            if (!currentConfig) return;
+            const cfg = JSON.parse(JSON.stringify(currentConfig));
+
+            // 1) スクロール速度
+            if (cfg.config?.ticker) {
+              const v = document.getElementById('normalText.speedInput')?.valueAsNumber;
+              if (!isNaN(v)) cfg.config.ticker.scrollSpeed = v;
+            }
+
+            // 2) 通常テキスト
+            if (cfg.config?.ticker?.normal) {
+              cfg.config.ticker.normal.text = normalText.getList();
+              // 表示オプション
+              const vt = document.getElementById('normal.viewTsunamiType')?.value;
+              const vl = document.getElementById('normal.viewLittleTsunami')?.checked;
+              cfg.config.ticker.normal.viewTsunamiType = (vt - 0) || 0;
+              cfg.config.ticker.normal.viewLittleTsunami = !!vl;
+              // 単位
+              cfg.config.ticker.normal.cmdOpt = cfg.config.ticker.normal.cmdOpt || { unit: {} };
+              cfg.config.ticker.normal.cmdOpt.unit = cfg.config.ticker.normal.cmdOpt.unit || {};
+              const uw = document.getElementById('settings.unitWinds')?.value;
+              const ut = document.getElementById('settings.unitTemp')?.value;
+              if (uw + "") cfg.config.ticker.normal.cmdOpt.unit.winds = uw + "";
+              if (ut + "") cfg.config.ticker.normal.cmdOpt.unit.temp = ut + "";
+            }
+
+            // 3) テーマカラー / クリップボード
+            // 保存先は display.themeColor（互換のため ticker.themeColor も更新）
+            const themeVal = document.getElementById('settings.themeColor.ticker')?.value;
+            if (cfg.config) {
+              cfg.config.display = cfg.config.display || {};
+              cfg.config.display.themeColor = cfg.config.display.themeColor || {};
+              cfg.config.display.themeColor.ticker = (themeVal - 0) || 0;
+              // backward compatibility
+              cfg.config.ticker = cfg.config.ticker || {};
+              cfg.config.ticker.themeColor = cfg.config.ticker.themeColor || {};
+              cfg.config.ticker.themeColor.ticker = (themeVal - 0) || 0;
+            }
+            if (cfg.config?.app) {
+              cfg.config.app.autoCopy = cfg.config.app.autoCopy || {};
+              const acEEW = document.getElementById('settings.setClipEEW')?.checked;
+              const acQuake = document.getElementById('settings.setClipQuake')?.checked;
+              cfg.config.app.autoCopy.eew = !!acEEW;
+              cfg.config.app.autoCopy.quake = !!acQuake;
+            }
+
+            // 4) 取得間隔
+            if (cfg.config?.app) {
+              cfg.config.app.interval = cfg.config.app.interval || {};
+              const nv = (id) => (document.getElementById(id)?.value - 0) || undefined;
+              const mIed = nv('settings.intervalIedred');
+              const mNhk = nv('settings.intervalNHKquake');
+              const mJma = nv('settings.intervalJmaWt');
+              const mTsu = nv('settings.intervalTenkiJpTsu');
+              const mMs  = nv('settings.intervalWNImscale');
+              const mSora = nv('settings.intervalWNIsorabtn');
+              const mRiver = nv('settings.intervalWNIriver');
+              const mTm = nv('settings.intervalWNItm');
+              const mTepco = nv('settings.intervalTpcBlackOut');
+              if (mIed) cfg.config.app.interval.iedred7584EEW = mIed;
+              if (mNhk) cfg.config.app.interval.nhkQuake = mNhk;
+              if (mJma) cfg.config.app.interval.jmaDevFeed = mJma;
+              if (mTsu) cfg.config.app.interval.tenkiJPtsunami = mTsu;
+              if (mMs) cfg.config.app.interval.wniMScale = mMs;
+              // defaultConfig は wniSorabtn。互換のため両方に書く
+              if (mSora) { cfg.config.app.interval.wniSorabtn = mSora; cfg.config.app.interval.wniSoraBtn = mSora; }
+              if (mRiver) cfg.config.app.interval.wniRiver = mRiver;
+              // defaultConfig は wniliveTimeTable。互換のため両方に書く
+              if (mTm) { cfg.config.app.interval.wniliveTimeTable = mTm; cfg.config.app.interval.wniTimeTable = mTm; }
+              if (mTepco) cfg.config.app.interval.tpcBlackOut = mTepco;
+            }
+
+            // 5) ボリューム
+            if (cfg.config?.app) {
+              cfg.config.app.volume = cfg.config.app.volume || {};
+              const nv = (id) => (document.getElementById(id)?.value - 0);
+              cfg.config.app.volume.eewLow = nv('settings.volEewLow') || 0;
+              cfg.config.app.volume.eewBeep = nv('settings.volEewBeep') || 0;
+              cfg.config.app.volume.eewCustom = nv('settings.volEewCustom') || 0;
+              cfg.config.app.volume.eewPlum = nv('settings.volEewPlum') || 0;
+              cfg.config.app.volume.dosha = nv('settings.volGL') || 0;
+              cfg.config.app.volume.tornado = nv('settings.volNtc') || 0;
+              cfg.config.app.volume.emergency = nv('settings.volSpW') || 0;
+              cfg.config.app.volume.tsunami = nv('settings.volTnm') || 0;
+              cfg.config.app.volume.heavyRain = nv('settings.volHvRa') || 0;
+              cfg.config.app.volume.flood4 = nv('settings.volFldOc4') || 0;
+              cfg.config.app.volume.flood5 = nv('settings.volFldOc5') || 0;
+              // 地震音量プロファイル
+              const vols = Array.from(document.getElementsByClassName('sound_quake_volume'));
+              const types = Array.from(document.getElementsByClassName('sound_quake_type'));
+              const quake = [];
+              for (let i = 0; i < vols.length; i++){
+                const v = (vols[i]?.value - 0) || 0;
+                const t = (types[i]?.getAttribute('data-type') + "") || 'normal';
+                quake.push({ volume: v, type: t });
+              }
+              cfg.config.app.volume.quake = quake;
+            }
+
+            // 6) AMeDAS 抜粋
+            if (cfg.config?.ticker) {
+              const pr = !!document.getElementById('settings.setParticallyReadingAme')?.checked;
+              cfg.config.ticker.particallyReadingAme = pr;
+            }
+
+            // 7) ニュース
+            if (cfg.config?.ticker) {
+              cfg.config.ticker.news = cfg.config.ticker.news || {};
+              cfg.config.ticker.news.title = (document.getElementById('BNtitle')?.value + "") || '';
+              cfg.config.ticker.news.subtitle = (document.getElementById('BNtext1')?.value + "") || '';
+              cfg.config.ticker.news.text = (document.getElementById('BNtext2')?.value + "") || '';
+            }
+
+            // 8) 表示条件（EEW / 地震）
+            if (cfg.config?.ticker) {
+              cfg.config.ticker.viewCond = cfg.config.ticker.viewCond || {};
+              const vce = cfg.config.ticker.viewCond.eew || {};
+              const vq = cfg.config.ticker.viewCond.earthquake || {};
+              // EEW は OR 条件
+              vce.type = 'or';
+              vce.intensity = (document.getElementById('settings.eewminint')?.value + "") || '1';
+              vce.unknown = (document.getElementById('settings.eewintunknown')?.value + "") || '1';
+              const eewMagStr = document.getElementById('settings.eewminmag')?.value + "";
+              vce.magnitude = isNaN(eewMagStr - 0) ? 0 : (eewMagStr - 0);
+              vce.depth = (document.getElementById('settings.eewdepmin')?.value + "") || '1000';
+              cfg.config.ticker.viewCond.eew = vce;
+              // 地震は AND 条件
+              vq.type = 'and';
+              vq.intensity = (document.getElementById('settings.minint')?.value + "") || '1';
+              const eqMagStr = document.getElementById('settings.minmag')?.value + "";
+              vq.magnitude = isNaN(eqMagStr - 0) ? 0 : (eqMagStr - 0);
+              vq.depth = (document.getElementById('settings.depmin')?.value + "") || '1000';
+              cfg.config.ticker.viewCond.earthquake = vq;
+            }
+
+            // 保存
+            const btnOriginal = saveBtn.textContent;
+            saveBtn.disabled = true;
+            saveBtn.textContent = '保存中…';
+            try {
+              await (window.ContentBridge?.setConfig?.(cfg));
+              currentConfig = cfg;
+              saveBtn.textContent = '保存しました';
+              setTimeout(() => { saveBtn.textContent = btnOriginal; saveBtn.disabled = false; }, 1200);
+            } catch (e) {
+              saveBtn.textContent = '保存失敗';
+              saveBtn.disabled = false;
+              throw e;
+            }
+          });
+        }
+
+        // （外部ドキュメントボタンは削除）
+        // パスワード表示切替
+        document.querySelectorAll('.reveal')?.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-reveal-for');
+            const input = document.getElementById(id);
+            if (!input) return;
+            const now = input.type === 'password' ? 'text' : 'password';
+            input.type = now;
+            btn.textContent = now === 'password' ? '表示' : '隠す';
+          });
+        });
+        // リダイレクトURIコピー
+        document.getElementById('dmdata.btn.copyRedirect')?.addEventListener('click', async () => {
+          const el = document.getElementById('dmdata.oauth.redirect_uri');
+          const uri = el?.value + '';
+          try {
+            await navigator.clipboard.writeText(uri);
+          } catch {}
+        });
+        // 上部CTAのコピーも同様に
+        document.getElementById('dmdata.btn.copyRedirect2')?.addEventListener('click', async () => {
+          const el = document.getElementById('dmdata.oauth.redirect_uri');
+          const uri = el?.value + '';
+          try {
+            await navigator.clipboard.writeText(uri);
+          } catch {}
+        });
+        // 上部CTAの「連携を開始」は詳細設定を開いて誘導（本実装は別途）
+        document.getElementById('dmdata.btn.authorize.cta')?.addEventListener('click', () => {
+          const adv = document.querySelector('details.dm-adv');
+          if (adv) adv.setAttribute('open', '');
+          document.getElementById('dmdata.btn.authorize')?.focus?.();
+          document.getElementById('dmdata.btn.authorize')?.scrollIntoView?.({ block: 'center' });
+        });
+        // コントロールパネルを開く
+        document.getElementById('dmdata.btn.openConsole')?.addEventListener('click', () => {
+          const url = 'https://dmdata.jp/console';
+          window.ContentBridge?.openExternal?.(url);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

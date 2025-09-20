@@ -19,6 +19,8 @@ contextBridge.exposeInMainWorld("ContentBridge", {
   saveStatus: (value) => ipcRenderer.invoke("saveStatus", value),
   getConfigData: () => ipcRenderer.invoke("global.config.get"),
   allowClosing: () => ipcRenderer.invoke("window.main.closeable"),
+
+  // 脆弱！！！！！！！！！！！！！！channelに任意の文字列を渡せる
   on: (channel, callback) => ipcRenderer.on(channel, (event, argv) => callback(event, argv)),
 
   // 秘密の関数
