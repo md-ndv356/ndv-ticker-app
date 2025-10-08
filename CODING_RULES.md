@@ -107,65 +107,6 @@ Resources/
 └── main.js # メインプロセスのエントリーポイント
 ```
 
-# 5.1 dmdata.jp モジュール構成（提案）
-
-dmdata.jp（DM-D.S.S）連携は Main プロセスに閉じて実装し、責務ごとに小さなモジュールへ分割する。
-`.js` と `.d.ts` はペアで用意する（公開関数・型・戻り値の説明を .d.ts に明記）。
-
-```
-Resources/
-└── Modules/
-	└── dmdata/
-		├── index.js                # 入口（初期化・依存の組み立て・外部公開）。IPC 登録もここで実施
-		├── index.d.ts
-		├── constants.js            # 固定値: エンドポイント、コンソールURL、デフォルトスコープ等
-		├── constants.d.ts
-		├── types.d.ts              # 共有型: OAuthConfig, Tokens, WsStatus, Contract, Connection など
-		├── oauth.js                # Authorization Code + PKCE。認可URL生成・トークン交換・リフレッシュ・解除
-		├── oauth.d.ts
-		├── pkce.js                 # PKCE 補助（verifier/challenge/base64url）。汎用化するなら Modules/crypto.js でも可
-		├── pkce.d.ts
-		├── tokens_store.js         # トークンの安全保存（keytar 等）。取得/保存/削除、有効期限チェック
-		├── tokens_store.d.ts
-		├── api_client.js           # REST クライアント。Bearer 自動付与・401 一度だけリトライ（refresh）
-		├── api_client.d.ts
-		├── contracts.js            # 利用契約・プラン等の取得/整形
-		├── contracts.d.ts
-		├── websocket.js            # DM-D.S.S WebSocket 管理。接続・再接続・リスト/切断・現在の状態取得
-		├── websocket.d.ts
-		├── service.js              # 調停役。状態集約（未連携/連携/接続）、利用状況更新、unlink、WS制御を提供
-		├── service.d.ts
-		├── ipc.js                  # Renderer 向け IPC ハンドラ登録（authorize/unlink/getStatus/refresh/disconnectWs）
-		└── ipc.d.ts
-```
-
-実装の指針
-- Renderer へはトークンそのものを渡さない。状態や表示用データのみ IPC で返す。
-- 認可は既定ブラウザ＋カスタム URL スキーム（例: `ndv://oauth/dmdata`）で戻る。
-- トークン保存は `tokens_store`（keytar 等）に集約。`oauth` は保存方法を知らない。
-- `service` が唯一の高水準 API（UI/他モジュールが使う窓口）。
-- `index` は `service` を生成し、`ipc` を登録してエクスポートする（DI でテスト容易性を担保）。
-- 例外は基本的に投げる。捕捉とユーザー通知は上位（`ipc`/`window_handler`）で行う（フェイルセーフ方針）。
-
-メインプロセス起動時の組み込み例（擬似コード）
-```
-// Resources/main.js 等
-const dmdata = require("./Modules/dmdata/index.js")
-dmdata.register(app, ipcMain) // プロトコル登録・IPC ハンドラ登録など
-```
-
-Renderer 側の想定 IPC（例）
-- `dmdata.authorize()` 認可フロー開始（外部ブラウザ起動）
-- `dmdata.unlink()` 連携解除（トークン消去・必要なら revocation）
-- `dmdata.getStatus()` 状態取得（未連携/連携/接続、契約数、WS情報、接続一覧）
-- `dmdata.refreshUtilization()` 利用状況を取得・再計算
-- `dmdata.disconnectWs({ id })` 指定接続の切断
-
-注記
-- OAuth クライアント情報はアプリ固定を推奨（公開クライアント＋PKCE）。`client_secret` は原則未使用。
-- ライブラリは `oauth4webapi` 等の低レベル実装 or 標準 `fetch`/`crypto` と少量の自前実装で十分。
-- 共通化できる PKCE/crypto は `Resources/Modules/crypto.js` へ移し、`dmdata/pkce.js` から委譲してもよい。
-
 # 前提知識
 
 ## 参考（にしてほしい）文献
