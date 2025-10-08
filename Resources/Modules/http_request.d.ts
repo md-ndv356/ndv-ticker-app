@@ -45,8 +45,9 @@ declare const http_request_object: {
    * @param key - XHRキー
    * @param url - URL
    * @param options - オプション
-   * @param options.method - HTTPメソッド (HEAD / GET / POST / PUT / OPTIONS)
-   * @param options.calledName - トラフィックモニターで使用される名前
+   * @param options.method - メソッド
+   * @param options.handlename - トラフィックモニターで使用される名前
+   * @param options.hiddenRequest - トラフィックモニターで非表示にするかどうか
    * @param options.cache_invalid - キャッシュの有無（falseで有効）
    * @param options.postData - POSTするデータ
    * @param options.responseType - レスポンスの種類
@@ -56,7 +57,8 @@ declare const http_request_object: {
     method?: "HEAD" | "GET" | "POST" | "PUT" | "OPTIONS";
     cache_invalid?: boolean;
     postData?: postDataType;
-    calledName?: string;
+    handlename?: string;
+    hiddenRequest?: boolean;
   }): void;
 
   /**

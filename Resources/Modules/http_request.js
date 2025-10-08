@@ -30,8 +30,9 @@ const http_request_object = {
    * @param {string} key - XHRキー
    * @param {string} url - URL
    * @param {object} options - オプション
-   * @param {string} [options.method] - HEAD / GET / POST / PUT / OPTIONS
-   * @param {string} [options.calledName] - トラフィックモニターで使用される名前
+   * @param {"HEAD" | "GET" | "POST" | "PUT" | "OPTIONS"} [options.method] - メソッド
+   * @param {string} [options.handlename] - トラフィックモニターで使用される名前
+   * @param {boolean} [options.hiddenRequest] - トラフィックモニターで非表示にするかどうか
    * @param {boolean} [options.cache_invalid] - キャッシュの有無（falseで有効）
    * @param {Document | Blob | BufferSource | FormData | URLSearchParams} [options.postData] - POSTするデータ
    * @param {string} [options.responseType] - レスポンスの種類
