@@ -9,7 +9,7 @@ module.exports = {
   /**
    * アプリケーションデータフォルダ内にあるファイルまたはディレクトリの存在を確認します。
    * 存在する場合はtrueを、存在しない場合はfalseを返します。
-   * @param {String} filePath 対象のファイルへのパス
+   * @param {string} filePath 対象のファイルへのパス
    * @returns {Promise}
    */
   exists: (filePath) => {
@@ -20,9 +20,9 @@ module.exports = {
   },
   /**
    * アプリケーションデータフォルダからデータを読み込みます。
-   * @param {String} filePath 対象のファイルへのパス
-   * @param {String} format 読み込んだデータの出力形式です。 "text", "json", "xml" を指定できます。
-   * @param {String} charset 文字コード
+   * @param {string} filePath 対象のファイルへのパス
+   * @param {string} format 読み込んだデータの出力形式です。 "text", "json", "xml" を指定できます。
+   * @param {string} charset 文字コード
    * @return {Promise}
    */
   read: (filePath, format = "text", charset = "utf-8") => {
@@ -51,15 +51,16 @@ module.exports = {
   },
   /**
    * アプリケーションデータフォルダにあるファイルへ書き込みを行います。
-   * @param {String} filePath 対象のファイルへのパス
-   * @param {*} data データ
-   * @param {String} [charset] 文字コード
+   * @param {string} filePath 対象のファイルへのパス
+   * @param {string} data データ
+   * @param {string} [charset] 文字コード
    * @returns {Promise}
    */
   save: (filePath, data, charset = "utf-8") => {
+    // console.log(filePath, data);
     let targetPath = path.join(basePath, filePath);
     return new Promise((resolve, reject) => {
-      fs.writeFile(targetPath, data, {encoding: charset}, err => {
+      fs.writeFile(targetPath, data, { encoding: charset }, err => {
         if(err) reject(err);
         resolve();
       });
@@ -67,7 +68,7 @@ module.exports = {
   },
   /**
    * アプリケーションデータフォルダ内にディレクトリを作成します。
-   * @param {String} filePath 対象のディレクトリへのパス
+   * @param {string} filePath 対象のディレクトリへのパス
    * @returns {Promise}
    */
   createDir: (filePath) => {

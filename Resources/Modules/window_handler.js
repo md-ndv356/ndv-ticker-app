@@ -3,21 +3,43 @@
 const { ipcMain, BrowserWindow } = require("electron");
 const path = require("path");
 
-let Windows = { main: null, settings: null, info: null, traffic: null };
+const windows = { main: null, settings: null, info: null, traffic: null, richedit: null };
 
 // handle: リサイズの設定を変更
 ipcMain.handle("setIsResizable", (sender, isResizable) => {
-  Windows.main.setResizable(isResizable);
+  windows.main.setResizable(isResizable);
 });
 ipcMain.handle("global.config.opacity", (sender, value) => {
-  if (Windows.main) Windows.main.setOpacity(value);
+  if (windows.main) windows.main.setOpacity(value);
+});
+
+ipcMain.handle("window.event.openRichEditor", (sender, data) => {
+  if (!windows.settings) return;
+  windows.richedit = new BrowserWindow({
+    parent: windows.settings,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, "../window/rich-text-editor/preload.js")
+    }
+  });
+  windows.richedit.on("closed", () => windows.richedit = null);
+  windows.richedit.loadFile(path.join(__dirname, "../window/rich-text-editor/index.html"));
+});
+ipcMain.handle("window.setting.toParent", (sender, data) => {
+  if (!windows.settings || !windows.richedit) return;
+  windows.settings.webContents.send("window.setting.fromChild", data);
+});
+ipcMain.handle("window.setting.toChild", (sender, data) => {
+  if (!windows.settings || !windows.richedit) return;
+  windows.richedit.webContents.send("window.setting.fromParent", data);
 });
 
 // const PreventClosing = event => { if (!event.sender.closeable){ event.preventDefault(); } };
 
 const CreateMainWindow = (options) => {
-  // Create a browser window.
-  Windows.main = new BrowserWindow({
+  // Create a browser window!
+  windows.main = new BrowserWindow({
     width: 1212,
     height: 128,
     webPreferences: {
@@ -28,20 +50,18 @@ const CreateMainWindow = (options) => {
     resizable: false,
     frame: false
   });
-  if (Object.hasOwn((options ?? {}), "closeable")) Windows.main.closeable = !!options?.closeable; else Windows.main.closeable = true;
+  if (Object.hasOwn((options ?? {}), "closeable")) windows.main.closeable = !!options?.closeable; else windows.main.closeable = true;
   // Windows.main.on("close", PreventClosing);
-  Windows.main.on("closed", function() {
-    Windows.main = null;
-  });
-  Windows.main.loadFile(path.join(__dirname, '../window/Main/main-window.html'));
-  Windows.main.webContents.openDevTools();
-  Windows.main.webContents.send("sendInitStat", {
+  windows.main.on("closed", () => windows.main = null);
+  windows.main.loadFile(path.join(__dirname, '../window/Main/main-window.html'));
+  windows.main.webContents.openDevTools();
+  windows.main.webContents.send("sendInitStat", {
     visible: true,
     stat: false
   });
 };
 const ShowSettingsWindow = () => {
-  Windows.settings = new BrowserWindow({
+  windows.settings = new BrowserWindow({
     width: 1200,
     height: 800,
     minWidth: 900,
@@ -55,16 +75,16 @@ const ShowSettingsWindow = () => {
     titleBarStyle: 'default',
     show: false
   });
-  Windows.settings.on('closed', function() {
-    Windows.settings = null;
+  windows.settings.on('closed', function() {
+    windows.settings = null;
   });
-  Windows.settings.loadFile(path.join(__dirname, '../window/setting/index_new.html'));
-  Windows.settings.once('ready-to-show', () => {
-    Windows.settings.show();
+  windows.settings.loadFile(path.join(__dirname, '../window/setting/index_rev1.html'));
+  windows.settings.once('ready-to-show', () => {
+    windows.settings.show();
   });
 };
 const ShowInfoWindow = () => {
-  Windows.info = new BrowserWindow({
+  windows.info = new BrowserWindow({
     width: 800,
     height: 450,
     webPreferences: {
@@ -74,47 +94,47 @@ const ShowInfoWindow = () => {
     },
     resizable: true
   });
-  Windows.info.on('closed', function() {
-    Windows.info = null;
+  windows.info.on('closed', function() {
+    windows.info = null;
   });
-  Windows.info.loadFile(path.join(__dirname, '../window/setting/index.html'));
+  windows.info.loadFile(path.join(__dirname, '../window/setting/index_new.html'));
 };
 const ShowTrafficWindow = () => {
-  Windows.traffic = new BrowserWindow({
+  windows.traffic = new BrowserWindow({
     width: 800,
     height: 450,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, '../window/traffic/preload.js')
+      preload: path.join(__dirname, '../window/setting/preload.js')
     },
     resizable: true
   });
-  Windows.traffic.on('closed', function() {
-    Windows.traffic = null;
+  windows.traffic.on('closed', function() {
+    windows.traffic = null;
   });
-  Windows.traffic.loadFile(path.join(__dirname, '../window/traffic/index.html'));
+  windows.traffic.loadFile(path.join(__dirname, '../window/setting/index.html'));
 };
 
 module.exports = {
   open: function (name, options){
     switch (name) {
       case "main":
-        if (!Windows.main) CreateMainWindow(options);
+        if (!windows.main) CreateMainWindow(options);
         break;
       case "settings":
-        if (!Windows.settings) ShowSettingsWindow(options);
+        if (!windows.settings) ShowSettingsWindow(options);
         break;
       case "information":
-        if (!Windows.info) ShowInfoWindow(options);
+        if (!windows.info) ShowInfoWindow(options);
         break;
       case "traffic":
-        if (!Windows.traffic) ShowTrafficWindow(options);
+        if (!windows.traffic) ShowTrafficWindow(options);
         break;
     }
   },
   setCloseable: function (name, value){
-    if (!Object.hasOwn(Windows, name)) return null;
-    Windows[name].closeable = value;
+    if (!Object.hasOwn(windows, name)) return null;
+    windows[name].closeable = value;
   }
 };

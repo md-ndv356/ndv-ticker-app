@@ -1,4 +1,4 @@
-/** 内部利用WebSocket管理 */
+/** ネットワークの利用状況を、WebSocketを通じて提供する */
 
 const { ipcMain } = require("electron");
 const { createHash } = require("crypto");

@@ -28,13 +28,13 @@ const MenubarHandler = require("./Resources/Modules/menubar_handler");
 const WindowHandler = require("./Resources/Modules/window_handler");
 const InformationMaster = require("./Resources/Class/Information_Master");
 const ntpHandler = require("./Resources/Modules/ntp_handler");
-const localWebSocketHandler = require("./Resources/Modules/local_websocket_handler");
+const networkActivityProvider = require("./Resources/Modules/network_activity_provider");
 const isMac = (process.platform === 'darwin');
 
 InformationMaster.mscale.interval = 25000;
 InformationMaster.eew.interval_kmoni_yahoo_eew = 1500;
 
-localWebSocketHandler.server_start();
+networkActivityProvider.server_start();
 
 // setTimeout(function(){ informationReceiver.load_eew(); }, 1000);
 
@@ -241,4 +241,11 @@ app.on("ready", async function(){
   app.on('activate', () => {
     if (!BrowserWindow.getAllWindows().length) WindowHandler.open("main");
   });
+
+  // const safeStorageHandler = require("./Resources/Modules/safestorage_handler");
+  // await safeStorageHandler.write("oauth_code", "aiueoaiueoaiueoaiueo0912346845");
+  // console.log(await safeStorageHandler.read("oauth_code"));
+
+  const dmdataOauth = require("./Resources/Modules/dmdata/oauth");
+  console.log(await dmdataOauth.authenticate());
 });

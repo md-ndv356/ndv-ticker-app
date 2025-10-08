@@ -11,7 +11,7 @@ export interface NetworkRequestFromKeyResult {
   detail: any;
 }
 
-export interface LocalWebSocketHandler {
+export interface NetworkActivityProvider {
   /**
    * WebSocketサーバーを起動する
    */
@@ -30,5 +30,5 @@ export interface LocalWebSocketHandler {
   get_port(): number;
 }
 
-declare const localWebSocketHandler: LocalWebSocketHandler;
-export = localWebSocketHandler;
+declare const networkActivityProvider: NetworkActivityProvider;
+export = networkActivityProvider;

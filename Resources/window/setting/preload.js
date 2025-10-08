@@ -8,6 +8,10 @@ contextBridge.exposeInMainWorld("ContentBridge", {
   openExternal: url => ipcRenderer.invoke("openInDefaultBrowser", url),
   setWindowOpacity: value => ipcRenderer.invoke("global.config.opacity", value),
 
+  openEditor: () => ipcRenderer.invoke("window.event.openRichEditor"),
+  sendToChild: data => ipcRenderer.invoke("window.setting.toChild", data),
+  onMessageFromChild: func => ipcRenderer.on("window.setting.fromChild", (event, ...args) => func(...args)),
+
   // Development helpers
   isDev: () => ipcRenderer.invoke("app.isDev"),
   // getSystemInfo: () => ipcRenderer.invoke("system.getInfo"),
