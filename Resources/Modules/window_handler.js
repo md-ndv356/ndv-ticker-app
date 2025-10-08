@@ -106,14 +106,14 @@ const ShowTrafficWindow = () => {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, '../window/setting/preload.js')
+      preload: path.join(__dirname, '../window/traffic/preload.js')
     },
     resizable: true
   });
   windows.traffic.on('closed', function() {
     windows.traffic = null;
   });
-  windows.traffic.loadFile(path.join(__dirname, '../window/setting/index.html'));
+  windows.traffic.loadFile(path.join(__dirname, '../window/traffic/index.html'));
 };
 
 module.exports = {
