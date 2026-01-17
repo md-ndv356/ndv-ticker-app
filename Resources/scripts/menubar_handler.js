@@ -1,7 +1,7 @@
 /** メニューバー管理 */
 
 const { app, Menu } = require("electron");
-const WindowHandler = require("../Modules/window_handler");
+const WindowHandler = require("../scripts/window_handler");
 const isMac = (process.platform === 'darwin');
 
 const MenuJSON = [

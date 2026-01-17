@@ -1,6 +1,6 @@
 // Mスケールを管理する
-const http_request = require("../Modules/http_request");
-const handleIntervalFunction = require("../Modules/handle_interval_function");
+const http_request = require("../scripts/http_request");
+const handleIntervalFunction = require("../scripts/handle_interval_function");
 module.exports = class {
   constructor (){
     http_request.create("wni-mscale", "https://weathernews.jp/mscale/json/scale.json", {

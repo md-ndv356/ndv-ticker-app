@@ -1,6 +1,6 @@
 /** 緊急地震速報のデータを管理します。 */
-const http_request = require("../Modules/http_request");
-const handleIntervalFunction = require("../Modules/handle_interval_function");
+const http_request = require("../scripts/http_request");
+const handleIntervalFunction = require("../scripts/handle_interval_function");
 
 // https://zukucode.com/2017/04/javascript-date-format.html
 function formatDate(date, format){

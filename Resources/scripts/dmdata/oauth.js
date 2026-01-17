@@ -69,7 +69,7 @@ const EXP_SKEW_MS = 60 * 1000; // 60秒前に期限切れ扱い
 const ensureAccessToken = async () => {
   const now = Date.now();
   if (!caches.accessToken || (caches.expiresAt - now) <= EXP_SKEW_MS) {
-    // refresh は内部で refreshToken 存在を検証
+    // refresh は内部で refreshToken の存在を検証
     const { accessToken } = await refresh();
     return accessToken;
   }
@@ -104,7 +104,7 @@ const authCallback = async (code, state, res) => {
     res.status(500).send("トークン取得に失敗しました。");
     return;
   }
-  const data = token.data;
+  const data = JSON.parse(token.data.toString("utf-8"));
   if (data.error) {
     if (promises.auth.reject) promises.auth.reject(new Error("アクセストークンの要求に失敗しました。［" + data.error + "］\n" + data.error_description));
     res.status(500).send("トークン取得エラー: " + data.error);
@@ -158,8 +158,8 @@ const authenticate = () => {
 };
 
 /**
- *
- * @returns
+ * アクセストークンの更新を行います。
+ * @returns {Promise<{accessToken: string, scope: string}>} 新しいアクセストークンとスコープ
  */
 const refresh = async () => {
   if (refreshPromise) return refreshPromise;
@@ -193,9 +193,12 @@ const refresh = async () => {
   }
 };
 
+/**
+ * アクセストークンの無効化を行います。
+ */
 const revoke = async () => {
   const refreshToken = await getRefreshToken();
-  if (!refreshToken) return false; // トークンがない場合は何もしない
+  if (!refreshToken) return; // トークンがない場合は何もしない
   const res = await axios.post(endpoint.revocation, {
     client_id: ClientID,
     token: refreshToken
@@ -207,7 +210,6 @@ const revoke = async () => {
   if (res.status !== 200) throw new Error("トークンの失効を実行できませんでした。\n" + res.data);
   caches.refreshToken = null;
   await safeStorageHandler.write(TokenPath, "");
-  return true;
 };
 
 module.exports = { authenticate, refresh, revoke, ensureAccessToken };

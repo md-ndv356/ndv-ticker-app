@@ -4,7 +4,7 @@ const path = require('path');
 // const axios = require("axios");
 // const fs = require("fs");
 // エラー処理
-const ErrorHandler = require("./Resources/Modules/error_handler");
+const ErrorHandler = require("./Resources/scripts/error_handler");
 process.on('warning', (warning) => {
   console.log("catch: warning");
   console.log(warning);
@@ -21,14 +21,14 @@ process.on('unhandledRejection', (reason, pr) => {
   console.log(pr.toString());
   if (reason.constructor.name !== "AxiosError") ErrorHandler.set.main_unhandledRejection(reason);
 });
-// const fileSystem = require("./Resources/Modules/Preferences-FileSystem");
-const configReader = require("./Resources/Modules/config_reader");
-const AppInitialConfig = require("./Resources/Modules/application_config");
-const MenubarHandler = require("./Resources/Modules/menubar_handler");
-const WindowHandler = require("./Resources/Modules/window_handler");
+// const fileSystem = require("./Resources/scripts/Preferences-FileSystem");
+const configReader = require("./Resources/scripts/config_reader");
+const AppInitialConfig = require("./Resources/scripts/application_config");
+const MenubarHandler = require("./Resources/scripts/menubar_handler");
+const WindowHandler = require("./Resources/scripts/window_handler");
 const InformationMaster = require("./Resources/Class/Information_Master");
-const ntpHandler = require("./Resources/Modules/ntp_handler");
-const networkActivityProvider = require("./Resources/Modules/network_activity_provider");
+const ntpHandler = require("./Resources/scripts/ntp_handler");
+const networkActivityProvider = require("./Resources/scripts/network_activity_provider");
 const isMac = (process.platform === 'darwin');
 
 InformationMaster.mscale.interval = 25000;
@@ -159,7 +159,7 @@ app.on("ready", async function(){
   DataTables.configData = configData;
 
   // handle: アップデート確認
-  const updateChecker = new (require("./Resources/window/Modules/UpdateChecker"))(DataTables.configData?.appInfo?.versionCheckAPI || "https://md-ndv356.github.io/ndv-tickers/version-list.json?", DataTables.app.current.code);
+  const updateChecker = new (require("./Resources/window/scripts/UpdateChecker"))(DataTables.configData?.appInfo?.versionCheckAPI || "https://md-ndv356.github.io/ndv-tickers/version-list.json?", DataTables.app.current.code);
   const doCheckUpdate = () => new Promise((resolve, reject) => {
     updateChecker.check().then(data => {
       resolve(data.isExist);
@@ -216,6 +216,7 @@ app.on("ready", async function(){
   const fs = require('fs');
   const os = require('os');
 
+  // なにこれ？
   ipcMain.handle("file.save", async (event, data, filename) => {
     try {
       const filePath = path.join(os.homedir(), 'Downloads', filename || 'settings-backup.json');
@@ -242,10 +243,10 @@ app.on("ready", async function(){
     if (!BrowserWindow.getAllWindows().length) WindowHandler.open("main");
   });
 
-  // const safeStorageHandler = require("./Resources/Modules/safestorage_handler");
+  // const safeStorageHandler = require("./Resources/scripts/safestorage_handler");
   // await safeStorageHandler.write("oauth_code", "aiueoaiueoaiueoaiueo0912346845");
   // console.log(await safeStorageHandler.read("oauth_code"));
 
-  const dmdataOauth = require("./Resources/Modules/dmdata/oauth");
+  const dmdataOauth = require("./Resources/scripts/dmdata/oauth");
   console.log(await dmdataOauth.authenticate());
 });

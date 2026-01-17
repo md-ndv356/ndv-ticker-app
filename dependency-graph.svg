@@ -53,18 +53,18 @@
 </a>
 </g>
 </g>
-<!-- Resources/Modules/http_request.js -->
+<!-- Resources/scripts/http_request.js -->
 <g id="node2" class="node">
-<title>Resources/Modules/http_request.js</title>
-<g id="a_node2"><a xlink:href="Resources/Modules/http_request.js" xlink:title="http_request.js">
+<title>Resources/scripts/http_request.js</title>
+<g id="a_node2"><a xlink:href="Resources/scripts/http_request.js" xlink:title="http_request.js">
 <path fill="#ffffcc" stroke="black" d="M411.96,-539.66C411.96,-539.66 347.79,-539.66 347.79,-539.66 344.83,-539.66 341.88,-536.71 341.88,-533.75 341.88,-533.75 341.88,-527.83 341.88,-527.83 341.88,-524.87 344.83,-521.91 347.79,-521.91 347.79,-521.91 411.96,-521.91 411.96,-521.91 414.92,-521.91 417.88,-524.87 417.88,-527.83 417.88,-527.83 417.88,-533.75 417.88,-533.75 417.88,-536.71 414.92,-539.66 411.96,-539.66"/>
 <text text-anchor="start" x="349.88" y="-527.11" font-family="Helvetica,sans-Serif" font-size="9.00">http_request.js</text>
 </a>
 </g>
 </g>
-<!-- Resources/Class/EEW.js&#45;&gt;Resources/Modules/http_request.js -->
+<!-- Resources/Class/EEW.js&#45;&gt;Resources/scripts/http_request.js -->
 <g id="edge1" class="edge">
-<title>Resources/Class/EEW.js&#45;&gt;Resources/Modules/http_request.js</title>
+<title>Resources/Class/EEW.js&#45;&gt;Resources/scripts/http_request.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M277.85,-441C289.72,-442.52 302.92,-446.45 311.25,-455.79 329.16,-475.86 301.34,-495.71 319.25,-515.79 323.03,-520.02 327.81,-523.15 333.01,-525.44"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="332.24,-527.39 338.59,-527.39 333.62,-523.42 332.24,-527.39"/>
 </g>
@@ -80,9 +80,9 @@
 </a>
 </g>
 </g>
-<!-- Resources/Modules/http_request.js&#45;&gt;node_modules/iconv&#45;lite -->
+<!-- Resources/scripts/http_request.js&#45;&gt;node_modules/iconv&#45;lite -->
 <g id="edge28" class="edge">
-<title>Resources/Modules/http_request.js&#45;&gt;node_modules/iconv&#45;lite</title>
+<title>Resources/scripts/http_request.js&#45;&gt;node_modules/iconv&#45;lite</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M418.36,-535.71C423.81,-537.98 428.81,-541.21 432.5,-545.79 458.65,-578.21 415.04,-704.37 445.5,-732.79 490.51,-774.78 534.4,-769.24 584,-732.79 589.43,-728.8 614.85,-639.88 625.4,-602.31"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="627.4,-602.92 627,-596.58 623.36,-601.79 627.4,-602.92"/>
 </g>
@@ -98,9 +98,9 @@
 </a>
 </g>
 </g>
-<!-- Resources/Modules/http_request.js&#45;&gt;node_modules/electron -->
+<!-- Resources/scripts/http_request.js&#45;&gt;node_modules/electron -->
 <g id="edge27" class="edge">
-<title>Resources/Modules/http_request.js&#45;&gt;node_modules/electron</title>
+<title>Resources/scripts/http_request.js&#45;&gt;node_modules/electron</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M418.27,-535.78C423.72,-538.05 428.75,-541.26 432.5,-545.79 452.13,-569.53 422.72,-663.05 445.5,-683.79 491.02,-725.22 539.27,-726.08 584,-683.79 595.56,-672.85 582.68,-553.69 592,-540.79 593.45,-538.78 595.22,-537.03 597.19,-535.52"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="598.23,-537.35 602.28,-532.45 596.06,-533.75 598.23,-537.35"/>
 </g>
@@ -128,9 +128,9 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M167.3,-461.49C174.73,-459.6 182.49,-457.63 189.75,-455.79 197.75,-453.77 206.34,-451.6 214.46,-449.56"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="214.78,-451.65 220.09,-448.15 213.76,-447.58 214.78,-451.65"/>
 </g>
-<!-- Resources/Class/Information_Master.js&#45;&gt;Resources/Modules/http_request.js -->
+<!-- Resources/Class/Information_Master.js&#45;&gt;Resources/scripts/http_request.js -->
 <g id="edge2" class="edge">
-<title>Resources/Class/Information_Master.js&#45;&gt;Resources/Modules/http_request.js</title>
+<title>Resources/Class/Information_Master.js&#45;&gt;Resources/scripts/http_request.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M132.93,-480.04C138.16,-501.08 154.16,-552.24 189.75,-572.79 213.13,-586.29 289.62,-588.94 311.25,-572.79 321.28,-565.3 310.22,-554.45 319.25,-545.79 323.24,-541.96 328.06,-539.06 333.22,-536.88"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="333.66,-538.95 338.65,-535 332.29,-534.98 333.66,-538.95"/>
 </g>
@@ -140,18 +140,18 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M182.22,-470.79C189.96,-470.79 197.88,-470.79 205.45,-470.79"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="205.11,-472.89 211.11,-470.79 205.11,-468.69 205.11,-472.89"/>
 </g>
-<!-- Resources/Modules/websocket_handler.js -->
+<!-- Resources/scripts/websocket_handler.js -->
 <g id="node5" class="node">
-<title>Resources/Modules/websocket_handler.js</title>
-<g id="a_node5"><a xlink:href="Resources/Modules/websocket_handler.js" xlink:title="websocket_handler.js">
+<title>Resources/scripts/websocket_handler.js</title>
+<g id="a_node5"><a xlink:href="Resources/scripts/websocket_handler.js" xlink:title="websocket_handler.js">
 <path fill="#ffffcc" stroke="black" d="M426.58,-569.66C426.58,-569.66 333.17,-569.66 333.17,-569.66 330.21,-569.66 327.25,-566.71 327.25,-563.75 327.25,-563.75 327.25,-557.83 327.25,-557.83 327.25,-554.87 330.21,-551.91 333.17,-551.91 333.17,-551.91 426.58,-551.91 426.58,-551.91 429.54,-551.91 432.5,-554.87 432.5,-557.83 432.5,-557.83 432.5,-563.75 432.5,-563.75 432.5,-566.71 429.54,-569.66 426.58,-569.66"/>
 <text text-anchor="start" x="335.25" y="-557.11" font-family="Helvetica,sans-Serif" font-size="9.00">websocket_handler.js</text>
 </a>
 </g>
 </g>
-<!-- Resources/Class/Information_Master.js&#45;&gt;Resources/Modules/websocket_handler.js -->
+<!-- Resources/Class/Information_Master.js&#45;&gt;Resources/scripts/websocket_handler.js -->
 <g id="edge3" class="edge">
-<title>Resources/Class/Information_Master.js&#45;&gt;Resources/Modules/websocket_handler.js</title>
+<title>Resources/Class/Information_Master.js&#45;&gt;Resources/scripts/websocket_handler.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M132.43,-479.91C136.78,-502.25 151.39,-559.62 189.75,-582.79 240.52,-613.46 313.03,-590.33 351.86,-573.75"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="352.66,-575.69 357.3,-571.35 350.97,-571.85 352.66,-575.69"/>
 </g>
@@ -266,111 +266,111 @@
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" stroke-opacity="0.200000" d="M131.8,-461.61C135.93,-422.73 154.06,-272.37 189.75,-244.79 329.12,-137.07 553.91,-316.24 614.52,-368.91"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="612.84,-370.22 618.73,-372.6 615.61,-367.06 612.84,-370.22"/>
 </g>
-<!-- Resources/Modules/websocket_handler.js&#45;&gt;node_modules/electron -->
+<!-- Resources/scripts/websocket_handler.js&#45;&gt;node_modules/electron -->
 <g id="edge32" class="edge">
-<title>Resources/Modules/websocket_handler.js&#45;&gt;node_modules/electron</title>
+<title>Resources/scripts/websocket_handler.js&#45;&gt;node_modules/electron</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M381.55,-569.96C384.11,-597.09 395.76,-677.15 445.5,-709.79 496.96,-743.56 539.46,-752.27 584,-709.79 597.6,-696.81 581.06,-556.08 592,-540.79 593.44,-538.77 595.2,-537.02 597.17,-535.51"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="598.21,-537.33 602.25,-532.43 596.03,-533.74 598.21,-537.33"/>
 </g>
-<!-- Resources/Class/Mscale.js&#45;&gt;Resources/Modules/http_request.js -->
+<!-- Resources/Class/Mscale.js&#45;&gt;Resources/scripts/http_request.js -->
 <g id="edge14" class="edge">
-<title>Resources/Class/Mscale.js&#45;&gt;Resources/Modules/http_request.js</title>
+<title>Resources/Class/Mscale.js&#45;&gt;Resources/scripts/http_request.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M277.98,-506.98C288.35,-509.41 300.36,-512.22 311.25,-514.79 318.34,-516.46 325.85,-518.23 333.18,-519.96"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="332.41,-521.94 338.73,-521.28 333.37,-517.85 332.41,-521.94"/>
 </g>
-<!-- Resources/Modules/Preferences&#45;FileSystem.js -->
+<!-- Resources/scripts/Preferences&#45;FileSystem.js -->
 <g id="node14" class="node">
-<title>Resources/Modules/Preferences&#45;FileSystem.js</title>
-<g id="a_node14"><a xlink:href="Resources/Modules/Preferences-FileSystem.js" xlink:title="Preferences&#45;FileSystem.js">
+<title>Resources/scripts/Preferences&#45;FileSystem.js</title>
+<g id="a_node14"><a xlink:href="Resources/scripts/Preferences-FileSystem.js" xlink:title="Preferences&#45;FileSystem.js">
 <path fill="#ffffcc" stroke="black" d="M562.08,-449.66C562.08,-449.66 451.42,-449.66 451.42,-449.66 448.46,-449.66 445.5,-446.71 445.5,-443.75 445.5,-443.75 445.5,-437.83 445.5,-437.83 445.5,-434.87 448.46,-431.91 451.42,-431.91 451.42,-431.91 562.08,-431.91 562.08,-431.91 565.04,-431.91 568,-434.87 568,-437.83 568,-437.83 568,-443.75 568,-443.75 568,-446.71 565.04,-449.66 562.08,-449.66"/>
 <text text-anchor="start" x="453.5" y="-437.11" font-family="Helvetica,sans-Serif" font-size="9.00">Preferences&#45;FileSystem.js</text>
 </a>
 </g>
 </g>
-<!-- Resources/Modules/Preferences&#45;FileSystem.js&#45;&gt;fs -->
+<!-- Resources/scripts/Preferences&#45;FileSystem.js&#45;&gt;fs -->
 <g id="edge16" class="edge">
-<title>Resources/Modules/Preferences&#45;FileSystem.js&#45;&gt;fs</title>
+<title>Resources/scripts/Preferences&#45;FileSystem.js&#45;&gt;fs</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" stroke-opacity="0.200000" d="M568.22,-444.53C574.22,-447.15 579.68,-450.78 584,-455.79 596.21,-469.94 588.44,-605.44 592,-623.79 598.62,-657.93 613.73,-695.87 622.77,-716.77"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="620.75,-717.39 625.09,-722.04 624.59,-715.7 620.75,-717.39"/>
 </g>
-<!-- Resources/Modules/Preferences&#45;FileSystem.js&#45;&gt;path -->
+<!-- Resources/scripts/Preferences&#45;FileSystem.js&#45;&gt;path -->
 <g id="edge17" class="edge">
-<title>Resources/Modules/Preferences&#45;FileSystem.js&#45;&gt;path</title>
+<title>Resources/scripts/Preferences&#45;FileSystem.js&#45;&gt;path</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" stroke-opacity="0.200000" d="M568.34,-432.15C573.77,-430.41 579.08,-428.31 584,-425.79 597.38,-418.94 609.65,-407.05 618.15,-397.5"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="619.63,-399 621.95,-393.08 616.45,-396.27 619.63,-399"/>
 </g>
-<!-- Resources/Modules/Preferences&#45;FileSystem.js&#45;&gt;node_modules/electron -->
+<!-- Resources/scripts/Preferences&#45;FileSystem.js&#45;&gt;node_modules/electron -->
 <g id="edge15" class="edge">
-<title>Resources/Modules/Preferences&#45;FileSystem.js&#45;&gt;node_modules/electron</title>
+<title>Resources/scripts/Preferences&#45;FileSystem.js&#45;&gt;node_modules/electron</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M568.27,-447.94C573.84,-449.98 579.19,-452.55 584,-455.79 603.68,-469.02 616.95,-493.78 623.99,-510.03"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="621.99,-510.68 626.21,-515.42 625.87,-509.08 621.99,-510.68"/>
 </g>
-<!-- Resources/Modules/application_config.js -->
+<!-- Resources/scripts/application_config.js -->
 <g id="node16" class="node">
-<title>Resources/Modules/application_config.js</title>
-<g id="a_node16"><a xlink:href="Resources/Modules/application_config.js" xlink:title="application_config.js">
+<title>Resources/scripts/application_config.js</title>
+<g id="a_node16"><a xlink:href="Resources/scripts/application_config.js" xlink:title="application_config.js">
 <path fill="#ffffcc" stroke="black" d="M550.83,-479.66C550.83,-479.66 462.67,-479.66 462.67,-479.66 459.71,-479.66 456.75,-476.71 456.75,-473.75 456.75,-473.75 456.75,-467.83 456.75,-467.83 456.75,-464.87 459.71,-461.91 462.67,-461.91 462.67,-461.91 550.83,-461.91 550.83,-461.91 553.79,-461.91 556.75,-464.87 556.75,-467.83 556.75,-467.83 556.75,-473.75 556.75,-473.75 556.75,-476.71 553.79,-479.66 550.83,-479.66"/>
 <text text-anchor="start" x="464.75" y="-467.11" font-family="Helvetica,sans-Serif" font-size="9.00">application_config.js</text>
 </a>
 </g>
 </g>
-<!-- Resources/Modules/application_config.js&#45;&gt;node_modules/electron -->
+<!-- Resources/scripts/application_config.js&#45;&gt;node_modules/electron -->
 <g id="edge18" class="edge">
-<title>Resources/Modules/application_config.js&#45;&gt;node_modules/electron</title>
+<title>Resources/scripts/application_config.js&#45;&gt;node_modules/electron</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M556.87,-478.97C566.14,-481.46 575.57,-484.67 584,-488.79 595.67,-494.49 607.06,-503.62 615.59,-511.38"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="614.09,-512.86 619.9,-515.44 616.97,-509.8 614.09,-512.86"/>
 </g>
-<!-- Resources/Modules/config_reader.js -->
+<!-- Resources/scripts/config_reader.js -->
 <g id="node17" class="node">
-<title>Resources/Modules/config_reader.js</title>
-<g id="a_node17"><a xlink:href="Resources/Modules/config_reader.js" xlink:title="config_reader.js">
+<title>Resources/scripts/config_reader.js</title>
+<g id="a_node17"><a xlink:href="Resources/scripts/config_reader.js" xlink:title="config_reader.js">
 <path fill="#ffffcc" stroke="black" d="M414.96,-449.66C414.96,-449.66 344.79,-449.66 344.79,-449.66 341.83,-449.66 338.88,-446.71 338.88,-443.75 338.88,-443.75 338.88,-437.83 338.88,-437.83 338.88,-434.87 341.83,-431.91 344.79,-431.91 344.79,-431.91 414.96,-431.91 414.96,-431.91 417.92,-431.91 420.88,-434.87 420.88,-437.83 420.88,-437.83 420.88,-443.75 420.88,-443.75 420.88,-446.71 417.92,-449.66 414.96,-449.66"/>
 <text text-anchor="start" x="346.88" y="-437.11" font-family="Helvetica,sans-Serif" font-size="9.00">config_reader.js</text>
 </a>
 </g>
 </g>
-<!-- Resources/Modules/config_reader.js&#45;&gt;Resources/Modules/Preferences&#45;FileSystem.js -->
+<!-- Resources/scripts/config_reader.js&#45;&gt;Resources/scripts/Preferences&#45;FileSystem.js -->
 <g id="edge20" class="edge">
-<title>Resources/Modules/config_reader.js&#45;&gt;Resources/Modules/Preferences&#45;FileSystem.js</title>
+<title>Resources/scripts/config_reader.js&#45;&gt;Resources/scripts/Preferences&#45;FileSystem.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M421.07,-440.79C426.01,-440.79 431.15,-440.79 436.36,-440.79"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="436.14,-442.89 442.14,-440.79 436.14,-438.69 436.14,-442.89"/>
 </g>
-<!-- Resources/Modules/config_reader.js&#45;&gt;node_modules/electron -->
+<!-- Resources/scripts/config_reader.js&#45;&gt;node_modules/electron -->
 <g id="edge21" class="edge">
-<title>Resources/Modules/config_reader.js&#45;&gt;node_modules/electron</title>
+<title>Resources/scripts/config_reader.js&#45;&gt;node_modules/electron</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M421.34,-447.88C425.49,-449.9 429.34,-452.49 432.5,-455.79 449.28,-473.3 427.12,-492.96 445.5,-508.79 467.37,-527.63 549.29,-528.41 596.29,-527.19"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="596.34,-529.29 602.28,-527.01 596.22,-525.09 596.34,-529.29"/>
 </g>
-<!-- Resources/Modules/config_reader.js&#45;&gt;Resources/Modules/application_config.js -->
+<!-- Resources/scripts/config_reader.js&#45;&gt;Resources/scripts/application_config.js -->
 <g id="edge19" class="edge">
-<title>Resources/Modules/config_reader.js&#45;&gt;Resources/Modules/application_config.js</title>
+<title>Resources/scripts/config_reader.js&#45;&gt;Resources/scripts/application_config.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M419.7,-450.12C431.92,-453.05 445.55,-456.33 458.29,-459.39"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="457.68,-461.4 464,-460.76 458.66,-457.32 457.68,-461.4"/>
 </g>
-<!-- Resources/Modules/error_handler.js -->
+<!-- Resources/scripts/error_handler.js -->
 <g id="node18" class="node">
-<title>Resources/Modules/error_handler.js</title>
-<g id="a_node18"><a xlink:href="Resources/Modules/error_handler.js" xlink:title="error_handler.js">
+<title>Resources/scripts/error_handler.js</title>
+<g id="a_node18"><a xlink:href="Resources/scripts/error_handler.js" xlink:title="error_handler.js">
 <path fill="#ffffcc" stroke="black" d="M414.58,-479.66C414.58,-479.66 345.17,-479.66 345.17,-479.66 342.21,-479.66 339.25,-476.71 339.25,-473.75 339.25,-473.75 339.25,-467.83 339.25,-467.83 339.25,-464.87 342.21,-461.91 345.17,-461.91 345.17,-461.91 414.58,-461.91 414.58,-461.91 417.54,-461.91 420.5,-464.87 420.5,-467.83 420.5,-467.83 420.5,-473.75 420.5,-473.75 420.5,-476.71 417.54,-479.66 414.58,-479.66"/>
 <text text-anchor="start" x="347.25" y="-467.11" font-family="Helvetica,sans-Serif" font-size="9.00">error_handler.js</text>
 </a>
 </g>
 </g>
-<!-- Resources/Modules/error_handler.js&#45;&gt;path -->
+<!-- Resources/scripts/error_handler.js&#45;&gt;path -->
 <g id="edge26" class="edge">
-<title>Resources/Modules/error_handler.js&#45;&gt;path</title>
+<title>Resources/scripts/error_handler.js&#45;&gt;path</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" stroke-opacity="0.200000" d="M420.92,-464.03C425.25,-461.96 429.25,-459.27 432.5,-455.79 451.11,-435.84 424.88,-413.65 445.5,-395.79 487.08,-359.77 555.65,-366.14 596.45,-374.29"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="595.95,-376.33 602.26,-375.52 596.82,-372.22 595.95,-376.33"/>
 </g>
-<!-- Resources/Modules/error_handler.js&#45;&gt;node_modules/electron -->
+<!-- Resources/scripts/error_handler.js&#45;&gt;node_modules/electron -->
 <g id="edge24" class="edge">
-<title>Resources/Modules/error_handler.js&#45;&gt;node_modules/electron</title>
+<title>Resources/scripts/error_handler.js&#45;&gt;node_modules/electron</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M420.77,-477.69C425.12,-479.74 429.17,-482.38 432.5,-485.79 448.24,-501.91 427.64,-521.05 445.5,-534.79 490.49,-569.4 561.45,-551.85 600.98,-537.72"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="601.66,-539.71 606.56,-535.66 600.2,-535.77 601.66,-539.71"/>
 </g>
-<!-- Resources/Modules/error_handler.js&#45;&gt;Resources/Modules/application_config.js -->
+<!-- Resources/scripts/error_handler.js&#45;&gt;Resources/scripts/application_config.js -->
 <g id="edge22" class="edge">
-<title>Resources/Modules/error_handler.js&#45;&gt;Resources/Modules/application_config.js</title>
+<title>Resources/scripts/error_handler.js&#45;&gt;Resources/scripts/application_config.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M420.73,-470.79C429.38,-470.79 438.71,-470.79 447.9,-470.79"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="447.62,-472.89 453.62,-470.79 447.62,-468.69 447.62,-472.89"/>
 </g>
@@ -383,9 +383,9 @@
 </a>
 </g>
 </g>
-<!-- Resources/Modules/error_handler.js&#45;&gt;crypto -->
+<!-- Resources/scripts/error_handler.js&#45;&gt;crypto -->
 <g id="edge23" class="edge">
-<title>Resources/Modules/error_handler.js&#45;&gt;crypto</title>
+<title>Resources/scripts/error_handler.js&#45;&gt;crypto</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" stroke-opacity="0.200000" d="M420.89,-476.89C425.34,-479.06 429.38,-481.95 432.5,-485.79 456.12,-514.84 421.32,-625.2 445.5,-653.79 452.11,-661.6 462.1,-665.69 472.06,-667.73"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="471.51,-669.77 477.77,-668.64 472.17,-665.62 471.51,-669.77"/>
 </g>
@@ -398,58 +398,58 @@
 </a>
 </g>
 </g>
-<!-- Resources/Modules/error_handler.js&#45;&gt;os -->
+<!-- Resources/scripts/error_handler.js&#45;&gt;os -->
 <g id="edge25" class="edge">
-<title>Resources/Modules/error_handler.js&#45;&gt;os</title>
+<title>Resources/scripts/error_handler.js&#45;&gt;os</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" stroke-opacity="0.200000" d="M420.76,-477C425.23,-479.15 429.31,-482.01 432.5,-485.79 465.12,-524.41 419.09,-555.68 445.5,-598.79 452.68,-610.51 464.74,-619.53 476.2,-626"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="475.21,-627.85 481.49,-628.81 477.18,-624.15 475.21,-627.85"/>
 </g>
-<!-- Resources/Modules/menubar_handler.js -->
+<!-- Resources/scripts/menubar_handler.js -->
 <g id="node21" class="node">
-<title>Resources/Modules/menubar_handler.js</title>
-<g id="a_node21"><a xlink:href="Resources/Modules/menubar_handler.js" xlink:title="menubar_handler.js">
+<title>Resources/scripts/menubar_handler.js</title>
+<g id="a_node21"><a xlink:href="Resources/scripts/menubar_handler.js" xlink:title="menubar_handler.js">
 <path fill="#ffffcc" stroke="black" d="M423.21,-419.66C423.21,-419.66 336.54,-419.66 336.54,-419.66 333.58,-419.66 330.62,-416.71 330.62,-413.75 330.62,-413.75 330.62,-407.83 330.62,-407.83 330.62,-404.87 333.58,-401.91 336.54,-401.91 336.54,-401.91 423.21,-401.91 423.21,-401.91 426.17,-401.91 429.12,-404.87 429.12,-407.83 429.12,-407.83 429.12,-413.75 429.12,-413.75 429.12,-416.71 426.17,-419.66 423.21,-419.66"/>
 <text text-anchor="start" x="338.62" y="-407.11" font-family="Helvetica,sans-Serif" font-size="9.00">menubar_handler.js</text>
 </a>
 </g>
 </g>
-<!-- Resources/Modules/menubar_handler.js&#45;&gt;node_modules/electron -->
+<!-- Resources/scripts/menubar_handler.js&#45;&gt;node_modules/electron -->
 <g id="edge30" class="edge">
-<title>Resources/Modules/menubar_handler.js&#45;&gt;node_modules/electron</title>
+<title>Resources/scripts/menubar_handler.js&#45;&gt;node_modules/electron</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M425.6,-420.13C428.13,-421.73 430.46,-423.6 432.5,-425.79 451.11,-445.74 425.81,-466.9 445.5,-485.79 490.59,-529.03 523.52,-494.14 584,-509.79 588.84,-511.04 593.9,-512.57 598.82,-514.18"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="598.09,-516.15 604.44,-516.08 599.43,-512.17 598.09,-516.15"/>
 </g>
-<!-- Resources/Modules/window_handler.js -->
+<!-- Resources/scripts/window_handler.js -->
 <g id="node22" class="node">
-<title>Resources/Modules/window_handler.js</title>
-<g id="a_node22"><a xlink:href="Resources/Modules/window_handler.js" xlink:title="window_handler.js">
+<title>Resources/scripts/window_handler.js</title>
+<g id="a_node22"><a xlink:href="Resources/scripts/window_handler.js" xlink:title="window_handler.js">
 <path fill="#ffffcc" stroke="black" d="M547.46,-419.66C547.46,-419.66 466.04,-419.66 466.04,-419.66 463.08,-419.66 460.12,-416.71 460.12,-413.75 460.12,-413.75 460.12,-407.83 460.12,-407.83 460.12,-404.87 463.08,-401.91 466.04,-401.91 466.04,-401.91 547.46,-401.91 547.46,-401.91 550.42,-401.91 553.38,-404.87 553.38,-407.83 553.38,-407.83 553.38,-413.75 553.38,-413.75 553.38,-416.71 550.42,-419.66 547.46,-419.66"/>
 <text text-anchor="start" x="468.12" y="-407.11" font-family="Helvetica,sans-Serif" font-size="9.00">window_handler.js</text>
 </a>
 </g>
 </g>
-<!-- Resources/Modules/menubar_handler.js&#45;&gt;Resources/Modules/window_handler.js -->
+<!-- Resources/scripts/menubar_handler.js&#45;&gt;Resources/scripts/window_handler.js -->
 <g id="edge29" class="edge">
-<title>Resources/Modules/menubar_handler.js&#45;&gt;Resources/Modules/window_handler.js</title>
+<title>Resources/scripts/menubar_handler.js&#45;&gt;Resources/scripts/window_handler.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M429.51,-410.79C436.54,-410.79 443.82,-410.79 450.96,-410.79"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="450.88,-412.89 456.88,-410.79 450.88,-408.69 450.88,-412.89"/>
 </g>
-<!-- Resources/Modules/window_handler.js&#45;&gt;path -->
+<!-- Resources/scripts/window_handler.js&#45;&gt;path -->
 <g id="edge34" class="edge">
-<title>Resources/Modules/window_handler.js&#45;&gt;path</title>
+<title>Resources/scripts/window_handler.js&#45;&gt;path</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" stroke-opacity="0.200000" d="M548.46,-401.47C564.1,-397.88 581.75,-393.84 596.62,-390.43"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="596.82,-392.54 602.2,-389.16 595.89,-388.45 596.82,-392.54"/>
 </g>
-<!-- Resources/Modules/window_handler.js&#45;&gt;node_modules/electron -->
+<!-- Resources/scripts/window_handler.js&#45;&gt;node_modules/electron -->
 <g id="edge33" class="edge">
-<title>Resources/Modules/window_handler.js&#45;&gt;node_modules/electron</title>
+<title>Resources/scripts/window_handler.js&#45;&gt;node_modules/electron</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M553.49,-412.67C564.36,-414.95 575.31,-418.95 584,-425.79 610.73,-446.83 622.53,-486.96 627.24,-509.46"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="625.13,-509.64 628.33,-515.14 629.26,-508.85 625.13,-509.64"/>
 </g>
-<!-- Resources/Modules/ntp_handler.js -->
+<!-- Resources/scripts/ntp_handler.js -->
 <g id="node23" class="node">
-<title>Resources/Modules/ntp_handler.js</title>
-<g id="a_node23"><a xlink:href="Resources/Modules/ntp_handler.js" xlink:title="ntp_handler.js">
+<title>Resources/scripts/ntp_handler.js</title>
+<g id="a_node23"><a xlink:href="Resources/scripts/ntp_handler.js" xlink:title="ntp_handler.js">
 <path fill="#ffffcc" stroke="black" d="M411.21,-509.66C411.21,-509.66 348.54,-509.66 348.54,-509.66 345.58,-509.66 342.62,-506.71 342.62,-503.75 342.62,-503.75 342.62,-497.83 342.62,-497.83 342.62,-494.87 345.58,-491.91 348.54,-491.91 348.54,-491.91 411.21,-491.91 411.21,-491.91 414.17,-491.91 417.12,-494.87 417.12,-497.83 417.12,-497.83 417.12,-503.75 417.12,-503.75 417.12,-506.71 414.17,-509.66 411.21,-509.66"/>
 <text text-anchor="start" x="350.62" y="-497.11" font-family="Helvetica,sans-Serif" font-size="9.00">ntp_handler.js</text>
 </a>
@@ -467,30 +467,30 @@
 </a>
 </g>
 </g>
-<!-- Resources/Modules/ntp_handler.js&#45;&gt;node_modules/ntp&#45;time -->
+<!-- Resources/scripts/ntp_handler.js&#45;&gt;node_modules/ntp&#45;time -->
 <g id="edge31" class="edge">
-<title>Resources/Modules/ntp_handler.js&#45;&gt;node_modules/ntp&#45;time</title>
+<title>Resources/scripts/ntp_handler.js&#45;&gt;node_modules/ntp&#45;time</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M417.55,-505.41C423.3,-507.7 428.61,-511.01 432.5,-515.79 456.12,-544.84 418.02,-658.35 445.5,-683.79 490.67,-725.6 538.96,-725.75 584,-683.79 602.42,-666.63 577.11,-591.09 592,-570.79 593.47,-568.79 595.24,-567.05 597.22,-565.55"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="598.26,-567.37 602.32,-562.48 596.1,-563.77 598.26,-567.37"/>
 </g>
-<!-- Resources/window/Modules/UpdateChecker.js -->
+<!-- Resources/window/scripts/UpdateChecker.js -->
 <g id="node25" class="node">
-<title>Resources/window/Modules/UpdateChecker.js</title>
-<g id="a_node25"><a xlink:href="Resources/window/Modules/UpdateChecker.js" xlink:title="UpdateChecker.js">
+<title>Resources/window/scripts/UpdateChecker.js</title>
+<g id="a_node25"><a xlink:href="Resources/window/scripts/UpdateChecker.js" xlink:title="UpdateChecker.js">
 <path fill="#ffffcc" stroke="black" d="M289.33,-273.66C289.33,-273.66 211.67,-273.66 211.67,-273.66 208.71,-273.66 205.75,-270.71 205.75,-267.75 205.75,-267.75 205.75,-261.83 205.75,-261.83 205.75,-258.87 208.71,-255.91 211.67,-255.91 211.67,-255.91 289.33,-255.91 289.33,-255.91 292.29,-255.91 295.25,-258.87 295.25,-261.83 295.25,-261.83 295.25,-267.75 295.25,-267.75 295.25,-270.71 292.29,-273.66 289.33,-273.66"/>
 <text text-anchor="start" x="213.75" y="-261.11" font-family="Helvetica,sans-Serif" font-size="9.00">UpdateChecker.js</text>
 </a>
 </g>
 </g>
-<!-- Resources/window/Modules/UpdateChecker.js&#45;&gt;Resources/Modules/http_request.js -->
+<!-- Resources/window/scripts/UpdateChecker.js&#45;&gt;Resources/scripts/http_request.js -->
 <g id="edge35" class="edge">
-<title>Resources/window/Modules/UpdateChecker.js&#45;&gt;Resources/Modules/http_request.js</title>
+<title>Resources/window/scripts/UpdateChecker.js&#45;&gt;Resources/scripts/http_request.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M264.08,-274.1C278.47,-285.6 301.33,-306.62 311.25,-330.79 319.06,-349.82 306.25,-499.84 319.25,-515.79 323.01,-520.4 327.96,-523.72 333.41,-526.08"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="332.44,-527.97 338.79,-527.93 333.8,-524 332.44,-527.97"/>
 </g>
-<!-- Resources/window/Modules/UpdateChecker.js&#45;&gt;crypto -->
+<!-- Resources/window/scripts/UpdateChecker.js&#45;&gt;crypto -->
 <g id="edge36" class="edge">
-<title>Resources/window/Modules/UpdateChecker.js&#45;&gt;crypto</title>
+<title>Resources/window/scripts/UpdateChecker.js&#45;&gt;crypto</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" stroke-opacity="0.200000" d="M264.13,-274.08C278.58,-285.56 301.49,-306.56 311.25,-330.79 322.38,-358.42 302.55,-574.12 319.25,-598.79 353.24,-649.02 428.17,-663.28 472.01,-667.28"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="471.63,-669.35 477.78,-667.75 471.97,-665.17 471.63,-669.35"/>
 </g>
@@ -521,45 +521,45 @@
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M29.53,-124.7C32.64,-109.33 41.26,-78.45 62,-63.79 130.49,-15.4 165.65,-42.79 249.5,-42.79 249.5,-42.79 249.5,-42.79 380.88,-42.79 488.27,-42.79 601.67,-424.76 625.46,-509.34"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-opacity="0.200000" points="623.44,-509.9 627.08,-515.11 627.49,-508.77 623.44,-509.9"/>
 </g>
-<!-- main.js&#45;&gt;Resources/Modules/application_config.js -->
+<!-- main.js&#45;&gt;Resources/scripts/application_config.js -->
 <g id="edge38" class="edge">
-<title>main.js&#45;&gt;Resources/Modules/application_config.js</title>
+<title>main.js&#45;&gt;Resources/scripts/application_config.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M40.9,-124.56C46.99,-120.74 54.55,-116.76 62,-114.79 115.55,-100.62 268.5,-78.57 311.25,-113.79 325.58,-125.59 313.48,-137.14 319.25,-154.79 356.03,-267.28 394.56,-283.69 432.5,-395.79 441.25,-421.63 426.5,-436.2 445.5,-455.79 446.58,-456.91 447.74,-457.94 448.95,-458.91"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="447.7,-460.6 453.89,-462.06 449.95,-457.06 447.7,-460.6"/>
 </g>
-<!-- main.js&#45;&gt;Resources/Modules/config_reader.js -->
+<!-- main.js&#45;&gt;Resources/scripts/config_reader.js -->
 <g id="edge39" class="edge">
-<title>main.js&#45;&gt;Resources/Modules/config_reader.js</title>
+<title>main.js&#45;&gt;Resources/scripts/config_reader.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M54.21,-134.54C121.06,-136.73 293.9,-144.15 311.25,-162.79 331.17,-184.19 300.93,-403.01 319.25,-425.79 322.3,-429.58 326.16,-432.5 330.44,-434.74"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="329.37,-436.57 335.72,-436.91 330.97,-432.68 329.37,-436.57"/>
 </g>
-<!-- main.js&#45;&gt;Resources/Modules/error_handler.js -->
+<!-- main.js&#45;&gt;Resources/scripts/error_handler.js -->
 <g id="edge40" class="edge">
-<title>main.js&#45;&gt;Resources/Modules/error_handler.js</title>
+<title>main.js&#45;&gt;Resources/scripts/error_handler.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M49.43,-143.1C53.56,-144.76 57.89,-146.4 62,-147.79 116.32,-166.19 275.6,-169.86 311.25,-214.79 327.9,-235.78 302.43,-434.93 319.25,-455.79 322.35,-459.63 326.28,-462.58 330.63,-464.82"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="329.68,-466.7 336.03,-467.01 331.26,-462.81 329.68,-466.7"/>
 </g>
-<!-- main.js&#45;&gt;Resources/Modules/menubar_handler.js -->
+<!-- main.js&#45;&gt;Resources/scripts/menubar_handler.js -->
 <g id="edge41" class="edge">
-<title>main.js&#45;&gt;Resources/Modules/menubar_handler.js</title>
+<title>main.js&#45;&gt;Resources/scripts/menubar_handler.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M54.23,-129.81C117.25,-120.9 274.64,-102.68 311.25,-136.79 319.24,-144.24 317.04,-224.09 319.25,-234.79 331.63,-294.6 358.3,-362.2 371.36,-393.36"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="369.35,-393.99 373.63,-398.69 373.22,-392.35 369.35,-393.99"/>
 </g>
-<!-- main.js&#45;&gt;Resources/Modules/window_handler.js -->
+<!-- main.js&#45;&gt;Resources/scripts/window_handler.js -->
 <g id="edge43" class="edge">
-<title>main.js&#45;&gt;Resources/Modules/window_handler.js</title>
+<title>main.js&#45;&gt;Resources/scripts/window_handler.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M31.32,-124.5C36.07,-112.78 46.04,-93.14 62,-84.79 111.08,-59.11 260.45,-62.71 311.25,-84.79 441.21,-141.29 490.07,-332.88 502.39,-392.75"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="500.3,-393.03 503.52,-398.51 504.42,-392.22 500.3,-393.03"/>
 </g>
-<!-- main.js&#45;&gt;Resources/Modules/ntp_handler.js -->
+<!-- main.js&#45;&gt;Resources/scripts/ntp_handler.js -->
 <g id="edge42" class="edge">
-<title>main.js&#45;&gt;Resources/Modules/ntp_handler.js</title>
+<title>main.js&#45;&gt;Resources/scripts/ntp_handler.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M34.83,-143.1C41.08,-151 51.01,-162.08 62,-168.79 86.71,-183.87 293.64,-221.81 311.25,-244.79 327.55,-266.05 302.43,-464.93 319.25,-485.79 323.08,-490.53 328.16,-493.91 333.76,-496.29"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="333,-498.25 339.36,-498.15 334.33,-494.26 333,-498.25"/>
 </g>
-<!-- main.js&#45;&gt;Resources/window/Modules/UpdateChecker.js -->
+<!-- main.js&#45;&gt;Resources/window/scripts/UpdateChecker.js -->
 <g id="edge44" class="edge">
-<title>main.js&#45;&gt;Resources/window/Modules/UpdateChecker.js</title>
+<title>main.js&#45;&gt;Resources/window/scripts/UpdateChecker.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M28.13,-143.04C28.94,-163.17 33.9,-211 62,-234.79 99.04,-266.14 155.48,-271.35 196.76,-270.13"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="196.65,-272.23 202.56,-269.88 196.48,-268.04 196.65,-272.23"/>
 </g>

@@ -1,14 +1,14 @@
 Last login: Sun Jul 24 02:24:40 on ttys001
-ayato@shinmamorunoMacBook-puro .pic % cd /Users/ayato/Documents/github-private/Node/ndv-ticker                 
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .                                          
+ayato@shinmamorunoMacBook-puro .pic % cd /Users/ayato/Documents/github-private/Node/ndv-ticker
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
 path/userData:  /Users/ayato/Library/Application Support/ndv-ticker
 objc[19662]: Class WebSwapCGLLayer is implemented in both /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Frameworks/libANGLE-shared.dylib (0x7ffa60ac2318) and /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib (0x10795ece0). One of the two will be used. Which one is undefined.
 GET - https://md-ndv356.github.io/ndv-tickers/version-list.json?1658648505377
 trying clock adjustment: Sun Jul 24 2022 16:42:01 GMT+0900 (日本標準時)
 Error occurred in handler for 'HttpRequest/getList': ReferenceError: http_request is not defined
-    at Object._debug (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/http_request.js:114:19)
-    at /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/http_request.js:122:23
+    at Object._debug (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/http_request.js:114:19)
+    at /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/http_request.js:122:23
     at node:electron/js2c/browser_init:189:579
     at EventEmitter.<anonymous> (node:electron/js2c/browser_init:161:11327)
     at EventEmitter.emit (node:events:526:28)
@@ -22,7 +22,7 @@ trying clock adjustment: Sun Jul 24 2022 16:42:24 GMT+0900 (日本標準時)
 {}
 {}
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
 path/userData:  /Users/ayato/Library/Application Support/ndv-ticker
@@ -431,7 +431,7 @@ GET - https://md-ndv356.github.io/ndv-tickers/version-list.json?1658649851788
   }
 }
 objc[20251]: Class WebSwapCGLLayer is implemented in both /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Frameworks/libANGLE-shared.dylib (0x7ffa60ac2318) and /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib (0x108687ce0). One of the two will be used. Which one is undefined.
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
 path/userData:  /Users/ayato/Library/Application Support/ndv-ticker
@@ -507,7 +507,7 @@ trying clock adjustment: Sun Jul 24 2022 17:05:42 GMT+0900 (日本標準時)
   }
 }
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
 path/userData:  /Users/ayato/Library/Application Support/ndv-ticker
@@ -941,7 +941,7 @@ trying clock adjustment: Sun Jul 24 2022 17:06:52 GMT+0900 (日本標準時)
 }
  - 0.5568094497270257
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
 path/userData:  /Users/ayato/Library/Application Support/ndv-ticker
@@ -1025,8 +1025,8 @@ Error occurred in handler for 'syncTime': Error: NTP request timed out, server d
 }
  - 737
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron . 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
 path/userData:  /Users/ayato/Library/Application Support/ndv-ticker
 GET - https://md-ndv356.github.io/ndv-tickers/version-list.json?1658650119779
@@ -1081,7 +1081,7 @@ Error occurred in handler for 'HttpRequest/getList': Error: An object could not 
     at node:electron/js2c/browser_init:189:556
     at process.processTicksAndRejections (node:internal/process/task_queues:96:5)
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
 path/userData:  /Users/ayato/Library/Application Support/ndv-ticker
@@ -1209,7 +1209,7 @@ objc[21198]: Class WebSwapCGLLayer is implemented in both /System/Library/Framew
 trying clock adjustment: Sun Jul 24 2022 17:38:05 GMT+0900 (日本標準時)
 ^[[A
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
 path/userData:  /Users/ayato/Library/Application Support/ndv-ticker
@@ -3782,7 +3782,7 @@ trying clock adjustment: Sun Jul 24 2022 20:46:39 GMT+0900 (日本標準時)
   }
 ]
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
 path/userData:  /Users/ayato/Library/Application Support/ndv-ticker
@@ -3941,7 +3941,7 @@ trying clock adjustment: Sun Jul 24 2022 21:16:46 GMT+0900 (日本標準時)
   }
 ]
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
@@ -3969,7 +3969,7 @@ trying clock adjustment: Mon Jul 25 2022 00:00:52 GMT+0900 (日本標準時)
 ]
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
 ayato@shinmamorunoMacBook-puro ndv-ticker % cd /Users/ayato/Documents/github-private/Node/scoreboard_20220508
-ayato@shinmamorunoMacBook-puro scoreboard_20220508 % npx electron .                                                   
+ayato@shinmamorunoMacBook-puro scoreboard_20220508 % npx electron .
 path/exe:  /Volumes/WD Passport Media/My/書類/github-private/Node/scoreboard_20220508/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron
 path/userData:  /Users/ayato/Library/Application Support/scoreboard_20220508
 process.platform:  darwin
@@ -3981,14 +3981,14 @@ objc[34241]: Class WebSwapCGLLayer is implemented in both /System/Library/Framew
 (Use `Electron --trace-warnings ...` to show where the warning was created)
 (1658761580943 / GET) /html/control.html
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/scoreboard_20220508/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro scoreboard_20220508 % cd /Users/ayato/Documents/github-private/Node/ndv-ticker         
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .                                          
+ayato@shinmamorunoMacBook-puro scoreboard_20220508 % cd /Users/ayato/Documents/github-private/Node/ndv-ticker
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 App threw an error during load
 Error: Cannot find module 'ws'
 Require stack:
 - /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js
 - /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Resources/default_app.asar/main.js
-- 
+-
     at Module._resolveFilename (node:internal/modules/cjs/loader:940:15)
     at n._resolveFilename (node:electron/js2c/browser_init:245:1105)
     at Module._load (node:internal/modules/cjs/loader:785:27)
@@ -4072,7 +4072,7 @@ beta: 20.0.0-beta.11
 latest: 19.0.9
 origin/11-x-y: 11.4.0
 unsupported: 2.1.0-unsupported.20180809
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron          
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron
 
 Electron 19.0.8 - Build cross platform desktop apps with JavaScript, HTML, and CSS
 Usage: electron [options] [path]
@@ -4103,7 +4103,7 @@ To address all issues (including breaking changes), run:
   npm audit fix --force
 
 Run `npm audit` for details.
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron          
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron
 
 Electron 19.0.9 - Build cross platform desktop apps with JavaScript, HTML, and CSS
 Usage: electron [options] [path]
@@ -4121,8 +4121,8 @@ Options:
   -v, --version         Print the version.
   -a, --abi             Print the Node ABI version.
 objc[34703]: Class WebSwapCGLLayer is implemented in both /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Frameworks/libANGLE-shared.dylib (0x7ffa60ac2318) and /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib (0x10b6b0ce0). One of the two will be used. Which one is undefined.
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .                                                   
+ayato@shinmamorunoMacBook-puro ndv-ticker %
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
 path/userData:  /Users/ayato/Library/Application Support/ndv-ticker
 GET - https://md-ndv356.github.io/ndv-tickers/version-list.json?1658762596585
@@ -4136,44 +4136,44 @@ ayato@shinmamorunoMacBook-puro ndv-ticker % openssl list -digest-algorithms
 openssl:Error: 'list' is an invalid command.
 
 Standard commands
-asn1parse         ca                certhash          ciphers           
-crl               crl2pkcs7         dgst              dh                
-dhparam           dsa               dsaparam          ec                
-ecparam           enc               errstr            gendh             
-gendsa            genpkey           genrsa            nseq              
-ocsp              passwd            pkcs12            pkcs7             
-pkcs8             pkey              pkeyparam         pkeyutl           
-prime             rand              req               rsa               
-rsautl            s_client          s_server          s_time            
-sess_id           smime             speed             spkac             
-ts                verify            version           x509              
+asn1parse         ca                certhash          ciphers
+crl               crl2pkcs7         dgst              dh
+dhparam           dsa               dsaparam          ec
+ecparam           enc               errstr            gendh
+gendsa            genpkey           genrsa            nseq
+ocsp              passwd            pkcs12            pkcs7
+pkcs8             pkey              pkeyparam         pkeyutl
+prime             rand              req               rsa
+rsautl            s_client          s_server          s_time
+sess_id           smime             speed             spkac
+ts                verify            version           x509
 
 Message Digest commands (see the `dgst' command for more details)
-gost-mac          md4               md5               md_gost94         
-ripemd160         sha1              sha224            sha256            
-sha384            sha512            streebog256       streebog512       
-whirlpool         
+gost-mac          md4               md5               md_gost94
+ripemd160         sha1              sha224            sha256
+sha384            sha512            streebog256       streebog512
+whirlpool
 
 Cipher commands (see the `enc' command for more details)
-aes-128-cbc       aes-128-ecb       aes-192-cbc       aes-192-ecb       
-aes-256-cbc       aes-256-ecb       base64            bf                
-bf-cbc            bf-cfb            bf-ecb            bf-ofb            
-camellia-128-cbc  camellia-128-ecb  camellia-192-cbc  camellia-192-ecb  
-camellia-256-cbc  camellia-256-ecb  cast              cast-cbc          
-cast5-cbc         cast5-cfb         cast5-ecb         cast5-ofb         
-chacha            des               des-cbc           des-cfb           
-des-ecb           des-ede           des-ede-cbc       des-ede-cfb       
-des-ede-ofb       des-ede3          des-ede3-cbc      des-ede3-cfb      
-des-ede3-ofb      des-ofb           des3              desx              
-rc2               rc2-40-cbc        rc2-64-cbc        rc2-cbc           
-rc2-cfb           rc2-ecb           rc2-ofb           rc4               
-rc4-40            
+aes-128-cbc       aes-128-ecb       aes-192-cbc       aes-192-ecb
+aes-256-cbc       aes-256-ecb       base64            bf
+bf-cbc            bf-cfb            bf-ecb            bf-ofb
+camellia-128-cbc  camellia-128-ecb  camellia-192-cbc  camellia-192-ecb
+camellia-256-cbc  camellia-256-ecb  cast              cast-cbc
+cast5-cbc         cast5-cfb         cast5-ecb         cast5-ofb
+chacha            des               des-cbc           des-cfb
+des-ecb           des-ede           des-ede-cbc       des-ede-cfb
+des-ede-ofb       des-ede3          des-ede3-cbc      des-ede3-cfb
+des-ede3-ofb      des-ofb           des3              desx
+rc2               rc2-40-cbc        rc2-64-cbc        rc2-cbc
+rc2-cfb           rc2-ecb           rc2-ofb           rc4
+rc4-40
 
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .       
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51135
 App threw an error during load
 TypeError: localWebsocketHandler is not a function
-    at Object.create (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/http_request.js:32:7)
+    at Object.create (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/http_request.js:32:7)
     at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:22:18)
     at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:12:27)
     at Module._compile (node:internal/modules/cjs/loader:1118:14)
@@ -4189,7 +4189,7 @@ ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51136
 App threw an error during load
 TypeError: localWebsocketHandler is not a function
-    at Object.create (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/http_request.js:32:7)
+    at Object.create (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/http_request.js:32:7)
     at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:22:18)
     at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:27:27)
     at Module._compile (node:internal/modules/cjs/loader:1118:14)
@@ -4211,7 +4211,7 @@ ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51112
 App threw an error during load
 TypeError: localWebsocketHandler is not a function
-    at Object.create (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/http_request.js:32:7)
+    at Object.create (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/http_request.js:32:7)
     at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:22:18)
     at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:27:27)
     at Module._compile (node:internal/modules/cjs/loader:1118:14)
@@ -4223,7 +4223,7 @@ TypeError: localWebsocketHandler is not a function
     at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Resources/default_app.asar/main.js:222:9)
 catch: uncaughtException
 TypeError: localWebsocketHandler is not a function
-    at Object.create (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/http_request.js:32:7)
+    at Object.create (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/http_request.js:32:7)
     at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:22:18)
     at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:27:27)
     at Module._compile (node:internal/modules/cjs/loader:1118:14)
@@ -4235,7 +4235,7 @@ TypeError: localWebsocketHandler is not a function
     at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Resources/default_app.asar/main.js:222:9)
 objc[37800]: Class WebSwapCGLLayer is implemented in both /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Frameworks/libANGLE-shared.dylib (0x7ffa60ac2318) and /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib (0x10f591ce0). One of the two will be used. Which one is undefined.
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51167
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
@@ -4244,20 +4244,20 @@ catch: unhandledRejection
 ReferenceError: self is not defined
 [object Promise]
 (node:37821) UnhandledPromiseRejectionWarning: ReferenceError: self is not defined
-    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/Modules/UpdateChecker.js:7:42)
+    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/scripts/UpdateChecker.js:7:42)
     at App.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:158:25)
 (Use `Electron --trace-warnings ...` to show where the warning was created)
 catch: warning
 UnhandledPromiseRejectionWarning: ReferenceError: self is not defined
-    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/Modules/UpdateChecker.js:7:42)
+    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/scripts/UpdateChecker.js:7:42)
     at App.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:158:25)
     at emitUnhandledRejectionWarning (node:internal/process/promises:191:15)
     at processPromiseRejections (node:internal/process/promises:270:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:97:32)
 catch: uncaughtException
 ReferenceError: self is not defined
-    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:26:14)
-    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:40:14)
+    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:26:14)
+    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:40:14)
     at process.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:11:20)
     at process.emit (node:events:538:35)
     at doEmitWarning (node:internal/process/warning:77:11)
@@ -4265,12 +4265,12 @@ ReferenceError: self is not defined
 (node:37821) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
 catch: warning
 ReferenceError: self is not defined
-    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/Modules/UpdateChecker.js:7:42)
+    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/scripts/UpdateChecker.js:7:42)
     at App.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:158:25)
 catch: uncaughtException
 ReferenceError: self is not defined
-    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:26:14)
-    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:40:14)
+    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:26:14)
+    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:40:14)
     at process.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:11:20)
     at process.emit (node:events:538:35)
     at doEmitWarning (node:internal/process/warning:77:11)
@@ -4285,20 +4285,20 @@ catch: unhandledRejection
 ReferenceError: self is not defined
 [object Promise]
 (node:37947) UnhandledPromiseRejectionWarning: ReferenceError: self is not defined
-    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/Modules/UpdateChecker.js:7:42)
+    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/scripts/UpdateChecker.js:7:42)
     at App.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:158:25)
 (Use `Electron --trace-warnings ...` to show where the warning was created)
 catch: warning
 UnhandledPromiseRejectionWarning: ReferenceError: self is not defined
-    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/Modules/UpdateChecker.js:7:42)
+    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/scripts/UpdateChecker.js:7:42)
     at App.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:158:25)
     at emitUnhandledRejectionWarning (node:internal/process/promises:191:15)
     at processPromiseRejections (node:internal/process/promises:270:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:97:32)
 catch: uncaughtException
 ReferenceError: crypto is not defined
-    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:26:14)
-    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:40:14)
+    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:26:14)
+    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:40:14)
     at process.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:11:20)
     at process.emit (node:events:538:35)
     at doEmitWarning (node:internal/process/warning:77:11)
@@ -4306,12 +4306,12 @@ ReferenceError: crypto is not defined
 (node:37947) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
 catch: warning
 ReferenceError: self is not defined
-    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/Modules/UpdateChecker.js:7:42)
+    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/scripts/UpdateChecker.js:7:42)
     at App.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:158:25)
 catch: uncaughtException
 ReferenceError: crypto is not defined
-    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:26:14)
-    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:40:14)
+    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:26:14)
+    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:40:14)
     at process.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:11:20)
     at process.emit (node:events:538:35)
     at doEmitWarning (node:internal/process/warning:77:11)
@@ -4326,20 +4326,20 @@ catch: unhandledRejection
 ReferenceError: crypto is not defined
 [object Promise]
 (node:37974) UnhandledPromiseRejectionWarning: ReferenceError: crypto is not defined
-    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/Modules/UpdateChecker.js:7:42)
+    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/scripts/UpdateChecker.js:7:42)
     at App.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:158:25)
 (Use `Electron --trace-warnings ...` to show where the warning was created)
 catch: warning
 UnhandledPromiseRejectionWarning: ReferenceError: crypto is not defined
-    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/Modules/UpdateChecker.js:7:42)
+    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/scripts/UpdateChecker.js:7:42)
     at App.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:158:25)
     at emitUnhandledRejectionWarning (node:internal/process/promises:191:15)
     at processPromiseRejections (node:internal/process/promises:270:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:97:32)
 catch: uncaughtException
 ReferenceError: crypto is not defined
-    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:26:14)
-    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:40:14)
+    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:26:14)
+    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:40:14)
     at process.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:11:20)
     at process.emit (node:events:538:35)
     at doEmitWarning (node:internal/process/warning:77:11)
@@ -4347,12 +4347,12 @@ ReferenceError: crypto is not defined
 (node:37974) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
 catch: warning
 ReferenceError: crypto is not defined
-    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/Modules/UpdateChecker.js:7:42)
+    at new module.exports (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/window/scripts/UpdateChecker.js:7:42)
     at App.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:158:25)
 catch: uncaughtException
 ReferenceError: crypto is not defined
-    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:26:14)
-    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/error_handler.js:40:14)
+    at addEvent (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:26:14)
+    at Object.main_warning (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/error_handler.js:40:14)
     at process.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/main.js:11:20)
     at process.emit (node:events:538:35)
     at doEmitWarning (node:internal/process/warning:77:11)
@@ -4827,7 +4827,7 @@ load_eew
   }
 }
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51186
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
@@ -4841,7 +4841,7 @@ GET - http://www.kmoni.bosai.go.jp/webservice/hypo/eew/20220724235724.json165876
 load_eew
 GET - http://www.kmoni.bosai.go.jp/webservice/hypo/eew/20220724235724.json1658768242036
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51190
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
@@ -5111,7 +5111,7 @@ catch: warning
 Error: connect ECONNREFUSED 158.203.239.200:80
     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1157:16)
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51190
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
@@ -5177,7 +5177,7 @@ GET - http://www.kmoni.bosai.go.jp/webservice/hypo/eew/20220724235724.json
 load_eew
 catch: uncaughtException
 ReferenceError: crypto is not defined
-    at WebSocketServer.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/local_websocket_handler.js:11:18)
+    at WebSocketServer.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/local_websocket_handler.js:11:18)
     at WebSocketServer.emit (node:events:526:28)
     at WebSocketServer.completeUpgrade (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket-server.js:431:5)
     at WebSocketServer.handleUpgrade (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket-server.js:339:10)
@@ -5235,8 +5235,8 @@ TypeError [ERR_INVALID_ARG_TYPE]: The first argument must be of type string or a
     at toBuffer (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/buffer-util.js:95:18)
     at Sender.send (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/sender.js:315:14)
     at WebSocket.send (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket.js:468:18)
-    at send_message (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/local_websocket_handler.js:32:15)
-    at WebSocketServer.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/local_websocket_handler.js:27:3)
+    at send_message (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/local_websocket_handler.js:32:15)
+    at WebSocketServer.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/local_websocket_handler.js:27:3)
     at WebSocketServer.emit (node:events:526:28)
     at WebSocketServer.completeUpgrade (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket-server.js:431:5)
     at WebSocketServer.handleUpgrade (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket-server.js:339:10) {
@@ -5408,7 +5408,7 @@ GET - http://www.kmoni.bosai.go.jp/webservice/hypo/eew/20220724235724.json
 GET - http://www.kmoni.bosai.go.jp/webservice/hypo/eew/20220724235724.json
 load_eew
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51168
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
@@ -5430,7 +5430,7 @@ GET - http://www.kmoni.bosai.go.jp/webservice/hypo/eew/20220724235724.json
 aaaaa
 load_eew
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51115
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
@@ -5456,9 +5456,9 @@ GET - http://www.kmoni.bosai.go.jp/webservice/hypo/eew/20220724235724.json
 aaaaa
 load_eew
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
+ayato@shinmamorunoMacBook-puro ndv-ticker %
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51162
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
@@ -5653,7 +5653,7 @@ aaaaa
 {"type":"send_end","key":"eew","name":"緊急地震速報ソース１","hidden":false,"timestamp":1658769469393}
 catch: uncaughtException
 ReferenceError: textEncoder is not defined
-    at WebSocket.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/local_websocket_handler.js:16:5)
+    at WebSocket.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/local_websocket_handler.js:16:5)
     at WebSocket.emit (node:events:526:28)
     at Receiver.receiverOnMessage (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket.js:1178:20)
     at Receiver.emit (node:events:526:28)
@@ -5745,7 +5745,7 @@ load_eew
 <Buffer 7b 22 74 79 70 65 22 3a 20 22 6e 65 74 77 6f 72 6b 5f 61 63 74 69 76 69 74 79 22 7d>
 catch: uncaughtException
 ReferenceError: textEncoder is not defined
-    at WebSocket.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/local_websocket_handler.js:17:5)
+    at WebSocket.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/local_websocket_handler.js:17:5)
     at WebSocket.emit (node:events:526:28)
     at Receiver.receiverOnMessage (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket.js:1178:20)
     at Receiver.emit (node:events:526:28)
@@ -5825,7 +5825,7 @@ To address all issues (including breaking changes), run:
   npm audit fix --force
 
 Run `npm audit` for details.
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npm i encoding-japanese
 
 ayato@shinmamorunoMacBook-puro ndv-ticker % npm i encoding-japanese
@@ -5841,7 +5841,7 @@ To address all issues (including breaking changes), run:
   npm audit fix --force
 
 Run `npm audit` for details.
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .         
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51174
 {"type":"create","key":"eew","name":"緊急地震速報ソース１","hidden":false,"url":"http://www.kmoni.bosai.go.jp/webservice/hypo/eew/*****.json"}
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
@@ -5874,8 +5874,8 @@ catch: uncaughtException
 Error [ERR_CRYPTO_HASH_FINALIZED]: Digest already called
     at new NodeError (node:internal/errors:371:5)
     at Hash.update (node:internal/crypto/hash:100:11)
-    at send_message (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/local_websocket_handler.js:33:11)
-    at WebSocket.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/local_websocket_handler.js:22:9)
+    at send_message (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/local_websocket_handler.js:33:11)
+    at WebSocket.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/local_websocket_handler.js:22:9)
     at WebSocket.emit (node:events:526:28)
     at Receiver.receiverOnMessage (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket.js:1178:20)
     at Receiver.emit (node:events:526:28)
@@ -6650,7 +6650,7 @@ load_eew
 <Buffer 7b 22 74 79 70 65 22 3a 20 22 6e 65 74 77 6f 72 6b 5f 61 63 74 69 76 69 74 79 5f 6c 69 73 74 22 7d>
 catch: uncaughtException
 TypeError: network_request_event is not a function
-    at WebSocket.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/local_websocket_handler.js:21:51)
+    at WebSocket.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/local_websocket_handler.js:21:51)
     at WebSocket.emit (node:events:526:28)
     at Receiver.receiverOnMessage (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket.js:1178:20)
     at Receiver.emit (node:events:526:28)
@@ -6704,8 +6704,8 @@ catch: uncaughtException
 TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Array
     at new NodeError (node:internal/errors:371:5)
     at Hash.update (node:internal/crypto/hash:105:11)
-    at send_message (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/local_websocket_handler.js:33:11)
-    at WebSocket.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/local_websocket_handler.js:21:9)
+    at send_message (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/local_websocket_handler.js:33:11)
+    at WebSocket.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/local_websocket_handler.js:21:9)
     at WebSocket.emit (node:events:526:28)
     at Receiver.receiverOnMessage (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket.js:1178:20)
     at Receiver.emit (node:events:526:28)
@@ -6719,7 +6719,7 @@ GET - http://www.kmoni.bosai.go.jp/webservice/hypo/eew/20220724235724.json
 aaaaa
 load_eew
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51195
 path/app:  /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker
@@ -7097,7 +7097,7 @@ ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51197
 App threw an error during load
 ReferenceError: requestAnimationFrame is not defined
-    at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:23:1)
+    at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:23:1)
     at Module._compile (node:internal/modules/cjs/loader:1118:14)
     at Module._extensions..js (node:internal/modules/cjs/loader:1173:10)
     at Module.load (node:internal/modules/cjs/loader:988:32)
@@ -7109,7 +7109,7 @@ ReferenceError: requestAnimationFrame is not defined
     at Module._compile (node:internal/modules/cjs/loader:1118:14)
 catch: uncaughtException
 ReferenceError: requestAnimationFrame is not defined
-    at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:23:1)
+    at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:23:1)
     at Module._compile (node:internal/modules/cjs/loader:1118:14)
     at Module._extensions..js (node:internal/modules/cjs/loader:1173:10)
     at Module.load (node:internal/modules/cjs/loader:988:32)
@@ -7121,8 +7121,8 @@ ReferenceError: requestAnimationFrame is not defined
     at Module._compile (node:internal/modules/cjs/loader:1118:14)
 objc[45459]: Class WebSwapCGLLayer is implemented in both /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Frameworks/libANGLE-shared.dylib (0x7ffa60ac2318) and /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib (0x105b7ace0). One of the two will be used. Which one is undefined.
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51102
 Executed: setInterval(mainLoop, 1000 / 30);
@@ -7737,8 +7737,8 @@ trying clock adjustment: Tue Jul 26 2022 12:37:57 GMT+0900 (日本標準時)
 1658806684196
 1658806685729
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51137
 Executed: setInterval(mainLoop, 1000 / 30);
@@ -8549,7 +8549,7 @@ aaaaa
 load_eew
 1658806910849
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker %               
+ayato@shinmamorunoMacBook-puro ndv-ticker %
   [復元日時2022/07/28 0:00:40]
 ## cd /Users/ayato/Documents/github-private/Node/ndv-ticker ##
 Last login: Thu Jul 28 00:00:37 on console
@@ -8560,7 +8560,7 @@ Resources		main.js			node_modules		package.json
 index.js		main~daisuke.js		package-lock.json	plugins.js
 ayato@shinmamorunoMacBook-puro ndv-ticker % pwd
 /Users/ayato/Documents/github-private/Node/ndv-ticker
-ayato@shinmamorunoMacBook-puro ndv-ticker % npm 
+ayato@shinmamorunoMacBook-puro ndv-ticker % npm
 npm <command>
 
 Usage:
@@ -8651,7 +8651,7 @@ beta: 20.0.0-beta.12
 latest: 19.0.10
 origin/11-x-y: 11.4.0
 unsupported: 2.1.0-unsupported.20180809
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron          
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron
 
 Electron 19.0.9 - Build cross platform desktop apps with JavaScript, HTML, and CSS
 Usage: electron [options] [path]
@@ -8703,7 +8703,7 @@ node_modules/got
 
 To address all issues (including breaking changes), run:
   npm audit fix --force
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .        
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51154
 Executed: setInterval(mainLoop, 1000 / 30);
 handleIntervalFunction.regist(niedEEW, this.load_eew, timer.niedEEW);
@@ -266269,13 +266269,13 @@ load_eew
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .  > /dev/null 2>&1
 ^C%                                                                                                                                                                                ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .  > /dev/null 2>&1
 
-^C%                                                                                                                                                                                ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .  > /dev/null     
+^C%                                                                                                                                                                                ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .  > /dev/null
 objc[24854]: Class WebSwapCGLLayer is implemented in both /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Frameworks/libANGLE-shared.dylib (0x7ffa551b7318) and /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib (0x1124fbce0). One of the two will be used. Which one is undefined.
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .  > /dev/null
 objc[24919]: Class WebSwapCGLLayer is implemented in both /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Frameworks/libANGLE-shared.dylib (0x7ffa551b7318) and /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib (0x110788ce0). One of the two will be used. Which one is undefined.
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .             
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51163
 Executed: setInterval(mainLoop, 1000 / 30);
 handleIntervalFunction.regist(niedEEW, this.load_eew, timer.niedEEW);
@@ -266298,8 +266298,8 @@ GET - http://www.kmoni.bosai.go.jp/webservice/hypo/eew/20220724235729.json
 GET - http://www.kmoni.bosai.go.jp/webservice/hypo/eew/20220724235726.json
 1659072187113
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51160
 Executed: setInterval(mainLoop, 1000 / 30);
@@ -266313,187 +266313,187 @@ objc[25510]: Class WebSwapCGLLayer is implemented in both /System/Library/Framew
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 1659072377327
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 ReferenceError: kyoshin_domain is not defined
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:63)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51155
 Executed: setInterval(mainLoop, 1000 / 30);
@@ -266507,162 +266507,162 @@ objc[25678]: Class WebSwapCGLLayer is implemented in both /System/Library/Framew
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 1659072437645
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 catch: uncaughtException
 TypeError: http_request.get_customData is not a function
     at Object.load_eew [as func] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Class/Information_Master.js:75:76)
-    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/handle_interval_function.js:16:14)
+    at Timeout.mainLoop [as _onTimeout] (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/handle_interval_function.js:16:14)
     at listOnTimeout (node:internal/timers:559:17)
     at process.processTimers (node:internal/timers:502:7)
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51151
 Executed: setInterval(mainLoop, 1000 / 30);
@@ -330315,7 +330315,7 @@ App threw an error during load
 SyntaxError: Invalid URL: ws://localhost:99999
     at initAsClient (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket.js:673:13)
     at new WebSocket (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket.js:85:7)
-    at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/websocket_handler.js:5:9)
+    at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/websocket_handler.js:5:9)
     at Module._compile (node:internal/modules/cjs/loader:1118:14)
     at Module._extensions..js (node:internal/modules/cjs/loader:1173:10)
     at Module.load (node:internal/modules/cjs/loader:988:32)
@@ -330327,7 +330327,7 @@ catch: uncaughtException
 SyntaxError: Invalid URL: ws://localhost:99999
     at initAsClient (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket.js:673:13)
     at new WebSocket (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/ws/lib/websocket.js:85:7)
-    at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/Modules/websocket_handler.js:5:9)
+    at Object.<anonymous> (/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/Resources/scripts/websocket_handler.js:5:9)
     at Module._compile (node:internal/modules/cjs/loader:1118:14)
     at Module._extensions..js (node:internal/modules/cjs/loader:1173:10)
     at Module.load (node:internal/modules/cjs/loader:988:32)
@@ -330337,7 +330337,7 @@ SyntaxError: Invalid URL: ws://localhost:99999
     at require (node:internal/modules/cjs/helpers:102:18)
 objc[73636]: Class WebSwapCGLLayer is implemented in both /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Frameworks/libANGLE-shared.dylib (0x7ffa551b7318) and /Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib (0x10cc33ce0). One of the two will be used. Which one is undefined.
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51159
 Executed: setInterval(mainLoop, 1000 / 30);
@@ -331089,9 +331089,9 @@ GET - https://weather-kyoshin.east.edge.storage-yahoo.jp/RealTimeData/20220731/2
 aaaaa
 load_eew
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % cd ..         
+ayato@shinmamorunoMacBook-puro ndv-ticker % cd ..
 ayato@shinmamorunoMacBook-puro Node % cd websocket-test
-ayato@shinmamorunoMacBook-puro websocket-test % node main.js     
+ayato@shinmamorunoMacBook-puro websocket-test % node main.js
 open
 ^C
 ayato@shinmamorunoMacBook-puro websocket-test % node main.js
@@ -331116,7 +331116,7 @@ ayato@shinmamorunoMacBook-puro websocket-test % npm i iconv-lite
 up to date, audited 4 packages in 647ms
 
 found 0 vulnerabilities
-ayato@shinmamorunoMacBook-puro websocket-test % node main.js    
+ayato@shinmamorunoMacBook-puro websocket-test % node main.js
 open
 Data Received: aaaa
 message
@@ -331166,7 +331166,7 @@ node_modules/got
 
 To address all issues (including breaking changes), run:
   npm audit fix --force
-ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .   
+ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51157
 Executed: setInterval(mainLoop, 1000 / 30);
 open end
@@ -331396,7 +331396,7 @@ GET - https://weather-kyoshin.east.edge.storage-yahoo.jp/RealTimeData/20220731/2
 aaaaa
 load_eew
 ^C/Volumes/WD Passport Media/My/書類/github-private/Node/ndv-ticker/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
-ayato@shinmamorunoMacBook-puro ndv-ticker % 
+ayato@shinmamorunoMacBook-puro ndv-ticker %
 ayato@shinmamorunoMacBook-puro ndv-ticker % npx electron .
 Websocket Port: 51157
 Executed: setInterval(mainLoop, 1000 / 30);

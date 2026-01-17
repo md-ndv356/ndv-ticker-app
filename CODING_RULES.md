@@ -50,8 +50,8 @@
 
 - フェイルセーフを考慮し、エラーが発生した場合は適切なエラーメッセージを表示する。
 - try-catch文は、コンソールへメッセージを出すだけなら、むしろtry-catch文を使わず、実行が止まってエラーウィンドウが出る方が良い。（フェイルセーフ）
-- Main プロセス内のエラーは、`Resources/Modules/error_handler.js` を通じて管理する。
-- Renderer プロセス内のエラーは、全画面表示でエラーを表示する必要があるときのみ、`Resources/Modules/error_handler.js` を通じて管理する。
+- Main プロセス内のエラーは、`Resources/scripts/error_handler.js` を通じて管理する。
+- Renderer プロセス内のエラーは、全画面表示でエラーを表示する必要があるときのみ、`Resources/scripts/error_handler.js` を通じて管理する。
 - Renderer プロセス内のJavaScriptコードでは、なるべくtry-catch文を使わない。
 
 ## 4. コミュニケーション設定
@@ -67,7 +67,7 @@ Resources/
 ├── Class/ # データ構造が色々関係あるものをまとめてる（けど中身は雑においてるだけで何も意味がない）
 ├── data/ # jsonファイルいっぱい
 ├── Logs/ # ログファイル
-├── Modules/ # Main プロセスにおけるモジュール
+├── scripts/ # Main プロセスにおけるモジュール
 │   ├── dmdata/ # dmdata.jp 関連モジュール
 │   │   ├──
 │   │   └── oauth.js # OAuth 2.0 処理
@@ -98,7 +98,7 @@ Resources/
 │   ├── error-window/ # エラーメッセージを表示するウィンドウ
 │   ├── info/ # 受信情報リスト ウィンドウ
 │   ├── Main/ # メインウィンドウ
-│   ├── Modules/ # なぜかここにあるモジュール
+│   ├── scripts/ # なぜかここにあるモジュール
 │   │   ├── UpdateChecker.js
 │   │   └── UpdateChecker.d.ts
 │   ├── rich-text-editor/ # リッチテキストエディター

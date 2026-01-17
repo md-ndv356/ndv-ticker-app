@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 const iconv = require("iconv-lite");
-const http_request = require("../Modules/http_request");
-const websocket_request = require("../Modules/websocket_handler");
+const http_request = require("../scripts/http_request");
+const websocket_request = require("../scripts/websocket_handler");
 const Weather = require("./Weather/Root");
 const Earthquake = require("./Earthquake");
 const EEW = require("./EEW");
@@ -10,7 +10,7 @@ const River = require("./River");
 const Tsunami = require("./Tsunami");
 const Volcano = require("./Volcano");
 const Mscale = require("./Mscale");
-// const handleIntervalFunction = require("../Modules/handle_interval_function");
+// const handleIntervalFunction = require("../scripts/handle_interval_function");
 const p2pquake_areacode_data = JSON.parse(fs.readFileSync(path.join(__dirname, "../data/p2pquake_areacode_data.json"), "utf-8"));
 
 /**

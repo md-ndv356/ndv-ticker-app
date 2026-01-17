@@ -1,14 +1,38 @@
 // Node.jsで動作する、WebSocketの接続テスト（とログ作成）
+import zlib from 'zlib';
+import axios from 'axios';
+
+import WebSocket from 'ws';
+
 const args = process.argv.slice(2);
-const zlib = require("zlib");
 
 if (args.length < 1){
-  console.error("Usage: node ws_contest.js <WebSocket URL>");
+  console.error("Usage: node ws_contest.js <Access Token>");
   process.exit(1);
 }
 
-const WebSocket = require('ws');
-const url = args[0];
+// const WebSocket = require('ws');
+const accessToken = args[0];
+
+const url = await axios.post("https://api.dmdata.jp/v2/socket", {
+  classifications: [
+    "eew.forecast",
+    "telegram.earthquake",
+  ],
+  appName: "ndv-ticker-app-test",
+  formatMode: "json",
+}, {
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${accessToken}`
+  }
+}).then(response => {
+  const url = response.data.websocket.url;
+  return url;
+}).catch(error => {
+  console.error("Failed to start socket:", error.response ? error.response.data : error.message);
+  process.exit(1);
+});
 
 const ws = new WebSocket(url);
 

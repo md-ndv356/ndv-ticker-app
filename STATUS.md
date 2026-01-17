@@ -16,12 +16,12 @@
 - 開発: dependency-cruiser, license-checker
 
 ## エントリ（main.js）
-- 例外/警告捕捉: `process.on('warning'|'uncaughtException'|'unhandledRejection')` → `Resources/Modules/error_handler`
+- 例外/警告捕捉: `process.on('warning'|'uncaughtException'|'unhandledRejection')` → `Resources/scripts/error_handler`
 - 設定/初期化:
   - `AppInitialConfig.get()` でアプリ基本情報読込
   - `configReader.read()` でユーザ設定読込（IPC から返却）
   - メニューバー、ローカルWS、NTP同期、情報取得間隔を初期化
-  - アップデート確認: `Resources/window/Modules/UpdateChecker`
+  - アップデート確認: `Resources/window/scripts/UpdateChecker`
 - IPC ハンドラ（抜粋）:
   - `requestAppInfo`（App情報返却）
   - `openInDefaultBrowser`（既定ブラウザ起動）
@@ -34,7 +34,7 @@
 - ウィンドウ生成: `WindowHandler.open('main'|'settings'|'information'|'traffic')`
 
 ## ウィンドウ/レンダラ
-- `Resources/Modules/window_handler.js`
+- `Resources/scripts/window_handler.js`
   - main: 1212x128, フレームなし, `main-preload.js`、DevTools開
   - settings: 1200x800, `setting/preload.js`, `setting/index_new.html`
   - info: `setting/index.html`

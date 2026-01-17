@@ -1,4 +1,4 @@
-const http_request = require("../../Modules/http_request");
+const http_request = require("../../scripts/http_request");
 const crypto = require("crypto");
 
 module.exports = class {
